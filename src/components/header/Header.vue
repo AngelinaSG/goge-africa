@@ -1,0 +1,178 @@
+<template>
+  <div class="container main-header-container">
+    <header class="main-header">
+      <nav class="navbar navbar-expand-lg main-header__navbar">
+        <router-link to="/" class="main-header__logo">
+          <img src="@/assets/full_logo.svg.svg" alt="Goge Africa" />
+        </router-link>
+        <button
+          class="navbar-toggler orange-text-color"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav main-header__nav">
+            <li class="nav-item main-header__nav-item">
+              <router-link
+                to="/"
+                class="nav-link main-header__nav-link gradient-text-color"
+                >Home</router-link
+              >
+            </li>
+            <li class="nav-item main-header__nav-item">
+              <router-link
+                to="/course"
+                class="nav-link main-header__nav-link gradient-text-color"
+                >Cocktails</router-link
+              >
+            </li>
+            <li class="nav-item main-header__nav-item">
+              <router-link
+                to="/course"
+                class="nav-link main-header__nav-link gradient-text-color"
+                >Blog</router-link
+              >
+            </li>
+            <li class="nav-item main-header__nav-item">
+              <router-link
+                to="/course"
+                class="nav-link main-header__nav-link gradient-text-color"
+                >About Us</router-link
+              >
+            </li>
+            <li class="nav-item main-header__nav-item">
+              <router-link
+                to="/course"
+                class="nav-link main-header__nav-link gradient-text-color"
+                >Contact Us</router-link
+              >
+            </li>
+            <li class="nav-item main-header__nav-item">
+              <router-link to="/course"><IconAddToCart /></router-link>
+            </li>
+          </ul>
+
+          <form class="form-inline">
+            <button type="button" class="btn main-header__btn btn--gradient-bg">
+              Be A Contributor
+            </button>
+            <button type="button" class="btn main-header__btn btn--gradient-bg">
+              Log in
+            </button>
+          </form>
+        </div>
+      </nav>
+    </header>
+  </div>
+</template>
+
+<script>
+import IconAddToCart from "@/components/icons/IconAddToCart";
+
+export default {
+  name: "Header",
+  components: {
+    IconAddToCart,
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.main-header__navbar {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 66px;
+  padding-left: 76px;
+  padding-bottom: 29px;
+  padding-top: 29px;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+}
+
+.main-header__logo {
+  margin-right: auto;
+}
+
+.main-header__logo img {
+  width: 160px;
+  object-fit: cover;
+}
+
+.main-header__nav {
+  margin-bottom: 0;
+  font-size: 0.9375rem;
+}
+
+.main-header__nav-item {
+  margin-right: 41px;
+}
+
+.main-header__nav-item:hover {
+  font-weight: bold;
+  transition: font-weight 0.5s ease-in-out;
+}
+
+.main-header__nav-link.router-link-exact-active {
+  font-weight: 700;
+  position: relative;
+}
+
+.main-header__nav-link {
+  padding: 5px 0 0 0;
+}
+
+.main-header__nav-link.router-link-exact-active::after {
+  content: url("~@/assets/pictures/header_nav_line.svg");
+  position: absolute;
+  left: calc(50% - 10.995px);
+  bottom: -13px;
+}
+
+.main-header__nav-item:last-of-type {
+  font-weight: bold;
+  margin-right: 24px;
+}
+
+.main-header__btn:first-of-type {
+  margin-right: 10px;
+}
+
+.navbar-toggler-icon {
+  content: url("~@/assets/pictures/header_hamburger-menu.svg");
+}
+
+.navbar-toggler {
+}
+
+.navbar-collapse {
+  flex-grow: 0;
+}
+
+//----------------------------------- Tablets --------------------------------------//
+
+@media screen and (max-width: 768px) {
+  .main-header__nav-link.router-link-exact-active::after {
+    display: none;
+  }
+
+  .navbar-collapse {
+    text-align: center;
+  }
+
+  .main-header__nav {
+    margin: 20px 0 20px 0;
+  }
+
+  .form-inline {
+    justify-content: center;
+  }
+}
+</style>

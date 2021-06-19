@@ -1,0 +1,25 @@
+<template>
+  <svg
+    width="773"
+    height="837"
+    viewBox="0 0 773 837"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <pattern></pattern>
+    </defs>
+    <path
+      d="M-8.99052 836.918C-240.325 836.785 -427.751 649.533 -427.619 418.678C-427.486 187.823 -239.845 0.78547 -8.51085 0.918203C222.824 1.05094 772.553 119.759 772.421 350.614C772.288 581.469 222.344 837.051 -8.99052 836.918Z"
+      fill="#EFE4CF"
+    />
+  </svg>
+</template>
+
+<script>
+export default {
+  name: "ImagePlaceholder",
+};
+</script>
+
+<style scoped></style>
