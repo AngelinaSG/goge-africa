@@ -39,21 +39,11 @@
 export default {
   name: "CoursesSection",
   data: () => ({
-    courses: [
-      { title: "Become A Social Media Expert" },
-      { title: "Advance Your 3d Modelling Skill" },
-      { title: "The Art Of Growing Relationship" },
-      { title: "Skills Needed In Becoming A Designer" },
-      { title: "Get Weekly Shopping Tips From Tesha" },
-      { title: "Learn Logo Design" },
-      { title: "Become A Web Developer" },
-      { title: "Embark On The Journey Of Becoming An Artist" },
-      { title: "4 Weeks Photography Bootcamp" },
-      { title: "Learn Organization Management" },
-      { title: "3 in 1 Course Of Becoming A Makeup Artist" },
-      { title: "How To Have A Good Listening Ear For Music" },
-    ],
+    courses: [],
   }),
+  mounted() {
+    this.courses = this.$store.getters.courses;
+  },
 };
 </script>
 
@@ -88,6 +78,7 @@ export default {
 }
 
 .courses-section__card {
+  border: none;
   border-radius: 0.7rem;
   line-height: 152.34%;
   margin-bottom: 14px;
@@ -148,6 +139,20 @@ export default {
 
   .courses-section__card-col {
     max-width: 40%;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .card-img-top {
+    height: 100px;
+  }
+
+  .card-text {
+    width: 100%;
+  }
+
+  .card-body {
+    padding: 10px;
   }
 }
 </style>

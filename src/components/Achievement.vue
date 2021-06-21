@@ -126,4 +126,15 @@ export default {
     justify-content: center;
   }
 }
+
+@media screen and (max-width: 376px) {
+  .achievement__section:nth-child(odd) {
+    margin-right: 40px;
+  }
+
+  .achievement__section:nth-child(2),
+  .achievement__section:nth-child(3) {
+    margin-left: 0;
+  }
+}
 </style>

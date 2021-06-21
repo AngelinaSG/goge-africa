@@ -146,7 +146,7 @@ export default {
 }
 
 .prices__card-price {
-  font-size: clamp(12px, 10 * (1vw + 1vh) / 2, 101px);
+  font-size: clamp(12px, 13.4vw, 101px);
   margin-left: -5px;
 }
 
@@ -185,6 +185,7 @@ export default {
   .prices__container {
     padding-top: 0;
     padding-left: 0;
+    padding-right: 0;
   }
 
   .prices__container > .row {
@@ -207,6 +208,24 @@ export default {
   }
 
   .prices__card-price {
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .prices__card .card-body[data-v-d4582d0c] {
+    padding: 2rem 1rem 2.5rem 1rem;
+  }
+
+  .prices__card-span {
+    left: 4.8125rem;
+  }
+
+  .prices__card-2 .prices__card-span {
+    left: 4.3125rem;
+  }
+
+  .prices__card-2 .prices__plan-price[data-v-d4582d0c] {
+    margin-bottom: 3.3125rem;
   }
 }
 </style>

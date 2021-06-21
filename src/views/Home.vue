@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <HeroSection />
     <AboutUs />
     <CoursesSection />
@@ -8,7 +7,6 @@
     <Testimonials />
     <Prices />
     <ContactUs />
-    <Footer />
   </div>
 </template>
 
@@ -20,7 +18,6 @@ import Achievement from "@/components/Achievement";
 import Testimonials from "@/components/Testimonials";
 import Prices from "@/components/Prices";
 import ContactUs from "@/components/ContactUs";
-import Footer from "@/components/Footer";
 
 export default {
   name: "Home",
@@ -32,7 +29,6 @@ export default {
     Testimonials,
     Prices,
     ContactUs,
-    Footer,
   },
 };
 </script>

@@ -2,15 +2,18 @@
   <div id="app">
     <Header />
     <router-view />
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "@/components/header/Header";
+import Footer from "@/components/Footer";
 
 export default {
   components: {
     Header,
+    Footer,
   },
 };
 </script>
@@ -62,6 +65,10 @@ h5 {
   -webkit-text-fill-color: transparent;
 }
 
+.beige-text-color {
+  color: $beige;
+}
+
 .section-title {
   line-height: 158.34%;
   background: linear-gradient(to right, $orange, $yellow);
@@ -93,7 +100,7 @@ h5 {
   box-shadow: 0 12px 35px rgba(160, 121, 0, 0.2);
   border: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    text-shadow 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
     background 0.15s ease-in-out;
 }
 
@@ -104,5 +111,13 @@ h5 {
 .btn:hover {
   color: $white;
   box-shadow: 0px 12px 35px rgba(160, 121, 0, 0.5);
+  text-shadow: 0 0 3px $white;
+}
+
+@media screen and (max-width: 376px) {
+  html {
+    font-size: 12px;
+    line-height: 100%;
+  }
 }
 </style>

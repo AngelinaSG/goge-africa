@@ -47,7 +47,7 @@
       </nav>
 
       <div class="footer__contacts d-flex flex-column">
-        <p class="bold">Contact Us</p>
+        <p class="semibold">Contact Us</p>
         <p><a href="tel:+55254254254">(+55) 254. 254. 254</a></p>
         <p><a href="mailto:Info@lsemajafrica.com">Info@lsemajafrica.com</a></p>
         <p>Helios Tower 75 Tam Trinh Hoang</p>
@@ -205,5 +205,55 @@ export default {
 
 .footer__privacy-policy-list li:last-child {
   margin-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .footer__main-row {
+    padding-right: 40px;
+    padding-left: 100px;
+  }
+
+  .footer__copyrights {
+    width: 80%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .footer__nav,
+  .footer__contacts {
+    margin-right: 30px;
+  }
+
+  .footer__rights-row {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .footer__main-row {
+    padding-left: 40px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer__social-media {
+    justify-content: center;
+  }
+
+  .footer__nav {
+    justify-content: center;
+  }
+
+  .footer__nav,
+  .footer__contacts {
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  .footer__rights-row {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }
 </style>

@@ -191,4 +191,25 @@ export default {
     transform: translateX(20%);
   }
 }
+
+@media screen and (max-width: 376px) {
+  .hero-section-carousel__img {
+    margin-top: 80px;
+    margin-left: 20%;
+    width: 90%;
+    height: 90%;
+  }
+  .carousel-caption {
+    max-width: 80%;
+    bottom: 0;
+    margin-bottom: 0;
+  }
+  .carousel-control-next {
+    left: 80%;
+  }
+  .carousel-control-prev {
+    left: 80%;
+    top: 83%;
+  }
+}
 </style>

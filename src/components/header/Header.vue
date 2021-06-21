@@ -116,8 +116,8 @@ export default {
 }
 
 .main-header__nav-item:hover {
-  font-weight: bold;
-  transition: font-weight 0.5s ease-in-out;
+  text-shadow: 0 0 1px orange;
+  transition: text-shadow 0.5s ease-in-out;
 }
 
 .main-header__nav-link.router-link-exact-active {
@@ -173,6 +173,13 @@ export default {
 
   .form-inline {
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .main-header__navbar {
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 </style>

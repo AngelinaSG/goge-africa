@@ -128,25 +128,27 @@
             </div>
           </div>
           <div class="carousel-item">
-            <div class="card testimonials__card">
-              <div class="card-body">
-                <p class="testimonials__card-text">
-                  Semaj Africa is an online education platform that delivers
-                  video courses, programs and resources for Individual,
-                  Advertising & Media Specialist, Online Marketing
-                  Professionals, Freelancers and anyone.
-                </p>
-                <div class="row">
-                  <img
-                    src="~@/assets/pictures/testimonials_photo.png"
-                    alt=""
-                    class="testimonials__card-photo rounded-circle"
-                  />
-                  <div class="row flex-column justify-content-center">
-                    <h5 class="bold testimonials__author">Arthur Broklyn</h5>
-                    <p class="testimonials__author-cat">
-                      Categories: 3d Modelling
-                    </p>
+            <div class="row testimonials-carousel__inner-row">
+              <div class="card testimonials__card">
+                <div class="card-body">
+                  <p class="testimonials__card-text">
+                    Semaj Africa is an online education platform that delivers
+                    video courses, programs and resources for Individual,
+                    Advertising & Media Specialist, Online Marketing
+                    Professionals, Freelancers and anyone.
+                  </p>
+                  <div class="row">
+                    <img
+                      src="~@/assets/pictures/testimonials_photo.png"
+                      alt=""
+                      class="testimonials__card-photo rounded-circle"
+                    />
+                    <div class="row flex-column justify-content-center">
+                      <h5 class="bold testimonials__author">Arthur Broklyn</h5>
+                      <p class="testimonials__author-cat">
+                        Categories: 3d Modelling
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -298,6 +300,20 @@ export default {
   .testimonials-carousel__row {
     padding-top: 50px;
     padding-bottom: 50px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .testimonials__card {
+    min-height: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .testimonials-carousel__inner-row {
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: center;
   }
 }
 </style>

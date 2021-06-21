@@ -31,9 +31,6 @@ export default {
     url("~@/assets/pictures/conact_us_bg2.svg") 0 21px no-repeat;
 }
 
-.contact-us__row {
-}
-
 .contact-us__img {
   background: url("~@/assets/pictures/contactus_img_placeholder.svg") 0 243px
       no-repeat,
@@ -59,6 +56,9 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .contact-us__row {
+    justify-content: center;
+  }
   .contact-us__img {
     display: none;
   }
@@ -66,6 +66,12 @@ export default {
   .contact-us__text {
     max-width: 80%;
     text-align: center;
+    margin-top: 66px;
+  }
+
+  .contact-us__section-title {
+    width: 100%;
+    margin-bottom: 29px;
   }
 }
 </style>

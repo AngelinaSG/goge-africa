@@ -120,4 +120,17 @@ export default {
     margin: auto;
   }
 }
+
+@media screen and (max-width: 376px) {
+  .features-section__row {
+    justify-content: space-between;
+  }
+  .features-section__col:nth-child(2) {
+    margin-left: 0;
+  }
+  .features-section__icon {
+    width: 50%;
+    margin-left: 17px;
+  }
+}
 </style>
