@@ -58,10 +58,14 @@
             </li>
           </ul>
         </div>
-        <div class="courses__category-filter">
+        <div class="courses__category-filter" ref="categories">
           <ul class="courses__filter-list">
             <h3 class="semibold">Categories</h3>
-            <button class="filter-list__btn" @click="showCategories"></button>
+            <button
+              class="filter-list__btn"
+              @click="showCategories"
+              ref="category-btn"
+            ></button>
             <li>Category Item</li>
             <li>Category Item</li>
             <li>Category Item</li>
@@ -81,10 +85,14 @@ export default {
     courses: [],
   }),
   mounted() {
+    this.showCategories();
     this.courses = this.$store.getters.courses;
   },
   methods: {
-    showCategories() {},
+    showCategories() {
+      this.$refs["categories"].classList.toggle("hide-categories");
+      this.$refs["category-btn"].classList.toggle("rotate");
+    },
   },
 };
 </script>
@@ -166,6 +174,7 @@ export default {
   box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.07);
   border-radius: 5px;
   padding: 10px 0 25px 0;
+  transition: height 1s ease-in-out;
 }
 
 .courses__filter-list {
@@ -218,7 +227,7 @@ export default {
   position: absolute;
   top: 8px;
   right: 14px;
-  transform: rotate(0.5turn);
+  transition: transform 0.5s ease-in-out;
 }
 
 .courses__container {
@@ -260,6 +269,7 @@ export default {
   transition: box-shadow 0.15s ease-in-out;
   position: relative;
 }
+
 .courses-section__card:hover {
   box-shadow: 0 5px 5px rgb(160, 121, 0, 0.5);
 }
@@ -313,5 +323,28 @@ export default {
 }
 
 .hide-categories {
+  max-height: 40px;
+  overflow: hidden;
+}
+
+.rotate {
+  transform: rotate(0.5turn);
+  transition: transform 0.5s ease-in-out;
+}
+
+.fade-enter-active {
+  transition: all 1.3s;
+}
+
+.fade-leave-active {
+  transition: all 1.3s;
+}
+
+.fade-enter {
+  height: 40px;
+}
+
+.fade-leave-to {
+  height: 40px;
 }
 </style>
