@@ -11,13 +11,13 @@
 </template>
 
 <script>
-import HeroSection from "@/components/hero-section/HeroSection";
-import AboutUs from "@/components/about/AboutUs";
-import CoursesSection from "@/components/CoursesSection";
-import Achievement from "@/components/Achievement";
-import Testimonials from "@/components/Testimonials";
-import Prices from "@/components/Prices";
-import ContactUs from "@/components/ContactUs";
+import HeroSection from "@/components/LandingPage/hero-section/HeroSection";
+import AboutUs from "@/components/LandingPage/about/AboutUs";
+import CoursesSection from "@/components/LandingPage/CoursesSection";
+import Achievement from "@/components/LandingPage/Achievement";
+import Testimonials from "@/components/LandingPage/Testimonials";
+import Prices from "@/components/LandingPage/Prices";
+import ContactUs from "@/components/LandingPage/ContactUs";
 
 export default {
   name: "Home",

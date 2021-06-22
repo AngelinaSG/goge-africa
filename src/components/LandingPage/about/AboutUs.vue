@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Features from "@/components/about/Features";
+import Features from "@/components/LandingPage/about/Features";
 
 export default {
   name: "AboutUs",
