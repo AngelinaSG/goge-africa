@@ -50,4 +50,18 @@ export default {
   font-size: 1.125rem;
   line-height: 2.0625rem;
 }
+
+@media screen and (max-width: 768px) {
+  .hero-section__title,
+  .hero-section__title + p {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-section__container::before {
+    content: url("~@/assets/pictures/course-page__bg-icons.svg");
+    left: 50%;
+    opacity: 0.5;
+  }
+}
 </style>

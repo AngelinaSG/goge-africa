@@ -298,4 +298,45 @@ export default {
   transform: rotate(0.5turn);
   transition: transform 0.5s ease-in-out;
 }
+
+@media screen and (max-width: 768px) {
+  .courses__row {
+    padding-left: 40px;
+  }
+
+  .courses-section__card-col {
+    width: 45%;
+    margin-right: 9px;
+    border-radius: 10px;
+  }
+
+  .courses-section__card-col:nth-child(3n) {
+    margin-right: 9px;
+  }
+
+  .courses-section__card-col:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  .card-img-top {
+    height: 150px;
+  }
+
+  .card-body {
+    border-radius: 0 0 10px 10px;
+    min-height: 4.5625rem;
+    max-height: 4.5625rem;
+    padding-left: 15px;
+    padding-top: 15px;
+  }
+
+  .card-text {
+    width: 100%;
+  }
+
+  .courses__filter-list > h3,
+  .courses__filter-list li {
+    padding-left: 10px;
+  }
+}
 </style>
