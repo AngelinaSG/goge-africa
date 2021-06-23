@@ -339,4 +339,65 @@ export default {
     padding-left: 10px;
   }
 }
+
+@media screen and (max-width: 376px) {
+  .hero-section__search-form {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+  }
+
+  .hero-section__search-form::before {
+    top: 15px;
+    left: 35px;
+  }
+
+  .courses__category-filter {
+    order: -1;
+    width: 90%;
+    margin-bottom: 40px;
+  }
+
+  .courses-section__cards-section {
+    margin: 0;
+    width: 90%;
+  }
+
+  .courses__row {
+    padding-left: 0;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .courses-section__card-col {
+    width: 48%;
+  }
+
+  .card-img-top {
+    height: 100px;
+  }
+
+  .courses__label {
+    max-width: 60px;
+    min-width: 35px;
+    padding: 3px 7px;
+    height: 20px;
+    opacity: 0.8;
+  }
+
+  .card-body {
+    border-radius: 0 0 10px 10px;
+    min-height: 4.5625rem;
+    max-height: 4.5625rem;
+    padding: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .courses__container {
+    padding-bottom: 100px;
+  }
+}
 </style>

@@ -55,7 +55,7 @@
               >
             </li>
             <li class="nav-item main-header__nav-item">
-              <router-link to="/course"><IconAddToCart /></router-link>
+              <router-link to="/cart"><IconAddToCart /></router-link>
             </li>
           </ul>
 
@@ -85,6 +85,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main-header-container {
+  box-shadow: 0px 12px 35px rgba(160, 121, 0, 0.2);
+}
 .main-header__navbar {
   display: flex;
   justify-content: flex-end;
@@ -147,9 +150,6 @@ export default {
 
 .navbar-toggler-icon {
   content: url("~@/assets/pictures/header_hamburger-menu.svg");
-}
-
-.navbar-toggler {
 }
 
 .navbar-collapse {

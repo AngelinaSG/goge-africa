@@ -39,7 +39,7 @@ export default {
 
 .hero-section__title {
   font-weight: 900;
-  font-size: 44px;
+  font-size: 2.75rem;
   line-height: 158.34%;
   width: 45.6%;
   margin-bottom: 22px;
@@ -62,6 +62,12 @@ export default {
     content: url("~@/assets/pictures/course-page__bg-icons.svg");
     left: 50%;
     opacity: 0.5;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .hero-section__container {
+    padding: 10%;
   }
 }
 </style>
