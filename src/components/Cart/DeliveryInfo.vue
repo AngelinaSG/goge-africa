@@ -84,10 +84,6 @@
   width: 100%;
   margin-top: 79px;
 }
-
-.vm--modal {
-  border-radius: 10px;
-}
 </style>
 
 <script>
@@ -105,8 +101,16 @@ export default {
       this.$modal.show(
         Modal,
         { text: "This text is passed as a property" },
-        { height: "auto", width: "519px" },
-        { draggable: true }
+        {
+          height: "auto",
+          width: "519px",
+          draggable: true,
+          adaptive: true,
+          styles: {
+            "border-radius": "10px",
+            "box-shadow": "0px 12px 35px rgba(160, 121, 0, 0.2)",
+          },
+        }
       );
     },
   },

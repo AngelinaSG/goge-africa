@@ -120,4 +120,8 @@ h5 {
     line-height: 100%;
   }
 }
+
+.vm--modal {
+  border-radius: 10px;
+}
 </style>
