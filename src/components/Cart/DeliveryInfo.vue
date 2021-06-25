@@ -1,6 +1,7 @@
 <template>
   <div class="row delivery-info__row">
     <form class="delivery-info__form">
+      <Modal v-if="isModal" />
       <h5 class="bold text-center">Select Your Delivery Information</h5>
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Full Name" />
@@ -22,7 +23,10 @@
           placeholder="Zip / Postal Code"
         />
         <input type="tel" class="form-control" placeholder="Mobile" />
-        <button class="btn btn--gradient-bg delivery__btn">
+        <button
+          class="btn btn--gradient-bg delivery__btn"
+          @click.prevent="onClick"
+        >
           Save and Ship To This Address
         </button>
       </div>
@@ -80,4 +84,31 @@
   width: 100%;
   margin-top: 79px;
 }
+
+.vm--modal {
+  border-radius: 10px;
+}
 </style>
+
+<script>
+import Modal from "@/components/app/Modal";
+
+export default {
+  data: () => ({
+    isModal: false,
+  }),
+  components: {
+    Modal,
+  },
+  methods: {
+    onClick() {
+      this.$modal.show(
+        Modal,
+        { text: "This text is passed as a property" },
+        { height: "auto", width: "519px" },
+        { draggable: true }
+      );
+    },
+  },
+};
+</script>
