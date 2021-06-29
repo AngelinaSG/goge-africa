@@ -13,6 +13,8 @@
             <button
               class="btn btn--gradient-bg btn--add-to-cart"
               title="Add to Cart"
+              :value="cocktail.idDrink"
+              @click="addToCart($event.target.value)"
             ></button>
             <div class="card-body gradient-background">
               <a href="#" class="bold text-white">
@@ -26,7 +28,13 @@
       </ul>
     </div>
     <div class="row justify-content-center">
-      <button type="button" class="btn gradient-background">All Beers</button>
+      <button
+        type="button"
+        class="btn gradient-background"
+        @click="$router.push('/course')"
+      >
+        All Beers
+      </button>
     </div>
   </div>
 </template>
@@ -41,6 +49,11 @@ export default {
   async mounted() {
     this.courses = this.$store.getters.courses;
     this.cocktails = await this.$store.dispatch("getCocktails");
+  },
+  methods: {
+    addToCart(cocktailId) {
+      this.$store.dispatch("addToCart", cocktailId);
+    },
   },
 };
 </script>

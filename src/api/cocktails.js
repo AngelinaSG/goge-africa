@@ -2,6 +2,11 @@ import axios from "axios";
 
 export default function () {
   return {
+    async getCocktailById(cocktailId) {
+      return await axios.get(
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailId}`
+      );
+    },
     async getCocktails() {
       return await axios.get(
         "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=d"
