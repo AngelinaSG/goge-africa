@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import cocktails from "./cocktails";
 
 Vue.use(Vuex);
 
@@ -19,11 +20,18 @@ export default new Vuex.Store({
       { title: "3 in 1 Course Of Becoming A Makeup Artist", type: "Free" },
       { title: "How To Have A Good Listening Ear For Music", type: "Premium" },
     ],
+    newCocktails: [],
   },
   getters: {
     courses: (s) => s.courses,
   },
-  mutations: {},
+  mutations: {
+    getCocktail: (state, value) => {
+      state.newCocktails = value;
+    },
+  },
   actions: {},
-  modules: {},
+  modules: {
+    cocktails,
+  },
 });

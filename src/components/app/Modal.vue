@@ -1,9 +1,63 @@
 <template>
-  <div class="modal__pay-card">
-    <h3 class="pay-card__title">Card</h3>
-    <form class="pay-card__form"></form>
-  </div>
+  <modal
+    name="pay-card"
+    :height="540"
+    :width="519"
+    :adaptive="true"
+    :styles="{
+      'border-radius': '10px',
+      'box-shadow': '0px 12px 35px rgba(160, 121, 0, 0.2)',
+    }"
+  >
+    <div class="modal__pay-card">
+      <h3 class="pay-card__title">Card</h3>
+      <form>
+        <div class="pay-card__form gradient-background text-white bold">
+          <div class="form-control--card-number">
+            <label for="cardNumber">Card Number</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="cardNumber"
+              placeholder="Card Number"
+            />
+          </div>
+          <div class="form-control--card-exp">
+            <label for="cardExp">Expires</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="cardExp"
+              placeholder="mm/yy"
+            />
+          </div>
+          <div class="form-control--card-cvv">
+            <label for="cardCvv">CVV</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="cardCvv"
+              placeholder="CVV"
+            />
+          </div>
+        </div>
+        <button class="btn btn--pay">
+          <IconPay class="btn-icon" />Pay #200.00
+        </button>
+      </form>
+    </div>
+  </modal>
 </template>
+
+<script>
+import IconPay from "@/components/icons/IconPay";
+
+export default {
+  components: {
+    IconPay,
+  },
+};
+</script>
 
 <style scoped>
 .modal__pay-card {
@@ -14,8 +68,8 @@
 }
 
 .pay-card__title {
-  height: 10.92%;
-  line-height: 59px;
+  height: 13.8%;
+  line-height: 74px;
   text-align: center;
   border-bottom: 1px solid #e2e2e2;
   color: #727272;
@@ -24,10 +78,65 @@
 .pay-card__form {
   width: 448px;
   height: 286px;
-  background: url("~@/assets/pictures/pay-card_bg.svg") no-repeat;
+  background: url("~@/assets/pictures/pay-card_bg.png") no-repeat;
   background-size: cover;
   margin-right: 33px;
   margin-left: 38px;
   margin-top: 30px;
+  border-radius: 10px;
+  padding-left: 36px;
+  padding-top: 94px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pay-card__form input {
+  background-color: transparent;
+  color: #fff;
+  font-size: 0.875rem;
+  border: none;
+  border-bottom: 2px solid #fff;
+  border-radius: 0;
+  padding: 0;
+}
+
+.pay-card__form input:focus {
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.pay-card__form input::placeholder {
+  color: white;
+}
+
+.form-control--card-number {
+  width: 72.57%;
+  margin-right: 24px;
+}
+
+.form-control--card-exp,
+.form-control--card-cvv {
+  width: 16.75%;
+  margin-right: 24px;
+}
+
+.btn--pay {
+  background: #4baa94;
+  border-radius: 5px;
+  width: 237px;
+  height: 72px;
+  margin-top: 45px;
+  margin-left: 145px;
+  box-shadow: 0 12px 35px rgba(75, 170, 148, 0.2);
+  font-size: 1.25rem;
+}
+
+.btn--pay:hover {
+  box-shadow: 0 12px 35px rgba(75, 170, 148, 0.6);
+}
+
+.btn-icon {
+  margin-right: 11px;
+  margin-bottom: 2px;
 }
 </style>

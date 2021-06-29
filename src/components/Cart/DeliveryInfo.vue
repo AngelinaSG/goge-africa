@@ -1,7 +1,7 @@
 <template>
   <div class="row delivery-info__row">
     <form class="delivery-info__form">
-      <Modal v-if="isModal" />
+      <Modal />
       <h5 class="bold text-center">Select Your Delivery Information</h5>
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Full Name" />
@@ -98,20 +98,7 @@ export default {
   },
   methods: {
     onClick() {
-      this.$modal.show(
-        Modal,
-        { text: "This text is passed as a property" },
-        {
-          height: "auto",
-          width: "519px",
-          draggable: true,
-          adaptive: true,
-          styles: {
-            "border-radius": "10px",
-            "box-shadow": "0px 12px 35px rgba(160, 121, 0, 0.2)",
-          },
-        }
-      );
+      this.$modal.show("pay-card");
     },
   },
 };

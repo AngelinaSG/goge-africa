@@ -5,15 +5,11 @@
       <ul class="courses__list">
         <li
           class="courses-section__card-col"
-          v-for="course in courses"
-          :key="course.title"
+          v-for="cocktail in cocktails"
+          :key="cocktail.idDrink"
         >
           <div class="card courses-section__card">
-            <img
-              src="~@/assets/pictures/aboutus_img.jpg"
-              class="card-img-top"
-              alt=""
-            />
+            <img :src="cocktail.strDrinkThumb" class="card-img-top" alt="" />
             <button
               class="btn btn--gradient-bg btn--add-to-cart"
               title="Add to Cart"
@@ -21,7 +17,7 @@
             <div class="card-body gradient-background">
               <a href="#" class="bold text-white">
                 <p class="card-text">
-                  {{ course.title }}
+                  {{ cocktail.strDrink }}
                 </p>
               </a>
             </div>
@@ -40,9 +36,11 @@ export default {
   name: "CoursesSection",
   data: () => ({
     courses: [],
+    cocktails: [],
   }),
-  mounted() {
+  async mounted() {
     this.courses = this.$store.getters.courses;
+    this.cocktails = await this.$store.dispatch("getCocktails");
   },
 };
 </script>
@@ -113,6 +111,7 @@ export default {
 
 .card-img-top {
   height: 205px;
+  object-fit: cover;
 }
 
 .card-body {

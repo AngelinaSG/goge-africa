@@ -2,14 +2,18 @@
   <div>
     <div class="container">
       <div class="row search-form__row">
-        <div class="form-group hero-section__search-form gradient-background">
+        <form
+          class="form-group hero-section__search-form gradient-background"
+          @submit.prevent="searchItem"
+        >
           <input
             class="form-control hero-section__search"
             type="search"
             placeholder="Search"
             aria-label="Search"
+            v-model="searchValue"
           />
-        </div>
+        </form>
       </div>
     </div>
 
@@ -23,23 +27,23 @@
           <ul class="courses__list">
             <li
               class="courses-section__card-col"
-              v-for="course in courses"
-              :key="course.title"
+              v-for="cocktail in cocktails"
+              :key="cocktail.idDrink"
             >
               <div class="card courses-section__card">
                 <img
-                  src="~@/assets/pictures/aboutus_img.jpg"
+                  :src="cocktail.strDrinkThumb"
                   class="card-img-top"
                   alt=""
                 />
                 <span
                   class="courses__label gradient-background bold text-white"
-                  >{{ course.type }}</span
+                  >{{ cocktail.strAlcoholic }}</span
                 >
                 <div class="card-body gradient-background">
                   <a href="#" class="bold text-white">
                     <p class="card-text">
-                      {{ course.title }}
+                      {{ cocktail.strDrink }}
                     </p>
                   </a>
                 </div>
@@ -55,11 +59,65 @@
               @click="showCategories"
               ref="category-btn"
             ></button>
-            <li>Category Item</li>
-            <li>Category Item</li>
-            <li>Category Item</li>
-            <li>Category Item</li>
-            <li>Category Item</li>
+            <form @change="onChooseCategory">
+              <li>
+                Alcohol
+                <div
+                  class="form-check"
+                  v-for="cat in alcFilterCat"
+                  :key="cat.strAlcoholic"
+                >
+                  <input
+                    type="radio"
+                    id="alc"
+                    class="form-check-input"
+                    v-model="alcFilter"
+                    :value="cat.strAlcoholic"
+                  />
+                  <label for="alc" class="form-check-label">{{
+                    cat.strAlcoholic
+                  }}</label>
+                </div>
+              </li>
+              <li>
+                Category
+                <div
+                  class="form-check"
+                  v-for="cat in catFilterCat"
+                  :key="cat.strCategory"
+                >
+                  <input
+                    type="radio"
+                    id="cat"
+                    class="form-check-input"
+                    v-model="catFilter"
+                    :value="cat.strCategory"
+                  />
+                  <label for="cat" class="form-check-label">{{
+                    cat.strCategory
+                  }}</label>
+                </div>
+              </li>
+              <li>
+                Glass
+                <div
+                  class="form-check"
+                  v-for="cat in glassFilterCat"
+                  :key="cat.strGlass"
+                >
+                  <input
+                    type="radio"
+                    id="glass"
+                    class="form-check-input"
+                    v-model="catFilter"
+                    :value="cat.strGlass"
+                  />
+                  <label for="glass" class="form-check-label">{{
+                    cat.strGlass
+                  }}</label>
+                </div>
+              </li>
+            </form>
           </ul>
         </div>
       </div>
@@ -72,15 +130,59 @@ export default {
   name: "CoursesList",
   data: () => ({
     courses: [],
+    searchValue: "",
+    cocktails: [],
+    alcFilterCat: [],
+    catFilterCat: [],
+    glassFilterCat: [],
+    alcFilter: "",
+    catFilter: "",
+    glassFilter: "",
   }),
-  mounted() {
+  async mounted() {
     this.showCategories();
     this.courses = this.$store.getters.courses;
+    this.cocktails = await this.$store.dispatch("getCocktails");
+    const filters = await this.$store.dispatch("getFilters");
+    this.alcFilterCat = filters.alcFilter;
+    this.catFilterCat = filters.catFilter;
+    this.glassFilterCat = filters.glassFilter;
   },
   methods: {
     showCategories() {
       this.$refs["categories"].classList.toggle("hide-categories");
       this.$refs["category-btn"].classList.toggle("rotate");
+    },
+    async searchItem() {
+      let cock = await this.$store.dispatch(
+        "getCocktailBySearchValue",
+        this.searchValue
+      );
+      this.cocktails = cock;
+    },
+    async onChooseCategory() {
+      console.log("filtering");
+      if (this.glassFilter) {
+        const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
+          glassFilter: this.glassFilter,
+        });
+        this.cocktails = filterCocktail;
+        this.glassFilter = "";
+      }
+      if (this.catFilter) {
+        const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
+          catFilter: this.catFilter,
+        });
+        this.cocktails = filterCocktail;
+        this.catFilter = "";
+      }
+      if (this.alcFilter) {
+        const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
+          alcFilter: this.alcFilter,
+        });
+        this.cocktails = filterCocktail;
+        this.alcFilter = "";
+      }
     },
   },
 };
@@ -170,7 +272,7 @@ export default {
 }
 
 .courses__label {
-  max-width: 88px;
+  max-width: max-content;
   min-width: 70px;
   padding: 7px 14px;
   height: 33px;
@@ -270,7 +372,7 @@ export default {
   width: 20.92px;
   height: 20.92px;
   background-color: transparent;
-  background-image: url(/img/filter_arrow-icon.eccfa432.svg);
+  background-image: url("~@/assets/pictures/filter_arrow-icon.svg");
   background-position: center;
   background-size: cover;
 }

@@ -10,7 +10,9 @@
       <div class="cart__table-title">Quantity</div>
       <div class="cart__table-title">Price</div>
       <div class="cart__table-title"></div>
-      <div class="cart__table-title"></div>
+      <div class="cart__table-title">
+        <button class="btn btn--close"></button>
+      </div>
     </div>
     <div class="cart__total-price">
       <p class="text-center">Total: $480</p>
@@ -49,5 +51,20 @@
 
 .cart__total-price > p {
   margin-bottom: 37px;
+}
+
+.btn--close {
+  border: none;
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  background-image: url("~@/assets/pictures/close_btn_icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.btn--close:focus {
+  box-shadow: none;
 }
 </style>
