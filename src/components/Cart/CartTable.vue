@@ -6,20 +6,42 @@
       <div class="cart__table-title">Price</div>
       <div class="cart__table-title"></div>
       <div class="cart__table-title"></div>
-      <div class="cart__table-title">Product Name & Details</div>
-      <div class="cart__table-title">Quantity</div>
+    </div>
+
+    <div
+      class="product-table"
+      v-for="prodact in prodactsInfo"
+      :key="prodact[0].idDrink"
+    >
+      <div class="cart__table-title">
+        <img :src="prodact[0].strDrinkThumb" alt="" width="157" height="135" />
+      </div>
+      <div class="cart__table-title">{{ prodact[0].strDrink }}</div>
       <div class="cart__table-title">Price</div>
       <div class="cart__table-title"></div>
       <div class="cart__table-title">
         <button class="btn btn--close"></button>
       </div>
     </div>
+
     <div class="cart__total-price">
       <p class="text-center">Total: $480</p>
       <button class="btn btn--gradient-bg">Buy All</button>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    prodactsInfo: [],
+  }),
+  mounted() {
+    console.log(this.$store.getters.cocktailsInCart);
+    this.prodactsInfo = this.$store.getters.cocktailsInCart;
+  },
+};
+</script>
 
 <style scoped>
 .cart__table-row {
