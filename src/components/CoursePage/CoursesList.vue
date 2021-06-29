@@ -37,6 +37,7 @@
                   alt=""
                 />
                 <span
+                  v-show="cocktail.strAlcoholic"
                   class="courses__label gradient-background bold text-white"
                   >{{ cocktail.strAlcoholic }}</span
                 >
@@ -59,7 +60,7 @@
               @click="showCategories"
               ref="category-btn"
             ></button>
-            <form @change="onChooseCategory">
+            <form @change="onChooseCategory($event)">
               <li>
                 Alcohol
                 <div
@@ -109,7 +110,7 @@
                     type="radio"
                     id="glass"
                     class="form-check-input"
-                    v-model="catFilter"
+                    v-model="glassFilter"
                     :value="cat.strGlass"
                   />
                   <label for="glass" class="form-check-label">{{
@@ -160,28 +161,25 @@ export default {
       );
       this.cocktails = cock;
     },
-    async onChooseCategory() {
-      console.log("filtering");
-      if (this.glassFilter) {
+    async onChooseCategory(e) {
+      console.log(e.target.value);
+      if (e.target.value === this.glassFilter) {
         const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
           glassFilter: this.glassFilter,
         });
         this.cocktails = filterCocktail;
-        this.glassFilter = "";
       }
-      if (this.catFilter) {
+      if (e.target.value === this.catFilter) {
         const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
           catFilter: this.catFilter,
         });
         this.cocktails = filterCocktail;
-        this.catFilter = "";
       }
-      if (this.alcFilter) {
+      if (e.target.value === this.alcFilter) {
         const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
           alcFilter: this.alcFilter,
         });
         this.cocktails = filterCocktail;
-        this.alcFilter = "";
       }
     },
   },
@@ -356,6 +354,7 @@ export default {
 
 .card-img-top {
   height: 206px;
+  object-fit: cover;
 }
 
 .courses__row {
@@ -384,11 +383,14 @@ export default {
 
 .filter-btn--grid {
   background-image: url("~@/assets/pictures/courses_grid-interface-icon.svg");
+  width: 22px;
 }
 
 .courses__filter-controls {
+  width: 100%;
   margin-bottom: 38px;
-  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .hide-categories {
