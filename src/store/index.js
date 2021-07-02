@@ -58,6 +58,15 @@ export default new Vuex.Store({
         }
       });
     },
+    deleteFromCart(state, productId) {
+      state.cocktailsInCart.forEach((item, idx) => {
+        // console.log(item.idDrink);
+        // console.log(productId);
+        if (item.idDrink === productId) {
+          state.cocktailsInCart.splice(idx, 1);
+        }
+      });
+    },
   },
   actions: {},
   modules: {

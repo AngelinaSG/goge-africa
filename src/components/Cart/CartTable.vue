@@ -27,21 +27,9 @@
         <div class="cart__table-title">{{ prodact.strDrink }}</div>
         <div class="cart__table-title">
           <div class="cart__quantity-counter">
-            <button
-              class="btn--counter"
-              :value="idx"
-              @click="onMinus($event.target.value)"
-            >
-              -
-            </button>
+            <button class="btn--counter" @click="onMinus(idx)">-</button>
             <span class="cart__quantity">{{ prodact.quantity }}</span>
-            <button
-              class="btn--counter"
-              :value="idx"
-              @click="onPlus($event.target.value)"
-            >
-              +
-            </button>
+            <button class="btn--counter" @click="onPlus(idx)">+</button>
           </div>
         </div>
         <div class="cart__table-title">${{ prodact.idDrink }}</div>
@@ -49,10 +37,18 @@
           Total:{{ prodact.idDrink * prodact.quantity }}
         </div>
         <div class="cart__table-title">
-          <button class="btn btn--close"></button>
+          <button
+            class="btn btn--delete"
+            @click="onDelete(prodact.idDrink)"
+          ></button>
         </div>
       </div>
     </div>
+
+    <DeleteModal
+      @deleteProduct="deleteProdactFromCart"
+      :index="currentProdactIdx"
+    />
 
     <div class="cart__total-price">
       <p class="text-center">Total: ${{ totalPrice }}</p>
@@ -62,12 +58,17 @@
 </template>
 
 <script>
+import DeleteModal from "@/components/app/DeleteModal";
+
 export default {
   data: () => ({
     prodactsInfo: [],
+    currentProdactIdx: "",
   }),
+  components: {
+    DeleteModal,
+  },
   mounted() {
-    console.log(this.$store.getters.cocktailsInCart);
     this.prodactsInfo = this.$store.getters.cocktailsInCart;
   },
   methods: {
@@ -79,6 +80,14 @@ export default {
     onPlus(prodactId) {
       this.prodactsInfo[prodactId].quantity += 1;
       this.$store.commit("addOneMoreCocktail", prodactId);
+    },
+    onDelete(prodactIdx) {
+      this.currentProdactIdx = prodactIdx;
+      this.$modal.show("delete-modal");
+    },
+    deleteProdactFromCart(productId) {
+      this.$store.commit("deleteFromCart", productId);
+      this.$modal.hide("delete-modal");
     },
   },
   computed: {
@@ -147,7 +156,7 @@ export default {
   margin-bottom: 37px;
 }
 
-.btn--close {
+.btn--delete {
   border: none;
   width: 15px;
   height: 15px;
