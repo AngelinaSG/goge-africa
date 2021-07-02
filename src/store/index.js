@@ -33,7 +33,30 @@ export default new Vuex.Store({
       state.newCocktails = value;
     },
     addCocktailToCart: (state, value) => {
-      state.cocktailsInCart.push(value);
+      let isInCart = false;
+      state.cocktailsInCart.forEach((item) => {
+        if (item.idDrink === value.idDrink) {
+          isInCart = true;
+          item.quantity++;
+        }
+      });
+      if (!isInCart) {
+        state.cocktailsInCart.push({ ...value, quantity: 1 });
+      }
+    },
+    addOneMoreCocktail(state, cocktailId) {
+      state.cocktailsInCart.forEach((item) => {
+        if (item.idDrink === cocktailId) {
+          item.quantity++;
+        }
+      });
+    },
+    deleteOneCocktail(state, cocktailId) {
+      state.cocktailsInCart.forEach((item) => {
+        if (item.idDrink === cocktailId) {
+          item.quantity--;
+        }
+      });
     },
   },
   actions: {},

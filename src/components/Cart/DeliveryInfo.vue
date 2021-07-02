@@ -1,7 +1,7 @@
 <template>
   <div class="row delivery-info__row">
     <form class="delivery-info__form">
-      <Modal />
+      <PayModal />
       <h5 class="bold text-center">Select Your Delivery Information</h5>
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Full Name" />
@@ -33,6 +33,24 @@
     </form>
   </div>
 </template>
+
+<script>
+import PayModal from "@/components/app/PayModal";
+
+export default {
+  data: () => ({
+    isModal: false,
+  }),
+  components: {
+    PayModal,
+  },
+  methods: {
+    onClick() {
+      this.$modal.show("pay-card");
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import "~@/assets/scss/_custom.scss";
@@ -85,21 +103,3 @@
   margin-top: 79px;
 }
 </style>
-
-<script>
-import Modal from "@/components/app/Modal";
-
-export default {
-  data: () => ({
-    isModal: false,
-  }),
-  components: {
-    Modal,
-  },
-  methods: {
-    onClick() {
-      this.$modal.show("pay-card");
-    },
-  },
-};
-</script>
