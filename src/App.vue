@@ -21,6 +21,7 @@ export default {
 <style lang="scss">
 @import "~@/assets/scss/style.scss";
 @import "~bootstrap/scss/bootstrap";
+@import "~placeholder-loading/src/scss/placeholder-loading";
 
 #app {
   color: $black;
@@ -57,6 +58,10 @@ h5 {
 
 .orange-text-color {
   color: $orange;
+}
+
+.grey-text-color {
+  color: #bcbcbc;
 }
 
 .gradient-text-color {
@@ -114,6 +119,12 @@ h5 {
   box-shadow: 0px 12px 35px rgba(160, 121, 0, 0.5);
   text-shadow: 0 0 3px $white;
   outline: none;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: $orange;
+  background-color: $orange;
 }
 
 @media screen and (max-width: 376px) {

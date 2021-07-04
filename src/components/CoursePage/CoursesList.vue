@@ -4,6 +4,7 @@
       <div class="row search-form__row">
         <form
           class="form-group hero-section__search-form gradient-background"
+          @input="onSearchInput"
           @submit.prevent="searchItem"
         >
           <input
@@ -24,7 +25,14 @@
             <button class="courses__filter-btn filter-btn--bullet"></button>
             <button class="courses__filter-btn filter-btn--grid"></button>
           </div>
-          <ul class="courses__list">
+
+          <CartsPlaceholders v-if="isLoading" />
+
+          <b-alert v-else-if="nothingFounded" show variant="danger"
+            >No results were found for {{ searchValue }}</b-alert
+          >
+
+          <ul class="courses__list" v-else>
             <li
               class="courses-section__card-col"
               v-for="cocktail in cocktails"
@@ -36,6 +44,11 @@
                   class="card-img-top"
                   alt=""
                 />
+                <button
+                  class="btn btn--gradient-bg btn--add-to-cart"
+                  title="Add to Cart"
+                  @click="addToCart(cocktail.idDrink, cocktail.strDrink)"
+                ></button>
                 <span
                   v-show="cocktail.strAlcoholic"
                   class="courses__label gradient-background bold text-white"
@@ -52,6 +65,7 @@
             </li>
           </ul>
         </div>
+
         <div class="courses__category-filter" ref="categories">
           <ul class="courses__filter-list">
             <h3 class="semibold">Category</h3>
@@ -70,12 +84,12 @@
                 >
                   <input
                     type="radio"
-                    id="alc"
+                    :id="cat.strAlcoholic"
                     class="form-check-input"
                     v-model="alcFilter"
                     :value="cat.strAlcoholic"
                   />
-                  <label for="alc" class="form-check-label">{{
+                  <label :for="cat.strAlcoholic" class="form-check-label">{{
                     cat.strAlcoholic
                   }}</label>
                 </div>
@@ -89,12 +103,12 @@
                 >
                   <input
                     type="radio"
-                    id="cat"
+                    :id="cat.strCategory"
                     class="form-check-input"
                     v-model="catFilter"
                     :value="cat.strCategory"
                   />
-                  <label for="cat" class="form-check-label">{{
+                  <label :for="cat.strCategory" class="form-check-label">{{
                     cat.strCategory
                   }}</label>
                 </div>
@@ -108,12 +122,12 @@
                 >
                   <input
                     type="radio"
-                    id="glass"
+                    :id="cat.strGlass"
                     class="form-check-input"
                     v-model="glassFilter"
                     :value="cat.strGlass"
                   />
-                  <label for="glass" class="form-check-label">{{
+                  <label :for="cat.strGlass" class="form-check-label">{{
                     cat.strGlass
                   }}</label>
                 </div>
@@ -127,8 +141,13 @@
 </template>
 
 <script>
+import CartsPlaceholders from "@/components/app/CartsPlaceholders";
+
 export default {
   name: "CoursesList",
+  components: {
+    CartsPlaceholders,
+  },
   data: () => ({
     courses: [],
     searchValue: "",
@@ -139,11 +158,15 @@ export default {
     alcFilter: "",
     catFilter: "",
     glassFilter: "",
+    isLoading: false,
+    nothingFounded: false,
   }),
   async mounted() {
+    this.isLoading = true;
     this.showCategories();
     this.courses = this.$store.getters.courses;
     this.cocktails = await this.$store.dispatch("getCocktails");
+    this.isLoading = false;
     const filters = await this.$store.dispatch("getFilters");
     this.alcFilterCat = filters.alcFilter;
     this.catFilterCat = filters.catFilter;
@@ -154,15 +177,27 @@ export default {
       this.$refs["categories"].classList.toggle("hide-categories");
       this.$refs["category-btn"].classList.toggle("rotate");
     },
+    onSearchInput() {
+      this.isLoading = true;
+      this.nothingFounded = false;
+    },
     async searchItem() {
-      let cock = await this.$store.dispatch(
-        "getCocktailBySearchValue",
-        this.searchValue
-      );
-      this.cocktails = cock;
+      try {
+        let cock = await this.$store.dispatch(
+          "getCocktailBySearchValue",
+          this.searchValue
+        );
+        this.cocktails = cock;
+        if (this.cocktails === null) {
+          this.nothingFounded = true;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      this.isLoading = false;
     },
     async onChooseCategory(e) {
-      console.log(e.target.value);
+      this.isLoading = true;
       if (e.target.value === this.glassFilter) {
         const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
           glassFilter: this.glassFilter,
@@ -181,6 +216,16 @@ export default {
         });
         this.cocktails = filterCocktail;
       }
+      this.isLoading = false;
+    },
+
+    addToCart(cocktailId, cocktailName) {
+      this.$store.dispatch("addToCart", cocktailId);
+      this.$bvToast.toast(`${cocktailName} was added to cart!`, {
+        autoHideDelay: 3000,
+        toaster: "b-toaster-bottom-center",
+        to: "/cart",
+      });
     },
   },
 };
@@ -307,6 +352,7 @@ export default {
 }
 
 .courses__list {
+  width: 100%;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -314,6 +360,7 @@ export default {
   margin-bottom: 0;
   margin-block-start: 0;
   margin-block-end: 0;
+  transition: all 0.5s ease-in;
 }
 
 .courses-section__card-col {
@@ -355,6 +402,7 @@ export default {
 .card-img-top {
   height: 206px;
   object-fit: cover;
+  aspect-ratio: 1.2 / 1;
 }
 
 .courses__row {
@@ -401,6 +449,23 @@ export default {
 .rotate {
   transform: rotate(0.5turn);
   transition: transform 0.5s ease-in-out;
+}
+
+.btn--add-to-cart {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  max-width: 46px;
+  max-height: 46px;
+  background: url("~@/assets/pictures/course_add-to-cart-icon.svg") 50% 50%
+      no-repeat,
+    orange;
+  opacity: 0;
+}
+
+.courses-section__card:hover .btn--add-to-cart {
+  opacity: 1;
+  transition: opacity 0.3s;
 }
 
 @media screen and (max-width: 768px) {

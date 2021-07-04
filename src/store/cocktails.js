@@ -5,10 +5,14 @@ export default {
       return cocktails.data.drinks;
     },
     async getCocktailBySearchValue({ commit }, searchValue) {
-      let cocktailByName =
-        await this._vm.$api.cocktails.getCocktailBySearchValue(searchValue);
-      commit("getCocktail", searchValue);
-      return cocktailByName.data.drinks;
+      try {
+        let cocktailByName =
+          await this._vm.$api.cocktails.getCocktailBySearchValue(searchValue);
+        commit("getCocktail", searchValue);
+        return cocktailByName.data.drinks;
+      } catch (e) {
+        throw e;
+      }
     },
     async getFilters() {
       const alcFilter = await this._vm.$api.cocktails.getAlcFilter();

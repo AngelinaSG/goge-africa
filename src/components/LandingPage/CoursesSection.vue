@@ -13,8 +13,7 @@
             <button
               class="btn btn--gradient-bg btn--add-to-cart"
               title="Add to Cart"
-              :value="cocktail.idDrink"
-              @click="addToCart($event.target.value)"
+              @click="addToCart(cocktail.idDrink, cocktail.strDrink)"
             ></button>
             <div class="card-body gradient-background">
               <a href="#" class="bold text-white">
@@ -40,8 +39,13 @@
 </template>
 
 <script>
+import IconAddToCart from "@/components/icons/IconAddToCart";
+
 export default {
   name: "CoursesSection",
+  components: {
+    IconAddToCart,
+  },
   data: () => ({
     courses: [],
     cocktails: [],
@@ -51,8 +55,13 @@ export default {
     this.cocktails = await this.$store.dispatch("getCocktails");
   },
   methods: {
-    addToCart(cocktailId) {
+    addToCart(cocktailId, cocktailName) {
       this.$store.dispatch("addToCart", cocktailId);
+      this.$bvToast.toast(`${cocktailName} was added to cart!`, {
+        autoHideDelay: 3000,
+        toaster: "b-toaster-bottom-center",
+        to: "/cart",
+      });
     },
   },
 };

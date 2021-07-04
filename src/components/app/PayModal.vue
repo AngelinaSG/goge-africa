@@ -11,7 +11,7 @@
   >
     <div class="modal__pay-card">
       <h3 class="pay-card__title">Card</h3>
-      <form>
+      <form @submit.prevent="pay">
         <div class="pay-card__form gradient-background text-white bold">
           <div class="form-control--card-number">
             <label for="cardNumber">Card Number</label>
@@ -55,6 +55,16 @@ import IconPay from "@/components/icons/IconPay";
 export default {
   components: {
     IconPay,
+  },
+  methods: {
+    pay() {
+      console.log("try to pay");
+      try {
+        this.$api.payment.checkPaymentInfo();
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>

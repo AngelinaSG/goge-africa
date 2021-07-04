@@ -1,20 +1,16 @@
 <template>
   <div class="row cart__table-row">
     <div class="product-table">
+      <div class="product-row bold text-center product-table__title">
+        Select Your Delivery Information
+      </div>
       <div class="product-row">
         <div class="cart__table-title">Product Name & Details</div>
         <div class="cart__table-title"></div>
         <div class="cart__table-title">Quantity</div>
         <div class="cart__table-title">Price</div>
+        <div class="cart__table-title">Delivery Details</div>
         <div class="cart__table-title"></div>
-        <div class="cart__table-title"></div>
-      </div>
-
-      <div v-if="!prodactsInfo.length" class="product-row cart-table__alert">
-        <p class="text-center">
-          Your cart is empty. Go to
-          <router-link to="/course">cocktails!</router-link>
-        </p>
       </div>
 
       <div
@@ -31,7 +27,11 @@
             class="cart__product-img"
           />
         </div>
-        <div class="cart__table-title">{{ prodact.strDrink }}</div>
+        <div class="cart__table-title">
+          <p class="bold text">{{ prodact.strDrink }}</p>
+          <p>{{ prodact.strAlcoholic }}</p>
+          <p>{{ prodact.strCategory }}</p>
+        </div>
         <div class="cart__table-title">
           <div class="cart__quantity-counter">
             <button class="btn--counter" @click="onMinus(idx)">-</button>
@@ -39,11 +39,27 @@
             <button class="btn--counter" @click="onPlus(idx)">+</button>
           </div>
         </div>
-        <div class="cart__table-title">${{ prodact.idDrink }}</div>
         <div class="cart__table-title">
-          <span class="grey-text-color">Total:</span> ${{
-            prodact.idDrink * prodact.quantity
-          }}
+          ${{ prodact.idDrink * prodact.quantity }}/
+          <div>{{ prodact.quantity }} pieces</div>
+        </div>
+        <div class="cart__table-title">
+          <b-form-group v-slot="{ ariaDescribedby }">
+            <b-form-radio
+              v-model="deliveryType"
+              :aria-describedby="ariaDescribedby"
+              name="some-radios"
+              value="A"
+              >${{ deliveryPrice }}</b-form-radio
+            >
+            <b-form-radio
+              v-model="deliveryType"
+              :aria-describedby="ariaDescribedby"
+              name="some-radios"
+              value="B"
+              >Pay on delivery</b-form-radio
+            >
+          </b-form-group>
         </div>
         <div class="cart__table-title">
           <button
@@ -52,18 +68,20 @@
           ></button>
         </div>
       </div>
-    </div>
 
-    <DeleteModal
-      @deleteProduct="deleteProdactFromCart"
-      :index="currentProdactIdx"
-    />
-
-    <div class="cart__total-price">
-      <p class="text-center">
-        <span class="grey-text-color">Total:</span> ${{ totalPrice }}
-      </p>
-      <button class="btn btn--gradient-bg">Buy All</button>
+      <div class="product-row product-table__total-price">
+        <div class="cart__total-price text-right">
+          <p>
+            <span class="grey-text-color">Subtotal:</span> ${{ subtotalPrice }}
+            <span class="grey-text-color">Delivery:</span> ${{ deliveryPrice }}
+          </p>
+          <p>
+            <span class="grey-text-color">Total: {{ totalPrice }}</span
+            >$
+          </p>
+          <button class="btn btn--gradient-bg">Next</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -72,9 +90,12 @@
 import DeleteModal from "@/components/app/DeleteModal";
 
 export default {
+  name: "OrderForm",
   data: () => ({
     prodactsInfo: [],
     currentProdactIdx: "",
+    deliveryType: "",
+    deliveryPrice: 200,
   }),
   components: {
     DeleteModal,
@@ -102,10 +123,13 @@ export default {
     },
   },
   computed: {
-    totalPrice() {
+    subtotalPrice() {
       return this.prodactsInfo.reduce((sum, item) => {
         return sum + item.quantity * item.idDrink;
       }, 0);
+    },
+    totalPrice() {
+      return this.subtotalPrice + this.deliveryPrice;
     },
   },
 };
@@ -136,8 +160,15 @@ export default {
   padding: 39px 0 29px 39px;
 }
 
-.cart-table__alert {
+.product-table__title {
+  width: 100%;
+  font-size: 1.125rem;
   grid-template-columns: 1fr;
+}
+
+.product-table__total-price {
+  grid-template-columns: 1fr;
+  padding-right: 145px;
 }
 
 .cart__quantity-counter {
@@ -163,13 +194,13 @@ export default {
 }
 
 .cart__total-price {
+  margin-left: auto;
   width: max-content;
   align-self: flex-end;
 }
 
-.cart__total-price > p {
+.cart__total-price > p:last-of-type {
   margin-bottom: 37px;
-  font-size: 1.125rem;
 }
 
 .btn--delete {

@@ -1,28 +1,60 @@
 <template>
   <div class="row delivery-info__row">
     <form class="delivery-info__form">
-      <PayModal />
       <h5 class="bold text-center">Select Your Delivery Information</h5>
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Full Name" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Full Name"
+          v-model.trim="fullName"
+          :class="{
+            'is-invalid':
+              ($v.fullName.$dirty && !$v.fullName.required) ||
+              ($v.fullName.$dirty && !$v.fullName.minLength),
+          }"
+        />
         <input
           type="text"
           class="form-control"
           placeholder="Country / Region"
+          v-model.trim="country"
+          :class="{
+            'is-invalid':
+              ($v.country.$dirty && !$v.country.required) ||
+              ($v.country.$dirty && !$v.country.minLength),
+          }"
         />
-        <input type="text" class="form-control" placeholder="Street Adress" />
-        <input type="text" class="form-control" placeholder="City" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Street Adress"
+          v-model.trim="streetAdress"
+        />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="City"
+          v-model.trim="city"
+        />
         <input
           type="text"
           class="form-control"
           placeholder="State / Province / Region"
+          v-model.trim="region"
         />
         <input
           type="text"
           class="form-control"
           placeholder="Zip / Postal Code"
+          v-model.trim="postalCode"
         />
-        <input type="tel" class="form-control" placeholder="Mobile" />
+        <input
+          type="tel"
+          class="form-control"
+          placeholder="Mobile"
+          v-model.trim="mobilePhone"
+        />
         <button
           class="btn btn--gradient-bg delivery__btn"
           @click.prevent="onClick"
@@ -35,19 +67,43 @@
 </template>
 
 <script>
-import PayModal from "@/components/app/PayModal";
+import { validationMixin } from "vuelidate";
+import { required } from "vuelidate/lib/validators";
 
 export default {
+  mixins: [validationMixin],
   data: () => ({
     isModal: false,
+    fullName: "",
+    country: "",
+    streetAdress: "",
+    city: "",
+    region: "",
+    postalCode: "",
+    mobilePhone: "",
   }),
-  components: {
-    PayModal,
-  },
+
   methods: {
     onClick() {
-      this.$modal.show("pay-card");
+      if (this.$v.$invalid) {
+        this.$bvToast.toast("Please, check your delivery information", {
+          autoHideDelay: 3000,
+          toaster: "b-toaster-bottom-center",
+          variant: "danger",
+        });
+        this.$v.$touch();
+        return;
+      }
     },
+  },
+  validations: {
+    fullName: { required },
+    country: { required },
+    streetAdress: { required },
+    city: { required },
+    region: { required },
+    postalCode: { required },
+    mobilePhone: { required },
   },
 };
 </script>
@@ -76,6 +132,10 @@ export default {
 .form-group {
   width: 57.2%;
   margin: auto;
+}
+
+.invalid {
+  border: 1px solid red;
 }
 
 .form-control {

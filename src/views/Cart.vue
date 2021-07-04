@@ -10,7 +10,11 @@
 
       <CartTable />
 
+      <OrderForm />
+
       <DeliveryInfo />
+
+      <Payment />
     </div>
   </div>
 </template>
@@ -19,13 +23,17 @@
 import IconBack from "@/components/icons/IconBack";
 import CartTable from "@/components/Cart/CartTable";
 import DeliveryInfo from "@/components/Cart/DeliveryInfo";
+import OrderForm from "@/components/Cart/OrderForm";
+import Payment from "@/components/Cart/Payment";
 
 export default {
   name: "Cart",
   components: {
+    Payment,
     IconBack,
     CartTable,
     DeliveryInfo,
+    OrderForm,
   },
 };
 </script>
