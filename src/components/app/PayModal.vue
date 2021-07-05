@@ -10,55 +10,69 @@
     }"
   >
     <div class="modal__pay-card">
-      <h3 class="pay-card__title">Card</h3>
-      <form @submit.prevent="pay">
-        <div class="pay-card__form gradient-background text-white bold">
-          <div class="form-control--card-number">
-            <label for="cardNumber">Card Number</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="cardNumber"
-              placeholder="Card Number"
-            />
+      <template v-if="!isSuccessful">
+        <h3 class="pay-card__title">Card</h3>
+        <form @submit.prevent="pay">
+          <div class="pay-card__form gradient-background text-white bold">
+            <div class="form-control--card-number">
+              <label for="cardNumber">Card Number</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="cardNumber"
+                placeholder="Card Number"
+              />
+            </div>
+            <div class="form-control--card-exp">
+              <label for="cardExp">Expires</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="cardExp"
+                placeholder="mm/yy"
+              />
+            </div>
+            <div class="form-control--card-cvv">
+              <label for="cardCvv">CVV</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="cardCvv"
+                placeholder="CVV"
+              />
+            </div>
           </div>
-          <div class="form-control--card-exp">
-            <label for="cardExp">Expires</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="cardExp"
-              placeholder="mm/yy"
-            />
-          </div>
-          <div class="form-control--card-cvv">
-            <label for="cardCvv">CVV</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="cardCvv"
-              placeholder="CVV"
-            />
-          </div>
-        </div>
-        <button class="btn btn--pay">
-          <IconPay class="btn-icon" />Pay #200.00
-        </button>
-      </form>
+          <button class="btn btn--pay">
+            <IconPay class="btn-icon" />Pay #200.00
+          </button>
+        </form>
+      </template>
+
+      <div class="pay-success" v-else>
+        <IconSuccess class="pay-success__icon" />
+        <p class="pay-success__text bold">Payment successful</p>
+        <button class="btn btn--pay btn--pay--ok">Ok</button>
+      </div>
     </div>
   </modal>
 </template>
 
 <script>
 import IconPay from "@/components/icons/IconPay";
+import IconSuccess from "@/components/icons/IconSuccess";
 
 export default {
   components: {
     IconPay,
+    IconSuccess,
   },
+  data: () => ({
+    isSuccessful: false,
+  }),
   methods: {
     pay() {
       console.log("try to pay");
+      this.isSuccessful = true;
       try {
         this.$api.payment.checkPaymentInfo();
       } catch (e) {
@@ -148,5 +162,25 @@ export default {
 .btn-icon {
   margin-right: 11px;
   margin-bottom: 2px;
+}
+
+.pay-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pay-success__text {
+  font-size: 1.5rem;
+}
+
+.pay-success__icon {
+  margin-top: 24.5%;
+  margin-bottom: 20px;
+}
+
+.btn--pay--ok {
+  margin-left: 0;
+  margin-top: 132px;
 }
 </style>

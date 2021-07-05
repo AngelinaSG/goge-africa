@@ -4,17 +4,19 @@
       <div class="row cart__link-row">
         <a @click.prevent="$router.go(-1)">
           <IconBack class="cart__link-back-icon" />
-          Back
+          <span v-if="orderState == 0">Back</span> <span v-else>Cart</span>
         </a>
       </div>
 
-      <CartTable />
+      <transition name="component-fade" mode="out-in">
+        <CartTable @onBuy="nextStep" v-if="orderState == 0" />
 
-      <OrderForm />
+        <OrderForm @onNext="nextStep" v-else-if="orderState == 1" />
 
-      <DeliveryInfo />
+        <DeliveryInfo @nextStep="nextStep" v-else-if="orderState == 2" />
 
-      <Payment />
+        <Payment v-else />
+      </transition>
     </div>
   </div>
 </template>
@@ -35,6 +37,14 @@ export default {
     DeliveryInfo,
     OrderForm,
   },
+  data: () => ({
+    orderState: 0,
+  }),
+  methods: {
+    nextStep() {
+      this.orderState++;
+    },
+  },
 };
 </script>
 
@@ -46,5 +56,14 @@ export default {
 .cart__link-row {
   padding-top: 45px;
   padding-bottom: 29.3px;
+}
+
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.component-fade-enter,
+.component-fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header />
-    <router-view />
+    <transition name="component-fade" mode="out-in">
+      <router-view />
+    </transition>
     <Footer />
   </div>
 </template>
@@ -94,6 +96,15 @@ h5 {
   max-width: 1500px;
 }
 
+a {
+  color: $orange;
+}
+
+a:hover {
+  color: $orange;
+  text-shadow: 0 0 1px orange;
+}
+
 .btn {
   width: 160px;
   height: 56px;
@@ -125,6 +136,16 @@ h5 {
   color: #fff;
   border-color: $orange;
   background-color: $orange;
+}
+
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.component-fade-enter,
+.component-fade-leave-to {
+  opacity: 0;
 }
 
 @media screen and (max-width: 376px) {

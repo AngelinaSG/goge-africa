@@ -94,6 +94,7 @@ export default {
         this.$v.$touch();
         return;
       }
+      this.$emit("nextStep");
     },
   },
   validations: {

@@ -68,6 +68,8 @@
           ></button>
         </div>
       </div>
+      git
+      <DeleteModal />
 
       <div class="product-row product-table__total-price">
         <div class="cart__total-price text-right">
@@ -79,7 +81,9 @@
             <span class="grey-text-color">Total: {{ totalPrice }}</span
             >$
           </p>
-          <button class="btn btn--gradient-bg">Next</button>
+          <button class="btn btn--gradient-bg" @click="$emit('onNext')">
+            Next
+          </button>
         </div>
       </div>
     </div>

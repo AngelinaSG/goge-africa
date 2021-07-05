@@ -197,6 +197,7 @@ export default {
       this.isLoading = false;
     },
     async onChooseCategory(e) {
+      this.nothingFounded = false;
       this.isLoading = true;
       if (e.target.value === this.glassFilter) {
         const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
@@ -282,7 +283,7 @@ export default {
   width: 17%;
   box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.07);
   border-radius: 5px;
-  padding: 9px 0 11px 0;
+  padding: 9px 5px 11px 0;
   transition: height 1s ease-in-out;
 }
 
@@ -421,7 +422,8 @@ export default {
   background-color: transparent;
   background-image: url("~@/assets/pictures/filter_arrow-icon.svg");
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .filter-btn--bullet {
@@ -468,15 +470,28 @@ export default {
   transition: opacity 0.3s;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .courses__row {
     padding-left: 40px;
+  }
+
+  .courses__list {
+    justify-content: space-between;
   }
 
   .courses-section__card-col {
     width: 45%;
     margin-right: 9px;
     border-radius: 10px;
+  }
+
+  .courses-section__cards-section {
+    margin-right: 15px;
+  }
+
+  .courses__category-filter {
+    width: min-content;
+    padding: 5px;
   }
 
   .courses-section__card-col:nth-child(3n) {

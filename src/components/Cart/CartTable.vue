@@ -17,41 +17,43 @@
         </p>
       </div>
 
-      <div
-        class="product-row"
-        v-for="(prodact, idx) in prodactsInfo"
-        :key="prodact.idDrink"
-      >
-        <div class="cart__table-title">
-          <img
-            :src="prodact.strDrinkThumb"
-            alt=""
-            width="157"
-            height="135"
-            class="cart__product-img"
-          />
-        </div>
-        <div class="cart__table-title">{{ prodact.strDrink }}</div>
-        <div class="cart__table-title">
-          <div class="cart__quantity-counter">
-            <button class="btn--counter" @click="onMinus(idx)">-</button>
-            <span class="cart__quantity">{{ prodact.quantity }}</span>
-            <button class="btn--counter" @click="onPlus(idx)">+</button>
+      <transition-group name="list">
+        <div
+          class="product-row"
+          v-for="(prodact, idx) in prodactsInfo"
+          :key="prodact.idDrink"
+        >
+          <div class="cart__table-title">
+            <img
+              :src="prodact.strDrinkThumb"
+              alt=""
+              width="157"
+              height="135"
+              class="cart__product-img"
+            />
+          </div>
+          <div class="cart__table-title">{{ prodact.strDrink }}</div>
+          <div class="cart__table-title">
+            <div class="cart__quantity-counter">
+              <button class="btn--counter" @click="onMinus(idx)">-</button>
+              <span class="cart__quantity">{{ prodact.quantity }}</span>
+              <button class="btn--counter" @click="onPlus(idx)">+</button>
+            </div>
+          </div>
+          <div class="cart__table-title">${{ prodact.idDrink }}</div>
+          <div class="cart__table-title">
+            <span class="grey-text-color">Total:</span> ${{
+              prodact.idDrink * prodact.quantity
+            }}
+          </div>
+          <div class="cart__table-title">
+            <button
+              class="btn btn--delete"
+              @click="onDelete(prodact.idDrink)"
+            ></button>
           </div>
         </div>
-        <div class="cart__table-title">${{ prodact.idDrink }}</div>
-        <div class="cart__table-title">
-          <span class="grey-text-color">Total:</span> ${{
-            prodact.idDrink * prodact.quantity
-          }}
-        </div>
-        <div class="cart__table-title">
-          <button
-            class="btn btn--delete"
-            @click="onDelete(prodact.idDrink)"
-          ></button>
-        </div>
-      </div>
+      </transition-group>
     </div>
 
     <DeleteModal
@@ -59,11 +61,13 @@
       :index="currentProdactIdx"
     />
 
-    <div class="cart__total-price">
+    <div v-if="prodactsInfo.length" class="cart__total-price">
       <p class="text-center">
         <span class="grey-text-color">Total:</span> ${{ totalPrice }}
       </p>
-      <button class="btn btn--gradient-bg">Buy All</button>
+      <button class="btn btn--gradient-bg" @click="$emit('onBuy')">
+        Buy All
+      </button>
     </div>
   </div>
 </template>
@@ -78,6 +82,9 @@ export default {
   }),
   components: {
     DeleteModal,
+  },
+  props: {
+    orderState: String,
   },
   mounted() {
     this.prodactsInfo = this.$store.getters.cocktailsInCart;
@@ -125,6 +132,7 @@ export default {
   border: 1px solid #efefef;
   border-radius: 10px;
   margin-bottom: 65px;
+  transition: all 0.5s;
 }
 
 .product-row {
@@ -185,5 +193,14 @@ export default {
 
 .btn--close:focus {
   box-shadow: none;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s;
+}
+.list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

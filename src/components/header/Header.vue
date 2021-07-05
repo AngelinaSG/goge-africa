@@ -1,6 +1,6 @@
 <template>
-  <div class="container main-header-container">
-    <header class="main-header">
+  <header class="main-header sticky-top">
+    <div class="container main-header-container">
       <nav class="navbar navbar-expand-lg main-header__navbar">
         <router-link to="/" class="main-header__logo">
           <img src="@/assets/full_logo.svg.svg" alt="Goge Africa" />
@@ -69,8 +69,8 @@
           </form>
         </div>
       </nav>
-    </header>
-  </div>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -85,9 +85,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-header-container {
+.main-header {
+  background: #fff;
   box-shadow: 0px 12px 35px rgba(160, 121, 0, 0.2);
 }
+
 .main-header__navbar {
   display: flex;
   justify-content: flex-end;
@@ -124,7 +126,7 @@ export default {
 }
 
 .main-header__nav-link.router-link-exact-active {
-  font-weight: 700;
+  text-shadow: 0 0 1px orange;
   position: relative;
 }
 

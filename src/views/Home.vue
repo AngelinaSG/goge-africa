@@ -1,12 +1,14 @@
 <template>
   <div>
-    <HeroSection />
-    <AboutUs />
-    <CoursesSection />
-    <Achievement />
-    <Testimonials />
-    <Prices />
-    <ContactUs />
+    <main>
+      <HeroSection />
+      <AboutUs />
+      <CoursesSection />
+      <Achievement />
+      <Testimonials />
+      <Prices />
+      <ContactUs />
+    </main>
   </div>
 </template>
 
