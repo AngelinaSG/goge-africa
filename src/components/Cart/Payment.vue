@@ -81,4 +81,22 @@ export default {
 .btn--next {
   margin-left: auto;
 }
+
+@media screen and (max-width: 376px) {
+  .cart__table-row {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+
+  .product-row {
+    padding: 5px;
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .btn--next {
+    margin: auto;
+  }
+}
 </style>

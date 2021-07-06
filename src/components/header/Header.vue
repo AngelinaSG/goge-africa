@@ -176,6 +176,11 @@ export default {
   .form-inline {
     justify-content: center;
   }
+
+  .main-header__nav-item,
+  .main-header__nav-item:last-of-type {
+    margin-right: 0;
+  }
 }
 
 @media screen and (max-width: 376px) {

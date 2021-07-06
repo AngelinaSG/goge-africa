@@ -471,6 +471,10 @@ export default {
 }
 
 @media screen and (max-width: 1024px) {
+  .courses__container {
+    padding-bottom: 100px;
+  }
+
   .courses__row {
     padding-left: 40px;
   }

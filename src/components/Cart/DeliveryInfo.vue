@@ -91,8 +91,8 @@ export default {
           toaster: "b-toaster-bottom-center",
           variant: "danger",
         });
-        this.$v.$touch();
-        return;
+        // this.$v.$touch();
+        // return;
       }
       this.$emit("nextStep");
     },
@@ -162,5 +162,17 @@ export default {
 .delivery__btn {
   width: 100%;
   margin-top: 79px;
+}
+
+@media screen and (max-width: 376px) {
+  .delivery-info__row {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+
+  .form-group {
+    width: 80%;
+  }
 }
 </style>

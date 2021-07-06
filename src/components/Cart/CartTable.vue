@@ -58,6 +58,7 @@
 
     <DeleteModal
       @deleteProduct="deleteProdactFromCart"
+      @closeModal="closeModal"
       :index="currentProdactIdx"
     />
 
@@ -107,6 +108,9 @@ export default {
       this.$modal.hide("delete-modal");
       this.$store.commit("deleteFromCart", productId);
     },
+    closeModal() {
+      this.$modal.hide("delete-modal");
+    },
   },
   computed: {
     totalPrice() {
@@ -139,7 +143,7 @@ export default {
   display: grid;
   align-items: center;
   justify-content: center;
-  grid-template-columns: repeat(5, 244px) 80px;
+  grid-template-columns: repeat(5, 1fr) 80px;
   border-bottom: 1px solid #efefef;
   padding: 39px 0 29px 39px;
 }
@@ -202,5 +206,45 @@ export default {
 .list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
   opacity: 0;
   transform: translateX(30px);
+}
+
+@media screen and (max-width: 768px) {
+  .cart__table-row {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+  }
+
+  .cart__table-title {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .cart__table-row {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+
+  .product-row {
+    padding: 5px;
+    grid-template-columns: repeat(5, 1fr) 30px;
+    text-align: center;
+  }
+
+  .cart__product-img {
+    width: 100%;
+    height: 40%;
+  }
+
+  .cart__quantity-counter {
+    width: 90%;
+  }
+
+  .cart-table__alert {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

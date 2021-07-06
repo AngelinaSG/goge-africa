@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="row cart__link-row">
-        <a @click.prevent="$router.go(-1)">
+        <a @click.prevent="onBack">
           <IconBack class="cart__link-back-icon" />
           <span v-if="orderState == 0">Back</span> <span v-else>Cart</span>
         </a>
@@ -43,6 +43,13 @@ export default {
   methods: {
     nextStep() {
       this.orderState++;
+    },
+    onBack() {
+      if (this.orderState === 0) {
+        this.$router.go(-1);
+      } else {
+        this.orderState = 0;
+      }
     },
   },
 };

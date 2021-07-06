@@ -13,6 +13,13 @@
         <div class="cart__table-title"></div>
       </div>
 
+      <div v-if="!prodactsInfo.length" class="product-row cart-table__alert">
+        <p class="text-center">
+          Your cart is empty. Go to
+          <router-link to="/course">cocktails!</router-link>
+        </p>
+      </div>
+
       <div
         class="product-row"
         v-for="(prodact, idx) in prodactsInfo"
@@ -68,19 +75,25 @@
           ></button>
         </div>
       </div>
-      git
-      <DeleteModal />
+      <DeleteModal
+        @deleteProduct="deleteProdactFromCart"
+        @closeModal="closeModal"
+        :index="currentProdactIdx"
+      />
 
-      <div class="product-row product-table__total-price">
+      <div
+        class="product-row product-table__total-price"
+        v-if="prodactsInfo.length"
+      >
         <div class="cart__total-price text-right">
           <p>
             <span class="grey-text-color">Subtotal:</span> ${{ subtotalPrice }}
-            <span class="grey-text-color">Delivery:</span> ${{ deliveryPrice }}
+            <span class="grey-text-color cart__total-price-text"
+              >Delivery:</span
+            >
+            ${{ deliveryPrice }}
           </p>
-          <p>
-            <span class="grey-text-color">Total: {{ totalPrice }}</span
-            >$
-          </p>
+          <p><span class="grey-text-color">Total:</span>${{ totalPrice }}</p>
           <button class="btn btn--gradient-bg" @click="$emit('onNext')">
             Next
           </button>
@@ -125,6 +138,9 @@ export default {
       this.$modal.hide("delete-modal");
       this.$store.commit("deleteFromCart", productId);
     },
+    closeModal() {
+      this.$modal.hide("delete-modal");
+    },
   },
   computed: {
     subtotalPrice() {
@@ -159,7 +175,7 @@ export default {
   display: grid;
   align-items: center;
   justify-content: center;
-  grid-template-columns: repeat(5, 244px) 80px;
+  grid-template-columns: repeat(5, 1fr) 80px;
   border-bottom: 1px solid #efefef;
   padding: 39px 0 29px 39px;
 }
@@ -203,8 +219,20 @@ export default {
   align-self: flex-end;
 }
 
+.cart__total-price-text {
+  margin-left: 30px;
+}
+
+.cart__total-price > p:first-of-type {
+  margin-bottom: 17px;
+}
+
 .cart__total-price > p:last-of-type {
   margin-bottom: 37px;
+}
+
+.cart-table__alert {
+  grid-template-columns: 1fr;
 }
 
 .btn--delete {
@@ -220,5 +248,61 @@ export default {
 
 .btn--close:focus {
   box-shadow: none;
+}
+
+@media screen and (max-width: 768px) {
+  .cart__table-row {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+  }
+
+  .cart__table-title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cart__table-title:nth-of-type(2) {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .cart__table-row {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+
+  .product-row {
+    padding: 5px;
+    grid-template-columns: repeat(5, 1fr) 30px;
+    text-align: center;
+  }
+
+  .product-table__title {
+    grid-template-columns: 1fr;
+  }
+
+  .cart__product-img {
+    width: 100%;
+    height: 40%;
+  }
+
+  .cart__quantity-counter {
+    width: 90%;
+  }
+
+  .product-table__total-price {
+    grid-template-columns: 1fr;
+  }
+
+  .cart__total-price {
+    margin: auto;
+  }
+
+  .cart-table__alert {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

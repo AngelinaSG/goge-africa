@@ -4,24 +4,23 @@ export default function () {
   return {
     async checkPaymentInfo() {
       return await axios.post(
-        "https://api.checkout.com/payments",
+        "https://api.sandbox.checkout.com/payments",
         {
           source: {
-            type: "token",
-            token: "tok_4gzeau5o2uqubbk6fufs3m7p54",
+            type: "card",
+            number: "4242424242424242",
+            expiry_month: 9,
+            expiry_year: 2022,
+            cvv: "100",
           },
-          amount: 6500,
+          amount: 2000,
           currency: "USD",
-          reference: "ORD-5023-4E89",
-          metadata: {
-            udf1: "TEST123",
-            coupon_code: "NY2018",
-            partner_id: 123989,
-          },
+          reference: "TRK12345",
         },
         {
           headers: {
-            Authorization: "pk_test_daff9f59-3828-4dfd-9d6d-8352811bc8bb",
+            Authorization: "sk_test_adcf254d-2469-4357-b59b-55cdec435ed2",
+            "Content-Type": "application/json;charset=UTF-8",
           },
         }
       );

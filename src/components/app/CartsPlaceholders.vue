@@ -43,4 +43,27 @@ export default {
 .ph-picture:nth-of-type(3n) {
   margin-right: 0;
 }
+
+@media screen and (max-width: 1024px) {
+  .ph-picture {
+    width: 45%;
+    margin-right: 0;
+    height: 228px;
+  }
+
+  .ph-picture:nth-of-type(2n - 1) {
+    margin-right: 9px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .ph-row {
+    justify-content: space-between;
+  }
+
+  .ph-picture {
+    height: 150px;
+    margin-right: 0;
+  }
+}
 </style>

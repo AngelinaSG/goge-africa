@@ -1,8 +1,8 @@
 <template>
   <modal
     name="pay-card"
-    :height="540"
-    :width="519"
+    :maxHeight="540"
+    :maxWidth="519"
     :adaptive="true"
     :styles="{
       'border-radius': '10px',

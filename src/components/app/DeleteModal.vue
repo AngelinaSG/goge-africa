@@ -2,7 +2,7 @@
   <modal
     name="delete-modal"
     :height="493"
-    :width="604"
+    :maxWidth="604"
     :adaptive="true"
     :styles="{
       'border-radius': '10px',
@@ -11,7 +11,7 @@
     }"
   >
     <div class="delete-modal text-center">
-      <button class="btn--delete"></button>
+      <button class="btn--close" @click="$emit('closeModal')"></button>
       <IconDelete />
       <h4 class="delete-modal__title">Remove / Cancel Order</h4>
       <p class="delete-modal__description">
@@ -43,13 +43,14 @@ export default {
 
 <style lang="scss" scoped>
 .delete-modal {
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 49px;
   align-items: center;
 }
 
-.btn--delete {
+.btn--close {
   border: none;
   width: 24px;
   height: 24px;
