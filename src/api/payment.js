@@ -21,7 +21,7 @@ export default function () {
         },
         {
           headers: {
-            authorization: "pk_test_daff9f59-3828-4dfd-9d6d-8352811bc8bb",
+            Authorization: "pk_test_daff9f59-3828-4dfd-9d6d-8352811bc8bb",
           },
         }
       );

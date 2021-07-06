@@ -197,7 +197,7 @@ export default {
 
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
   opacity: 0;
