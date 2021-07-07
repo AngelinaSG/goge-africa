@@ -2,7 +2,10 @@
   <div class="row cart__table-row">
     <div class="product-table">
       <div class="product-row bold text-center product-table__title">
-        Select Your Preferred Payment Method
+        <p>
+          Select Your Preferred Payment Method
+          <span class="cart__order-progress">100%</span>
+        </p>
       </div>
       <div class="product-row">
         <b-form-group v-slot="{ ariaDescribedby }">
@@ -10,14 +13,14 @@
             :aria-describedby="ariaDescribedby"
             name="some-radios"
             value="A"
-            >Pay with Ravepay</b-form-radio
-          >
+            >Pay with Ravepay <RavepayIcon
+          /></b-form-radio>
           <b-form-radio
             :aria-describedby="ariaDescribedby"
             name="some-radios"
             value="B"
-            >Pay with Ogaranya</b-form-radio
-          >
+            >Pay with Ogaranya <OrganyaIcon
+          /></b-form-radio>
         </b-form-group>
         <button class="btn btn--gradient-bg btn--next" @click="onPay">
           Next
@@ -30,11 +33,15 @@
 
 <script>
 import PayModal from "@/components/app/PayModal";
+import RavepayIcon from "@/components/icons/RavepayIcon";
+import OrganyaIcon from "@/components/icons/OrganyaIcon";
 
 export default {
   name: "Payment",
   components: {
     PayModal,
+    RavepayIcon,
+    OrganyaIcon,
   },
   methods: {
     onPay() {
@@ -97,6 +104,12 @@ export default {
 
   .btn--next {
     margin: auto;
+  }
+
+  .cart__order-progress {
+    font-size: 0.875rem;
+    line-height: 234.38%;
+    font-weight: 400;
   }
 }
 </style>

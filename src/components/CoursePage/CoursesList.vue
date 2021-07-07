@@ -177,9 +177,13 @@ export default {
       this.$refs["categories"].classList.toggle("hide-categories");
       this.$refs["category-btn"].classList.toggle("rotate");
     },
-    onSearchInput() {
+    async onSearchInput() {
       this.isLoading = true;
       this.nothingFounded = false;
+      if (!this.searchValue) {
+        this.isLoading = false;
+        this.cocktails = await this.$store.dispatch("getCocktails");
+      }
     },
     async searchItem() {
       try {
@@ -224,8 +228,9 @@ export default {
       this.$store.dispatch("addToCart", cocktailId);
       this.$bvToast.toast(`${cocktailName} was added to cart!`, {
         autoHideDelay: 3000,
-        toaster: "b-toaster-bottom-center",
+        toaster: "b-toaster-top-center",
         to: "/cart",
+        "append-toast": true,
       });
     },
   },

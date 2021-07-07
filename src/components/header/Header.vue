@@ -60,13 +60,18 @@
           </ul>
 
           <form class="form-inline">
-            <button type="button" class="btn main-header__btn btn--gradient-bg">
+            <button
+              type="button"
+              class="btn main-header__btn btn--gradient-bg"
+              @click="becomeContributor"
+            >
               Be A Contributor
             </button>
             <button type="button" class="btn main-header__btn btn--gradient-bg">
               Log in
             </button>
           </form>
+          <ContributorModal />
         </div>
       </nav>
     </div>
@@ -75,11 +80,18 @@
 
 <script>
 import IconAddToCart from "@/components/icons/IconAddToCart";
+import ContributorModal from "@/components/app/ContributorModal";
 
 export default {
   name: "Header",
   components: {
     IconAddToCart,
+    ContributorModal,
+  },
+  methods: {
+    becomeContributor() {
+      this.$modal.show("be-contributor");
+    },
   },
 };
 </script>

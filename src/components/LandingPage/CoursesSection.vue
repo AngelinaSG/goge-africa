@@ -39,13 +39,9 @@
 </template>
 
 <script>
-import IconAddToCart from "@/components/icons/IconAddToCart";
 
 export default {
   name: "CoursesSection",
-  components: {
-    IconAddToCart,
-  },
   data: () => ({
     courses: [],
     cocktails: [],
@@ -59,7 +55,8 @@ export default {
       this.$store.dispatch("addToCart", cocktailId);
       this.$bvToast.toast(`${cocktailName} was added to cart!`, {
         autoHideDelay: 3000,
-        toaster: "b-toaster-bottom-center",
+        "append-toast": true,
+        toaster: "b-toaster-top-center",
         to: "/cart",
       });
     },

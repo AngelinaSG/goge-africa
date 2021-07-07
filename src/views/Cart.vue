@@ -58,11 +58,20 @@ export default {
 <style scoped>
 .cart__link-back-icon {
   margin-right: 20px;
+  transition: transform 0.2s ease;
 }
 
 .cart__link-row {
   padding-top: 45px;
   padding-bottom: 29.3px;
+}
+
+.cart__link-row a:hover > span {
+  color: orange;
+}
+
+.cart__link-row a:hover > .cart__link-back-icon {
+  transform: translateX(-4px);
 }
 
 .component-fade-enter-active,

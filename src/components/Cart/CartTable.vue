@@ -193,6 +193,13 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  transition: transform 0.2s ease;
+}
+
+.btn--delete:hover {
+  box-shadow: none;
+  text-shadow: none;
+  transform: scale(1.2);
 }
 
 .btn--close:focus {

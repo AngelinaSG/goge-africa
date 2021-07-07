@@ -17,6 +17,16 @@ export default {
     Header,
     Footer,
   },
+  async mounted() {
+    if (localStorage.length > 1) {
+      for (let key in localStorage) {
+        if (key.includes("1")) {
+          let cocktailId = localStorage.getItem(key);
+          this.$store.dispatch("addToCart", cocktailId);
+        }
+      }
+    }
+  },
 };
 </script>
 

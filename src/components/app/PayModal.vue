@@ -1,7 +1,7 @@
 <template>
   <modal
     name="pay-card"
-    :maxHeight="540"
+    :height="540"
     :maxWidth="519"
     :adaptive="true"
     :styles="{
@@ -71,7 +71,6 @@ export default {
   }),
   methods: {
     pay() {
-      console.log("try to pay");
       this.isSuccessful = true;
       try {
         this.$api.payment.checkPaymentInfo();

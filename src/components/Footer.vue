@@ -1,79 +1,85 @@
 <template>
-  <div class="container footer__container text-white">
-    <div class="row footer__main-row">
-      <div class="footer__copyrights">
-        <div>
-          <img
-            class="footer__logo"
-            src="@/assets/full_logo.svg.svg"
-            alt="Goge Africa"
-          />
+  <footer>
+    <div class="container footer__container text-white">
+      <div class="row footer__main-row">
+        <div class="footer__copyrights">
+          <div>
+            <img
+              class="footer__logo"
+              src="@/assets/full_logo.svg.svg"
+              alt="Goge Africa"
+            />
+          </div>
+          <p class="footer__copyright-description">
+            Semaj Africa is an online education platform that delivers video
+            courses, programs and resources.
+          </p>
+          <ul class="list-group list-group-horizontal footer__social-media">
+            <li class="icon fb-icon"><a href="#"></a></li>
+            <li class="icon twitter-icon"><a href="#"></a></li>
+            <li class="icon youtube-icon"><a href="#"></a></li>
+            <li class="icon ball-icon"><a href="#"></a></li>
+          </ul>
         </div>
-        <p class="footer__copyright-description">
-          Semaj Africa is an online education platform that delivers video
-          courses, programs and resources.
-        </p>
-        <ul class="list-group list-group-horizontal footer__social-media">
-          <li class="icon fb-icon"><a href="#"></a></li>
-          <li class="icon twitter-icon"><a href="#"></a></li>
-          <li class="icon youtube-icon"><a href="#"></a></li>
-          <li class="icon ball-icon"><a href="#"></a></li>
-        </ul>
+
+        <nav class="navbar footer__nav">
+          <ul class="navbar-nav">
+            <p class="semibold">Quicklinks</p>
+            <li>
+              <router-link class="footer__nav-link" to="/">Home</router-link>
+            </li>
+            <li>
+              <router-link class="footer__nav-link" to="/">Beers</router-link>
+            </li>
+            <li>
+              <router-link class="footer__nav-link" to="/"
+                >About Us</router-link
+              >
+            </li>
+            <li>
+              <router-link class="footer__nav-link" to="/"
+                >Contact Us</router-link
+              >
+            </li>
+            <li>
+              <router-link class="footer__nav-link" to="/"
+                >Become A Contributor</router-link
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <div class="footer__contacts d-flex flex-column">
+          <p class="semibold">Contact Us</p>
+          <p><a href="tel:+55254254254">(+55) 254. 254. 254</a></p>
+          <p>
+            <a href="mailto:Info@lsemajafrica.com">Info@lsemajafrica.com</a>
+          </p>
+          <p>Helios Tower 75 Tam Trinh Hoang</p>
+          <p>Mai - Ha Noi - Viet Nam</p>
+        </div>
+
+        <div class="footer__contacts2 d-flex flex-column justify-content-end">
+          <p>Terms and Conditions</p>
+          <p>Faq</p>
+        </div>
       </div>
 
-      <nav class="navbar footer__nav">
-        <ul class="navbar-nav">
-          <p class="semibold">Quicklinks</p>
-          <li>
-            <router-link class="footer__nav-link" to="/">Home</router-link>
-          </li>
-          <li>
-            <router-link class="footer__nav-link" to="/">Beers</router-link>
-          </li>
-          <li>
-            <router-link class="footer__nav-link" to="/">About Us</router-link>
-          </li>
-          <li>
-            <router-link class="footer__nav-link" to="/"
-              >Contact Us</router-link
-            >
-          </li>
-          <li>
-            <router-link class="footer__nav-link" to="/"
-              >Become A Contributor</router-link
-            >
-          </li>
-        </ul>
-      </nav>
-
-      <div class="footer__contacts d-flex flex-column">
-        <p class="semibold">Contact Us</p>
-        <p><a href="tel:+55254254254">(+55) 254. 254. 254</a></p>
-        <p><a href="mailto:Info@lsemajafrica.com">Info@lsemajafrica.com</a></p>
-        <p>Helios Tower 75 Tam Trinh Hoang</p>
-        <p>Mai - Ha Noi - Viet Nam</p>
-      </div>
-
-      <div class="footer__contacts2 d-flex flex-column justify-content-end">
-        <p>Terms and Conditions</p>
-        <p>Faq</p>
+      <div class="row footer__rights-row justify-content-between semibold">
+        <div class="footer__rights">
+          <p>All Right Reserved | GOGE AFRICA 2019</p>
+        </div>
+        <div>
+          <ul
+            class="list-group list-group-horizontal footer__privacy-policy-list"
+          >
+            <li>Privacy Policy</li>
+            <li>Site <span class="yellow-text-color">Credit</span></li>
+          </ul>
+        </div>
       </div>
     </div>
-
-    <div class="row footer__rights-row justify-content-between semibold">
-      <div class="footer__rights">
-        <p>All Right Reserved | GOGE AFRICA 2019</p>
-      </div>
-      <div>
-        <ul
-          class="list-group list-group-horizontal footer__privacy-policy-list"
-        >
-          <li>Privacy Policy</li>
-          <li>Site <span class="yellow-text-color">Credit</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -83,7 +89,7 @@ export default {
 </script>
 
 <style scoped>
-.footer__container {
+footer {
   background-color: #212121;
 }
 

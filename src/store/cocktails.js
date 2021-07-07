@@ -4,6 +4,12 @@ export default {
       let cocktails = await this._vm.$api.cocktails.getCocktails();
       return cocktails.data.drinks;
     },
+    async getCocktailById(cocktailId) {
+      console.log(cocktailId);
+      let cocktail = await this._vm.$api.cocktails.getCocktailById(cocktailId);
+      console.log(cocktail);
+      return cocktail.data.drinks;
+    },
     async getCocktailBySearchValue({ commit }, searchValue) {
       try {
         let cocktailByName =

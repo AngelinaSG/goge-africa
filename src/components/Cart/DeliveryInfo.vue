@@ -135,7 +135,7 @@ export default {
   margin: auto;
 }
 
-.invalid {
+.is-invalid {
   border: 1px solid red;
 }
 
