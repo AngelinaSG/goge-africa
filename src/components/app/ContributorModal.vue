@@ -11,7 +11,7 @@
     }"
   >
     <div class="contributor-modal">
-      <form class="contributor-modal__form">
+      <form class="contributor-modal__form" @submit.prevent="onSubmit">
         <h5 class="bold text-center">Please fill this form</h5>
         <div class="form-group">
           <input
@@ -50,6 +50,11 @@ export default {
     contrEmail: "",
     acceptTerms: false,
   }),
+  methods: {
+    onSubmit() {
+      this.$router.push("/dashboard");
+    },
+  },
 };
 </script>
 

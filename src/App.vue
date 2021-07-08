@@ -112,7 +112,6 @@ a {
 
 a:hover {
   color: $orange;
-  text-shadow: 0 0 1px orange;
 }
 
 .btn {

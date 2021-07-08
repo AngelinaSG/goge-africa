@@ -19,6 +19,11 @@ const routes = [
     name: "Cart",
     component: () => import("../views/Cart.vue"),
   },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () => import("../views/Dashboard.vue"),
+  },
 ];
 
 const scrollBehavior = function (to, from, savedPosition) {
