@@ -27,9 +27,9 @@
             v-model.trim="userPass"
           />
         </div>
-        <button class="btn btn--gradient-bg">Log In</button>
-        <div>
-          <b-spinner label="Loading..." v-if="isLoading"></b-spinner>
+        <button class="btn btn--gradient-bg" v-if="!isLoading">Log In</button>
+        <div v-else>
+          <b-spinner label="Loading..."></b-spinner>
         </div>
       </form>
     </div>
@@ -44,12 +44,14 @@ export default {
     isLoading: false,
   }),
   methods: {
-    onSubmit() {
+    async onSubmit() {
       this.isLoading = true;
       try {
-        this.$api.auth.login();
+        await this.$api.auth.login(this.userEmail, this.userPass);
+        this.$emit('closeModal');
         this.$router.push("/dashboard");
-      } catch (e) {
+      } 
+      catch (e) {
         const errorText = e.response.data.error.message
           .replaceAll("_", " ")
           .toLowerCase();
@@ -60,6 +62,7 @@ export default {
         });
       }
       this.isLoading = false;
+
     },
   },
 };

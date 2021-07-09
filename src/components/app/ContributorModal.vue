@@ -24,7 +24,7 @@
             type="text"
             class="form-control"
             placeholder="Your Password"
-            v-model.trim="contrName"
+            v-model.trim="contrPass"
           />
         </div>
         <b-form-checkbox
@@ -46,14 +46,15 @@
 <script>
 export default {
   data: () => ({
-    contrName: "",
+    contrPass: "",
     contrEmail: "",
     acceptTerms: false,
   }),
   methods: {
     async onSubmit() {
       try {
-        await this.$api.auth.signUp();
+        await this.$api.auth.signUp(this.contrPass, this.contrEmail);
+        this.$emit('closeModal');
         this.$router.push("/dashboard");
       } catch (e) {
         const errorText = e.response.data.error.message
@@ -65,6 +66,7 @@ export default {
           "append-toast": true,
         });
       }
+
     },
   },
 };

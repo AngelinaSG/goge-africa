@@ -64,21 +64,29 @@
           <p>Faq</p>
         </div>
       </div>
-
-      <div class="row footer__rights-row justify-content-between semibold">
-        <div class="footer__rights">
-          <p>All Right Reserved | GOGE AFRICA 2019</p>
-        </div>
-        <div>
-          <ul
-            class="list-group list-group-horizontal footer__privacy-policy-list"
-          >
-            <li>Privacy Policy</li>
-            <li>Site <span class="yellow-text-color">Credit</span></li>
-          </ul>
-        </div>
-      </div>
     </div>
+
+  <div class="footer-rights">
+
+    <div class="container footer__container text-white">
+
+    <div class="row footer__rights-row justify-content-between semibold">
+            <div>
+              <p>All Right Reserved | GOGE AFRICA 2019</p>
+            </div>
+            <div>
+              <ul
+                class="list-group list-group-horizontal footer__privacy-policy-list"
+              >
+                <li>Privacy Policy</li>
+                <li>Site <span class="yellow-text-color">Credit</span></li>
+              </ul>
+            </div>
+    </div>
+
+  </div>
+
+ </div>
   </footer>
 </template>
 
@@ -192,11 +200,14 @@ footer {
   padding-bottom: 29px;
 }
 
+.footer-rights {
+  background: black;
+}
+
 .footer__rights-row {
   padding-left: 130px;
   padding-right: 128px;
   font-size: 0.75rem;
-  background: black;
   padding-top: 12px;
   padding-bottom: 9px;
 }

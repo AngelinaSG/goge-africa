@@ -75,8 +75,8 @@
               Log in
             </button>
           </form>
-          <ContributorModal />
-          <LoginModal />
+          <ContributorModal @closeModal="closeContributorModal"/>
+          <LoginModal @closeModal="closeLoginModal"/>
         </div>
       </nav>
     </div>
@@ -102,6 +102,12 @@ export default {
     login() {
       this.$modal.show("login");
     },
+    closeContributorModal() {
+      this.$modal.hide("be-contributor");
+    },
+    closeLoginModal() {
+      this.$modal.hide("login");
+    }
   },
 };
 </script>

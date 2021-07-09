@@ -9,12 +9,12 @@
         v-model.trim="name"
       />
 
-      <input
-        type="text"
-        class="form-control form-control--custom"
-        placeholder="Category"
-        v-model.trim="category"
-      />
+      <select
+        class="form-select form-select--custom"
+        v-model="category"
+      >
+        <option v-for="category in categoriesList" :key="category.strCategory">{{category.strCategory}}</option>
+      </select>
 
       <input
         type="text"
@@ -37,9 +37,12 @@
         v-model="imgLink"
       />
       <div class="row">
-        <button class="btn btn--gradient-bg btn--add-product">
+        <button class="btn btn--gradient-bg btn--add-product" v-if="!isLoading">
           Add Product
         </button>
+        <div v-else>
+          <b-spinner label="Loading..."></b-spinner>
+        </div>
       </div>
     </div>
   </form>
@@ -54,9 +57,17 @@ export default {
     alc: "",
     glass: "",
     imgLink: "",
+    categoriesList: [],
+    alcList: [],
+    glassList: [],
+    isLoading: false,
   }),
+  async mounted() {
+    const list = await this.$store.dispatch("getFilters");
+    this.categoriesList = list.catFilter;
+  },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       const productId = Math.floor(Math.random() * 100000);
       const productData = {
         idDrink: productId,
@@ -66,8 +77,17 @@ export default {
         strGlass: this.glass,
         strDrinkThumb: this.imgLink,
       };
-      console.log(productData);
-      this.$api.products.addProduct(productData);
+      try {
+        await this.$api.products.addProduct(productData);
+        this.$bvToast.toast("Your prodact was successful created", {
+          autoHideDelay: 3000,
+          toaster: "b-toaster-top-center",
+          "append-toast": true,
+        })
+      }
+      catch(e) {
+
+      }
     },
   },
 };
@@ -83,13 +103,22 @@ export default {
   margin-bottom: 20px;
 }
 
-.form-control--custom {
+.form-control--custom, .form-select--custom {
   font-size: 0.875rem;
   border: 1px solid #efefef;
   border-radius: 100px;
   height: 60px;
   margin-bottom: 20px;
-  padding: 21px 0 21px 20px;
+  padding: 21px 20px 21px 20px;
+}
+
+.form-select--custom {
+  width: 100%;
+}
+
+.form-select--custom:focus-visible {
+  border: none;
+  text-shadow: none;
 }
 
 .custom-file-input {
