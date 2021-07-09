@@ -1,6 +1,6 @@
 <template>
   <modal
-    name="be-contributor"
+    name="login"
     :height="400"
     :maxWidth="519"
     :adaptive="true"
@@ -10,34 +10,27 @@
       background: '#fff7df',
     }"
   >
-    <div class="contributor-modal">
-      <form class="contributor-modal__form" @submit.prevent="onSubmit">
+    <div class="login-modal">
+      <form class="login-modal__form" @submit.prevent="onSubmit">
         <h5 class="bold text-center">Please fill this form</h5>
         <div class="form-group">
           <input
             type="email"
             class="form-control"
             placeholder="Your Email"
-            v-model.trim="contrEmail"
+            v-model.trim="userEmail"
           />
           <input
             type="text"
             class="form-control"
             placeholder="Your Password"
-            v-model.trim="contrName"
+            v-model.trim="userPass"
           />
         </div>
-        <b-form-checkbox
-          id="checkbox-1"
-          v-model="acceptTerms"
-          name="checkbox-1"
-          value="true"
-          unchecked-value="false"
-          class="contributor-modal__checkbox"
-        >
-          I accept the terms and use
-        </b-form-checkbox>
-        <button class="btn btn--gradient-bg">Become a contributor</button>
+        <button class="btn btn--gradient-bg">Log In</button>
+        <div>
+          <b-spinner label="Loading..." v-if="isLoading"></b-spinner>
+        </div>
       </form>
     </div>
   </modal>
@@ -46,14 +39,15 @@
 <script>
 export default {
   data: () => ({
-    contrName: "",
-    contrEmail: "",
-    acceptTerms: false,
+    userEmail: "",
+    userPass: "",
+    isLoading: false,
   }),
   methods: {
-    async onSubmit() {
+    onSubmit() {
+      this.isLoading = true;
       try {
-        await this.$api.auth.signUp();
+        this.$api.auth.login();
         this.$router.push("/dashboard");
       } catch (e) {
         const errorText = e.response.data.error.message
@@ -65,13 +59,14 @@ export default {
           "append-toast": true,
         });
       }
+      this.isLoading = false;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.contributor-modal__form {
+.login-modal__form {
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -82,7 +77,7 @@ export default {
   width: 100%;
 }
 
-.contributor-modal__form h5 {
+.login-modal__form h5 {
   padding: 20px;
   margin-bottom: 30px;
   border-bottom: 1px solid #efefef;
@@ -96,9 +91,5 @@ export default {
   height: 60px;
   margin-bottom: 9px;
   padding: 21px 0 21px 20px;
-}
-
-.contributor-modal__checkbox {
-  margin-bottom: 34px;
 }
 </style>

@@ -5,7 +5,11 @@
         <b-tab title="Add product" active>
           <AddProductForm />
         </b-tab>
-        <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+
+        <b-tab title="Second">
+          <UserProdacts />
+        </b-tab>
+
         <b-tab title="Very, very long title"
           ><p>I'm the tab with the very, very long title</p></b-tab
         >
@@ -17,11 +21,13 @@
 
 <script>
 import AddProductForm from "@/components/Dashboard/AddProductForm";
+import UserProdacts from "@/components/Dashboard/UserProdacts";
 
 export default {
   name: "Dashboard",
   components: {
     AddProductForm,
+    UserProdacts,
   },
 };
 </script>

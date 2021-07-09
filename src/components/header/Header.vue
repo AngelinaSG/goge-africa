@@ -67,11 +67,16 @@
             >
               Be A Contributor
             </button>
-            <button type="button" class="btn main-header__btn btn--gradient-bg">
+            <button
+              type="button"
+              class="btn main-header__btn btn--gradient-bg"
+              @click="login"
+            >
               Log in
             </button>
           </form>
           <ContributorModal />
+          <LoginModal />
         </div>
       </nav>
     </div>
@@ -81,16 +86,21 @@
 <script>
 import IconAddToCart from "@/components/icons/IconAddToCart";
 import ContributorModal from "@/components/app/ContributorModal";
+import LoginModal from "@/components/app/LoginModal";
 
 export default {
   name: "Header",
   components: {
     IconAddToCart,
     ContributorModal,
+    LoginModal,
   },
   methods: {
     becomeContributor() {
       this.$modal.show("be-contributor");
+    },
+    login() {
+      this.$modal.show("login");
     },
   },
 };

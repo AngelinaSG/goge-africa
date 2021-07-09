@@ -1,28 +1,46 @@
 <template>
-  <form class="add-product__form">
+  <form class="add-product__form" @submit.prevent="onSubmit()">
     <h2 class="text-center">Fill in product details</h2>
     <div class="form-group">
       <input
         type="text"
         class="form-control form-control--custom"
         placeholder="Title"
+        v-model.trim="name"
       />
 
       <input
         type="text"
         class="form-control form-control--custom"
-        placeholder="Title"
+        placeholder="Category"
+        v-model.trim="category"
       />
 
-      <b-form-file
-        accept=".jpg, .png, .gif"
-        v-model="file"
-        :state="Boolean(file)"
-        placeholder="Choose a file or drop it here..."
-        drop-placeholder="Drop file here..."
-        class="add-file-input"
-      ></b-form-file>
-      <div class="mt-3">Selected file: {{ file ? file.name : "" }}</div>
+      <input
+        type="text"
+        class="form-control form-control--custom"
+        placeholder="Alcohol"
+        v-model.trim="alc"
+      />
+
+      <input
+        type="text"
+        class="form-control form-control--custom"
+        placeholder="Glass"
+        v-model.trim="glass"
+      />
+
+      <input
+        type="text"
+        class="form-control form-control--custom"
+        placeholder="Image link htttps://"
+        v-model="imgLink"
+      />
+      <div class="row">
+        <button class="btn btn--gradient-bg btn--add-product">
+          Add Product
+        </button>
+      </div>
     </div>
   </form>
 </template>
@@ -31,7 +49,27 @@
 export default {
   data: () => ({
     file: null,
+    name: "",
+    category: "",
+    alc: "",
+    glass: "",
+    imgLink: "",
   }),
+  methods: {
+    onSubmit() {
+      const productId = Math.floor(Math.random() * 100000);
+      const productData = {
+        idDrink: productId,
+        strDrink: this.name,
+        strCategory: this.category,
+        strAlcoholic: this.alc,
+        strGlass: this.glass,
+        strDrinkThumb: this.imgLink,
+      };
+      console.log(productData);
+      this.$api.products.addProduct(productData);
+    },
+  },
 };
 </script>
 
@@ -56,5 +94,10 @@ export default {
 
 .custom-file-input {
   border-radius: 100px;
+}
+
+.btn--add-product {
+  margin: auto;
+  margin-top: 20px;
 }
 </style>
