@@ -133,12 +133,30 @@ a:hover {
   background: linear-gradient(to right, $orange, $yellow);
 }
 
+.btn-outline-warning {
+  color: $yellow;
+}
+
+.btn-outline-warning:not(:disabled):not(.disabled):active,
+.btn-outline-warning:not(:disabled):not(.disabled).active,
+.show > .btn-outline-warning.dropdown-toggle {
+  color: $white;
+}
+
 .btn:hover,
 .btn:focus {
   color: $white;
   box-shadow: 0px 12px 35px rgba(160, 121, 0, 0.5);
   text-shadow: 0 0 3px $white;
   outline: none;
+}
+
+.b-dropdown {
+  width: 100%;
+}
+
+.dropdown-menu {
+  border-radius: 50px;
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {

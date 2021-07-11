@@ -1,5 +1,5 @@
 <template>
-  <form class="add-product__form" @submit.prevent="onSubmit()">
+  <form class="add-product__form" @submit.prevent="onSubmit()" ref="form">
     <h2 class="text-center">Fill in product details</h2>
     <div class="form-group">
       <input
@@ -9,26 +9,34 @@
         v-model.trim="name"
       />
 
-      <select
-        class="form-select form-select--custom"
-        v-model="category"
-      >
-        <option v-for="category in categoriesList" :key="category.strCategory">{{category.strCategory}}</option>
-      </select>
+      <div class="select-container">
+        <p class="semibold">Please choose category</p>
+        <b-form-select
+          v-model="category"
+          :options="categoriesList"
+          class="form-select--custom"
+        ></b-form-select>
+      </div>
 
-      <input
-        type="text"
-        class="form-control form-control--custom"
-        placeholder="Alcohol"
-        v-model.trim="alc"
-      />
+      <div class="radio-container">
+        <p class="semibold">Does this drink include alcohol?</p>
+        <b-form-radio-group
+          v-model="alc"
+          :options="alcList"
+          class="mb-3"
+          value-field="item"
+          text-field="name"
+        ></b-form-radio-group>
+      </div>
 
-      <input
-        type="text"
-        class="form-control form-control--custom"
-        placeholder="Glass"
-        v-model.trim="glass"
-      />
+      <div class="select-container">
+        <p class="semibold">Please choose glass-type</p>
+        <b-form-select
+          v-model="glass"
+          :options="glassList"
+          class="form-select--custom"
+        ></b-form-select>
+      </div>
 
       <input
         type="text"
@@ -36,6 +44,8 @@
         placeholder="Image link htttps://"
         v-model="imgLink"
       />
+
+      <img :src="imgLink" alt="" class="add-product__img" />
       <div class="row">
         <button class="btn btn--gradient-bg btn--add-product" v-if="!isLoading">
           Add Product
@@ -61,10 +71,23 @@ export default {
     alcList: [],
     glassList: [],
     isLoading: false,
+    formData: {},
   }),
   async mounted() {
-    const list = await this.$store.dispatch("getFilters");
-    this.categoriesList = list.catFilter;
+    const filtersList = await this.$store.dispatch("getFilters");
+    this.categoriesList = filtersList.catFilter.map((item) => {
+      return { value: item.strCategory, text: item.strCategory };
+    });
+    this.categoriesList = [
+      { value: null, text: "Please select an option", disabled: true },
+      ...this.categoriesList,
+    ];
+    this.alcList = filtersList.alcFilter.map((item) => {
+      return { item: item.strAlcoholic, name: item.strAlcoholic };
+    });
+    this.glassList = filtersList.glassFilter.map((item) => {
+      return { value: item.strGlass, text: item.strGlass };
+    });
   },
   methods: {
     async onSubmit() {
@@ -79,14 +102,18 @@ export default {
       };
       try {
         await this.$api.products.addProduct(productData);
-        this.$bvToast.toast("Your prodact was successful created", {
+        this.$bvToast.toast(`Product ${this.name} was successfully created`, {
           autoHideDelay: 3000,
           toaster: "b-toaster-top-center",
           "append-toast": true,
-        })
-      }
-      catch(e) {
-
+        });
+        this.$refs.form.reset();
+      } catch (e) {
+        this.$bvToast.toast(e.response.data.error.message, {
+          autoHideDelay: 3000,
+          toaster: "b-toaster-top-center",
+          "append-toast": true,
+        });
       }
     },
   },
@@ -101,9 +128,11 @@ export default {
 
 .add-product__form h2 {
   margin-bottom: 20px;
+  margin-top: 40px;
 }
 
-.form-control--custom, .form-select--custom {
+.form-control--custom,
+.form-select--custom {
   font-size: 0.875rem;
   border: 1px solid #efefef;
   border-radius: 100px;
@@ -112,13 +141,15 @@ export default {
   padding: 21px 20px 21px 20px;
 }
 
-.form-select--custom {
-  width: 100%;
+.radio-container,
+.select-container {
+  padding-left: 10px;
 }
 
-.form-select--custom:focus-visible {
-  border: none;
-  text-shadow: none;
+.radio-container p,
+.select-container p {
+  margin-bottom: 10px;
+  opacity: 0.5;
 }
 
 .custom-file-input {
@@ -128,5 +159,11 @@ export default {
 .btn--add-product {
   margin: auto;
   margin-top: 20px;
+}
+
+.add-product__img {
+  width: 40%;
+  object-fit: cover;
+  border-radius: 10px;
 }
 </style>

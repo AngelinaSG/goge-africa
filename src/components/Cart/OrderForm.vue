@@ -105,6 +105,7 @@
 
 <script>
 import DeleteModal from "@/components/app/DeleteModal";
+import { mapMutations } from "vuex";
 
 export default {
   name: "OrderForm",
@@ -124,11 +125,11 @@ export default {
     onMinus(prodactId) {
       if (this.prodactsInfo[prodactId].quantity === 1) return;
       this.prodactsInfo[prodactId].quantity -= 1;
-      this.$store.commit("deleteOneCocktail", prodactId);
+      this.deleteOneCocktail(prodactId);
     },
     onPlus(prodactId) {
       this.prodactsInfo[prodactId].quantity += 1;
-      this.$store.commit("addOneMoreCocktail", prodactId);
+      this.addOneMoreCocktail(prodactId);
     },
     onDelete(prodactIdx) {
       this.currentProdactIdx = prodactIdx;
@@ -136,13 +137,18 @@ export default {
     },
     deleteProdactFromCart(productId) {
       this.$modal.hide("delete-modal");
-      this.$store.commit("deleteFromCart", productId);
+      this.deleteFromCart(productId);
     },
     closeModal() {
       this.$modal.hide("delete-modal");
     },
   },
   computed: {
+    ...mapMutations([
+      "deleteFromCart",
+      "deleteOneCocktail",
+      "addOneMoreCocktail",
+    ]),
     subtotalPrice() {
       return this.prodactsInfo.reduce((sum, item) => {
         return sum + item.quantity * item.idDrink;

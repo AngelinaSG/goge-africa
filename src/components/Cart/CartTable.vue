@@ -20,37 +20,37 @@
       <transition-group name="list">
         <div
           class="product-row"
-          v-for="(prodact, idx) in prodactsInfo"
-          :key="prodact.idDrink"
+          v-for="(product, idx) in prodactsInfo"
+          :key="product.idDrink"
         >
           <div class="cart__table-title">
             <img
-              :src="prodact.strDrinkThumb"
+              :src="product.strDrinkThumb"
               alt=""
               width="157"
               height="135"
               class="cart__product-img"
             />
           </div>
-          <div class="cart__table-title">{{ prodact.strDrink }}</div>
+          <div class="cart__table-title">{{ product.strDrink }}</div>
           <div class="cart__table-title">
             <div class="cart__quantity-counter">
               <button class="btn--counter" @click="onMinus(idx)">-</button>
-              <span class="cart__quantity">{{ prodact.quantity }}</span>
+              <span class="cart__quantity">{{ product.quantity }}</span>
               <button class="btn--counter" @click="onPlus(idx)">+</button>
             </div>
           </div>
-          <div class="cart__table-title">${{ prodact.idDrink }}</div>
+          <div class="cart__table-title">${{ product.idDrink }}</div>
           <div class="cart__table-title">
             <span class="grey-text-color">Total:</span> ${{
-              prodact.idDrink * prodact.quantity
+              product.idDrink * product.quantity
             }}
           </div>
           <div class="cart__table-title">
             <button
               class="btn btn--delete"
-              @click="onDelete(prodact.idDrink)"
-            ></button>
+              @click="onDelete(product.idDrink)"
+            />
           </div>
         </div>
       </transition-group>
@@ -114,9 +114,10 @@ export default {
   },
   computed: {
     totalPrice() {
-      return this.prodactsInfo.reduce((sum, item) => {
-        return sum + item.quantity * item.idDrink;
-      }, 0);
+      return this.prodactsInfo.reduce(
+        (sum, item) => sum + item.quantity * item.idDrink,
+        0
+      );
     },
   },
 };

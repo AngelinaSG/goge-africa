@@ -51,8 +51,9 @@
               <router-link
                 to="/course"
                 class="nav-link main-header__nav-link gradient-text-color"
-                >Contact Us</router-link
               >
+                Contact Us
+              </router-link>
             </li>
             <li class="nav-item main-header__nav-item">
               <router-link to="/cart"><IconAddToCart /></router-link>
@@ -75,8 +76,8 @@
               Log in
             </button>
           </form>
-          <ContributorModal @closeModal="closeContributorModal"/>
-          <LoginModal @closeModal="closeLoginModal"/>
+          <ContributorModal @closeModal="closeContributorModal" />
+          <LoginModal @closeModal="closeLoginModal" />
         </div>
       </nav>
     </div>
@@ -107,7 +108,13 @@ export default {
     },
     closeLoginModal() {
       this.$modal.hide("login");
-    }
+    },
+    openModal(name) {
+      this.$modal.show(name);
+    },
+    hideModal(name) {
+      this.$modal.hide(name);
+    },
   },
 };
 </script>

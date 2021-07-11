@@ -48,10 +48,9 @@ export default {
       this.isLoading = true;
       try {
         await this.$api.auth.login(this.userEmail, this.userPass);
-        this.$emit('closeModal');
-        this.$router.push("/dashboard");
-      } 
-      catch (e) {
+        this.$emit("closeModal");
+        await this.$router.push("/dashboard");
+      } catch (e) {
         const errorText = e.response.data.error.message
           .replaceAll("_", " ")
           .toLowerCase();
@@ -62,7 +61,6 @@ export default {
         });
       }
       this.isLoading = false;
-
     },
   },
 };

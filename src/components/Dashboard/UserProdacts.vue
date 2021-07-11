@@ -1,7 +1,18 @@
 <template>
   <div class="container products__container">
     <h2 class="text-center">Your products</h2>
-    <ul class="courses__list">
+    <ProductFilter
+      @filterProducts="filterProducts"
+      @clearFilters="clearFilters"
+    />
+
+    <CartsPlaceholders v-if="isLoading" />
+
+    <b-alert v-if="nothingFound" show variant="danger"
+      >No results were found for this category!</b-alert
+    >
+
+    <ul v-else class="courses__list">
       <li
         class="courses-section__card-col"
         v-for="product in products"
@@ -28,13 +39,51 @@
 </template>
 
 <script>
+import ProductFilter from "@/components/Dashboard/ProductFilter";
+import CartsPlaceholders from "@/components/app/CartsPlaceholders";
+
 export default {
   data: () => ({
     products: [],
+    nothingFound: false,
+    isLoading: false,
   }),
+  components: {
+    ProductFilter,
+    CartsPlaceholders,
+  },
   async mounted() {
-    let productList = await this.$api.products.getProducts();
-    this.products = productList.data;
+    this.isLoading = true;
+    await this.getProducts();
+    this.isLoading = false;
+  },
+  methods: {
+    async filterProducts(category) {
+      this.nothingFound = false;
+      this.isLoading = true;
+      await this.getProducts();
+      const filteredProductList = [];
+      for (let key in this.products) {
+        for (let cat in this.products[key]) {
+          if (this.products[key][cat] === category) {
+            filteredProductList.push(this.products[key]);
+          }
+        }
+      }
+      this.isLoading = false;
+      if (filteredProductList.length === 0) {
+        this.nothingFound = true;
+      } else {
+        this.products = filteredProductList;
+      }
+    },
+    async getProducts() {
+      let productList = await this.$api.products.getProducts();
+      this.products = productList.data;
+    },
+    clearFilters() {
+      this.getProducts();
+    },
   },
 };
 </script>
@@ -123,6 +172,6 @@ export default {
 }
 
 .products__container h2 {
-  margin-bottom: 40px;
+  margin-top: 40px;
 }
 </style>

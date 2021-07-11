@@ -6,7 +6,7 @@
           <AddProductForm />
         </b-tab>
 
-        <b-tab title="Second">
+        <b-tab title="Your Products">
           <UserProdacts />
         </b-tab>
 
@@ -29,6 +29,12 @@ export default {
     AddProductForm,
     UserProdacts,
   },
+  // data: () => ({
+  //   filtersList: [],
+  // }),
+  // async mounted() {
+  //
+  // }
 };
 </script>
 
