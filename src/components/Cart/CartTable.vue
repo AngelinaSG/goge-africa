@@ -10,7 +10,7 @@
         <div class="cart__table-title"></div>
       </div>
 
-      <div v-if="!prodactsInfo.length" class="product-row cart-table__alert">
+      <div v-if="!productsInfo.length" class="product-row cart-table__alert">
         <p class="text-center">
           Your cart is empty. Go to
           <router-link to="/course">cocktails!</router-link>
@@ -20,7 +20,7 @@
       <transition-group name="list">
         <div
           class="product-row"
-          v-for="(product, idx) in prodactsInfo"
+          v-for="(product, idx) in productsInfo"
           :key="product.idDrink"
         >
           <div class="cart__table-title">
@@ -57,12 +57,12 @@
     </div>
 
     <DeleteModal
-      @deleteProduct="deleteProdactFromCart"
+      @deleteProduct="deleteProductFromCart"
       @closeModal="closeModal"
-      :index="currentProdactIdx"
+      :index="currentProductIdx"
     />
 
-    <div v-if="prodactsInfo.length" class="cart__total-price">
+    <div v-if="productsInfo.length" class="cart__total-price">
       <p class="text-center">
         <span class="grey-text-color">Total:</span> ${{ totalPrice }}
       </p>
@@ -75,11 +75,12 @@
 
 <script>
 import DeleteModal from "@/components/app/DeleteModal";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data: () => ({
-    prodactsInfo: [],
-    currentProdactIdx: "",
+    productsInfo: [],
+    currentProductIdx: "",
   }),
   components: {
     DeleteModal,
@@ -87,37 +88,39 @@ export default {
   props: {
     orderState: String,
   },
-  mounted() {
-    this.prodactsInfo = this.$store.getters.cocktailsInCart;
-  },
-  methods: {
-    onMinus(prodactId) {
-      if (this.prodactsInfo[prodactId].quantity === 1) return;
-      this.prodactsInfo[prodactId].quantity -= 1;
-      this.$store.commit("deleteOneCocktail", prodactId);
-    },
-    onPlus(prodactId) {
-      this.prodactsInfo[prodactId].quantity += 1;
-      this.$store.commit("addOneMoreCocktail", prodactId);
-    },
-    onDelete(prodactIdx) {
-      this.currentProdactIdx = prodactIdx;
-      this.$modal.show("delete-modal");
-    },
-    deleteProdactFromCart(productId) {
-      this.$modal.hide("delete-modal");
-      this.$store.commit("deleteFromCart", productId);
-    },
-    closeModal() {
-      this.$modal.hide("delete-modal");
-    },
-  },
   computed: {
+    ...mapGetters(["cocktailsInCart"]),
     totalPrice() {
-      return this.prodactsInfo.reduce(
+      return this.productsInfo.reduce(
         (sum, item) => sum + item.quantity * item.idDrink,
         0
       );
+    },
+  },
+  mounted() {
+    this.productsInfo = this.cocktailsInCart;
+  },
+  methods: {
+    ...mapMutations(["deleteOneCocktail", "addOneMoreCocktail", "deleteFromCart"]),
+    onMinus(productId) {
+      if (this.productsInfo[productId].quantity === 1) return;
+      this.productsInfo[productId].quantity -= 1;
+      this.deleteOneCocktail(productId);
+    },
+    onPlus(productId) {
+      this.productsInfo[productId].quantity += 1;
+      this.addOneMoreCocktail(productId);
+    },
+    onDelete(productIdx) {
+      this.currentProductIdx = productIdx;
+      this.$modal.show("delete-modal");
+    },
+    deleteProductFromCart(productId) {
+      this.$modal.hide("delete-modal");
+      this.deleteFromCart(productId);
+    },
+    closeModal() {
+      this.$modal.hide("delete-modal");
     },
   },
 };

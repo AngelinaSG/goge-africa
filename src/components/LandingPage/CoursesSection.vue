@@ -13,7 +13,7 @@
             <button
               class="btn btn--gradient-bg btn--add-to-cart"
               title="Add to Cart"
-              @click="addToCart(cocktail.idDrink, cocktail.strDrink)"
+              @click="addToCartById(cocktail.idDrink, cocktail.strDrink)"
             ></button>
             <div class="card-body gradient-background">
               <a href="#" class="bold text-white">
@@ -39,19 +39,25 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "CoursesSection",
   data: () => ({
-    courses: [],
+    coursesList: [],
     cocktails: [],
   }),
+  computed: {
+    ...mapGetters(["courses"]),
+  },
   async mounted() {
-    this.courses = this.$store.getters.courses;
-    this.cocktails = await this.$store.dispatch("getCocktails");
+    this.coursesList = this.courses;
+    this.cocktails = await this.getCocktails();
   },
   methods: {
-    addToCart(cocktailId, cocktailName) {
-      this.$store.dispatch("addToCart", cocktailId);
+    ...mapActions(["getCocktails", "addToCart"]),
+    addToCartById(cocktailId, cocktailName) {
+      this.addToCart(cocktailId);
       this.$bvToast.toast(`${cocktailName} was added to cart!`, {
         autoHideDelay: 3000,
         "append-toast": true,

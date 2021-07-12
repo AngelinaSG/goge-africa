@@ -226,12 +226,7 @@ export default {
 
     addToCart(cocktailId, cocktailName) {
       this.$store.dispatch("addToCart", cocktailId);
-      this.$bvToast.toast(`${cocktailName} was added to cart!`, {
-        autoHideDelay: 3000,
-        toaster: "b-toaster-top-center",
-        to: "/cart",
-        "append-toast": true,
-      });
+      this.$message(`${cocktailName} was added to cart!`);
     },
   },
 };

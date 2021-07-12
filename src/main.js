@@ -20,6 +20,7 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VModal);
 Vue.use(Vuelidate);
+
 Vue.prototype.$api = apiService;
 
 var firebaseConfig = {

@@ -64,20 +64,20 @@
             <button
               type="button"
               class="btn main-header__btn btn--gradient-bg"
-              @click="becomeContributor"
+              @click="openModal('be-contributor')"
             >
               Be A Contributor
             </button>
             <button
               type="button"
               class="btn main-header__btn btn--gradient-bg"
-              @click="login"
+              @click="openModal('login')"
             >
               Log in
             </button>
           </form>
-          <ContributorModal @closeModal="closeContributorModal" />
-          <LoginModal @closeModal="closeLoginModal" />
+          <ContributorModal @closeModal="hideModal('be-contributor')" />
+          <LoginModal @closeModal="hideModal('login')" />
         </div>
       </nav>
     </div>
@@ -97,18 +97,6 @@ export default {
     LoginModal,
   },
   methods: {
-    becomeContributor() {
-      this.$modal.show("be-contributor");
-    },
-    login() {
-      this.$modal.show("login");
-    },
-    closeContributorModal() {
-      this.$modal.hide("be-contributor");
-    },
-    closeLoginModal() {
-      this.$modal.hide("login");
-    },
     openModal(name) {
       this.$modal.show(name);
     },

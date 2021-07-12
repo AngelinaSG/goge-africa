@@ -13,7 +13,7 @@
         <div class="cart__table-title"></div>
       </div>
 
-      <div v-if="!prodactsInfo.length" class="product-row cart-table__alert">
+      <div v-if="!productsInfo.length" class="product-row cart-table__alert">
         <p class="text-center">
           Your cart is empty. Go to
           <router-link to="/course">cocktails!</router-link>
@@ -22,12 +22,12 @@
 
       <div
         class="product-row"
-        v-for="(prodact, idx) in prodactsInfo"
-        :key="prodact.idDrink"
+        v-for="(product, idx) in productsInfo"
+        :key="product.idDrink"
       >
         <div class="cart__table-title">
           <img
-            :src="prodact.strDrinkThumb"
+            :src="product.strDrinkThumb"
             alt=""
             width="157"
             height="135"
@@ -35,20 +35,20 @@
           />
         </div>
         <div class="cart__table-title">
-          <p class="bold text">{{ prodact.strDrink }}</p>
-          <p>{{ prodact.strAlcoholic }}</p>
-          <p>{{ prodact.strCategory }}</p>
+          <p class="bold text">{{ product.strDrink }}</p>
+          <p>{{ product.strAlcoholic }}</p>
+          <p>{{ product.strCategory }}</p>
         </div>
         <div class="cart__table-title">
           <div class="cart__quantity-counter">
             <button class="btn--counter" @click="onMinus(idx)">-</button>
-            <span class="cart__quantity">{{ prodact.quantity }}</span>
+            <span class="cart__quantity">{{ product.quantity }}</span>
             <button class="btn--counter" @click="onPlus(idx)">+</button>
           </div>
         </div>
         <div class="cart__table-title">
-          ${{ prodact.idDrink * prodact.quantity }}/
-          <div>{{ prodact.quantity }} pieces</div>
+          ${{ product.idDrink * product.quantity }}/
+          <div>{{ product.quantity }} pieces</div>
         </div>
         <div class="cart__table-title">
           <b-form-group v-slot="{ ariaDescribedby }">
@@ -71,19 +71,19 @@
         <div class="cart__table-title">
           <button
             class="btn btn--delete"
-            @click="onDelete(prodact.idDrink)"
+            @click="onDelete(product.idDrink)"
           ></button>
         </div>
       </div>
       <DeleteModal
-        @deleteProduct="deleteProdactFromCart"
+        @deleteProduct="deleteProductFromCart"
         @closeModal="closeModal"
-        :index="currentProdactIdx"
+        :index="currentProductIdx"
       />
 
       <div
         class="product-row product-table__total-price"
-        v-if="prodactsInfo.length"
+        v-if="productsInfo.length"
       >
         <div class="cart__total-price text-right">
           <p>
@@ -105,57 +105,58 @@
 
 <script>
 import DeleteModal from "@/components/app/DeleteModal";
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "OrderForm",
-  data: () => ({
-    prodactsInfo: [],
-    currentProdactIdx: "",
-    deliveryType: "",
-    deliveryPrice: 200,
-  }),
   components: {
     DeleteModal,
   },
-  mounted() {
-    this.prodactsInfo = this.$store.getters.cocktailsInCart;
-  },
-  methods: {
-    onMinus(prodactId) {
-      if (this.prodactsInfo[prodactId].quantity === 1) return;
-      this.prodactsInfo[prodactId].quantity -= 1;
-      this.deleteOneCocktail(prodactId);
-    },
-    onPlus(prodactId) {
-      this.prodactsInfo[prodactId].quantity += 1;
-      this.addOneMoreCocktail(prodactId);
-    },
-    onDelete(prodactIdx) {
-      this.currentProdactIdx = prodactIdx;
-      this.$modal.show("delete-modal");
-    },
-    deleteProdactFromCart(productId) {
-      this.$modal.hide("delete-modal");
-      this.deleteFromCart(productId);
-    },
-    closeModal() {
-      this.$modal.hide("delete-modal");
-    },
-  },
+  data: () => ({
+    productsInfo: [],
+    currentProductIdx: "",
+    deliveryType: "",
+    deliveryPrice: 200,
+  }),
   computed: {
-    ...mapMutations([
-      "deleteFromCart",
-      "deleteOneCocktail",
-      "addOneMoreCocktail",
-    ]),
+    ...mapGetters(["cocktailsInCart"]),
     subtotalPrice() {
-      return this.prodactsInfo.reduce((sum, item) => {
+      return this.productsInfo.reduce((sum, item) => {
         return sum + item.quantity * item.idDrink;
       }, 0);
     },
     totalPrice() {
       return this.subtotalPrice + this.deliveryPrice;
+    },
+  },
+  mounted() {
+    this.productsInfo = this.cocktailsInCart;
+  },
+  methods: {
+    ...mapMutations([
+      "deleteFromCart",
+      "deleteOneCocktail",
+      "addOneMoreCocktail",
+    ]),
+    onMinus(productId) {
+      if (this.productsInfo[productId].quantity === 1) return;
+      this.productsInfo[productId].quantity -= 1;
+      this.deleteOneCocktail(productId);
+    },
+    onPlus(productId) {
+      this.productsInfo[productId].quantity += 1;
+      this.addOneMoreCocktail(productId);
+    },
+    onDelete(productIdx) {
+      this.currentProductIdx = productIdx;
+      this.$modal.show("delete-modal");
+    },
+    deleteProductFromCart(productId) {
+      this.$modal.hide("delete-modal");
+      this.deleteFromCart(productId);
+    },
+    closeModal() {
+      this.$modal.hide("delete-modal");
     },
   },
 };
