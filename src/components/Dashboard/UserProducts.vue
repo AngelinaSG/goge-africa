@@ -41,6 +41,7 @@
 <script>
 import ProductFilter from "@/components/Dashboard/ProductFilter";
 import CartsPlaceholders from "@/components/app/CartsPlaceholders";
+import { mapActions } from "vuex";
 
 export default {
   data: () => ({
@@ -58,6 +59,7 @@ export default {
     this.isLoading = false;
   },
   methods: {
+    ...mapActions(["getProductsList"]),
     async filterProducts(category) {
       this.nothingFound = false;
       this.isLoading = true;
@@ -78,7 +80,7 @@ export default {
       }
     },
     async getProducts() {
-      let productList = await this.$api.products.getProducts();
+      let productList = await this.getProductsList();
       this.products = productList.data;
     },
     clearFilters() {

@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data: () => ({
     file: null,
@@ -74,7 +76,7 @@ export default {
     formData: {},
   }),
   async mounted() {
-    const filtersList = await this.$store.dispatch("getFilters");
+    const filtersList = await this.getFilters();
     this.categoriesList = filtersList.catFilter.map((item) => {
       return { value: item.strCategory, text: item.strCategory };
     });
@@ -90,6 +92,7 @@ export default {
     });
   },
   methods: {
+    ...mapActions(["getFilters", "addProduct"]),
     async onSubmit() {
       const productId = Math.floor(Math.random() * 100000);
       const productData = {
@@ -101,7 +104,7 @@ export default {
         strDrinkThumb: this.imgLink,
       };
       try {
-        await this.$api.products.addProduct(productData);
+        await this.addProduct(productData);
         this.$bvToast.toast(`Product ${this.name} was successfully created`, {
           autoHideDelay: 3000,
           toaster: "b-toaster-top-center",

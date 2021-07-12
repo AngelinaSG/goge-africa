@@ -1,13 +1,13 @@
 <template>
   <div class="container dashboard__container">
     <div class="dashboard">
-      <b-tabs content-class="mt-3" fill>
+      <b-tabs v-model="tabIndex" content-class="mt-3" fill>
         <b-tab title="Add product" active>
-          <AddProductForm />
+          <AddProductForm v-if="tabIndex === 0" />
         </b-tab>
 
         <b-tab title="Your Products">
-          <UserProdacts />
+          <UserProducts v-if="tabIndex === 1" />
         </b-tab>
 
         <b-tab title="Very, very long title"
@@ -21,20 +21,17 @@
 
 <script>
 import AddProductForm from "@/components/Dashboard/AddProductForm";
-import UserProdacts from "@/components/Dashboard/UserProdacts";
+import UserProducts from "@/components/Dashboard/UserProducts";
 
 export default {
   name: "Dashboard",
   components: {
     AddProductForm,
-    UserProdacts,
+    UserProducts,
   },
-  // data: () => ({
-  //   filtersList: [],
-  // }),
-  // async mounted() {
-  //
-  // }
+  data: () => ({
+    tabIndex: 0,
+  }),
 };
 </script>
 

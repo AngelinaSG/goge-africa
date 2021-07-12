@@ -66,27 +66,26 @@
       </div>
     </div>
 
-  <div class="footer-rights">
-
-    <div class="container footer__container text-white">
-
-    <div class="row footer__rights-row justify-content-between semibold">
-            <div>
-              <p>All Right Reserved | GOGE AFRICA 2019</p>
-            </div>
-            <div>
-              <ul
-                class="list-group list-group-horizontal footer__privacy-policy-list"
-              >
-                <li>Privacy Policy</li>
-                <li>Site <span class="yellow-text-color">Credit</span></li>
-              </ul>
-            </div>
+    <div class="footer-rights">
+      <div class="container footer__container text-white">
+        <div class="row footer__rights-row justify-content-between semibold">
+          <div>
+            <p>All Right Reserved | GOGE AFRICA 2019</p>
+          </div>
+          <div>
+            <ul
+              class="
+                list-group list-group-horizontal
+                footer__privacy-policy-list
+              "
+            >
+              <li>Privacy Policy</li>
+              <li>Site <span class="yellow-text-color">Credit</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-
-  </div>
-
- </div>
   </footer>
 </template>
 

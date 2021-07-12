@@ -54,7 +54,7 @@ export default {
     async onSubmit() {
       try {
         await this.$api.auth.signUp(this.contrPass, this.contrEmail);
-        this.$emit('closeModal');
+        this.$emit("closeModal");
         this.$router.push("/dashboard");
       } catch (e) {
         const errorText = e.response.data.error.message
@@ -66,7 +66,6 @@ export default {
           "append-toast": true,
         });
       }
-
     },
   },
 };

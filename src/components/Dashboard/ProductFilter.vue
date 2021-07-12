@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "ProductFilter",
   data: () => ({
@@ -63,7 +65,7 @@ export default {
     glassList: [],
   }),
   async mounted() {
-    const filtersList = await this.$store.dispatch("getFilters");
+    const filtersList = await this.getFilters();
     this.alcList = filtersList.alcFilter.map((item) => {
       return { item: item.strAlcoholic, name: item.strAlcoholic };
     });
@@ -75,6 +77,7 @@ export default {
     });
   },
   methods: {
+    ...mapActions(["getFilters"]),
     filterProducts(e) {
       this.$emit("filterProducts", e.target.value);
       this.$refs.dropdown.hide();
