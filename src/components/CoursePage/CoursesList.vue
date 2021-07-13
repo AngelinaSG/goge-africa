@@ -22,8 +22,14 @@
       <div class="row courses__row">
         <div class="row courses-section__cards-section">
           <div class="courses__filter-controls">
-            <button class="courses__filter-btn filter-btn--bullet"></button>
-            <button class="courses__filter-btn filter-btn--grid"></button>
+            <button
+              class="courses__filter-btn filter-btn--bullet"
+              @click="displayList('bullet')"
+            ></button>
+            <button
+              class="courses__filter-btn filter-btn--grid"
+              @click="displayList('grid')"
+            ></button>
           </div>
 
           <CartsPlaceholders v-if="isLoading" />
@@ -64,6 +70,8 @@
               </div>
             </li>
           </ul>
+
+          <BulletList :cocktails="cocktails" />
         </div>
 
         <div class="courses__category-filter" ref="categories">
@@ -142,11 +150,14 @@
 
 <script>
 import CartsPlaceholders from "@/components/app/CartsPlaceholders";
+import BulletList from "./BulletList";
+import { mapActions } from "vuex";
 
 export default {
   name: "CoursesList",
   components: {
     CartsPlaceholders,
+    BulletList,
   },
   data: () => ({
     courses: [],
@@ -160,19 +171,32 @@ export default {
     glassFilter: "",
     isLoading: false,
     nothingFounded: false,
+    isGrid: true,
   }),
   async mounted() {
     this.isLoading = true;
     this.showCategories();
     this.courses = this.$store.getters.courses;
-    this.cocktails = await this.$store.dispatch("getCocktails");
+    this.cocktails = await this.getCocktails();
     this.isLoading = false;
-    const filters = await this.$store.dispatch("getFilters");
+    const filters = await this.getFilters();
     this.alcFilterCat = filters.alcFilter;
     this.catFilterCat = filters.catFilter;
     this.glassFilterCat = filters.glassFilter;
   },
   methods: {
+    ...mapActions([
+      "getCocktails",
+      "getFilters",
+      "getCocktailBySearchValue",
+      "getItemsByFilter",
+      "addToCart",
+    ]),
+    displayList(type) {
+      if (type === "bullet") {
+        this.isGrid = false;
+      }
+    },
     showCategories() {
       this.$refs["categories"].classList.toggle("hide-categories");
       this.$refs["category-btn"].classList.toggle("rotate");
@@ -182,15 +206,12 @@ export default {
       this.nothingFounded = false;
       if (!this.searchValue) {
         this.isLoading = false;
-        this.cocktails = await this.$store.dispatch("getCocktails");
+        this.cocktails = await this.getCocktails();
       }
     },
     async searchItem() {
       try {
-        let cock = await this.$store.dispatch(
-          "getCocktailBySearchValue",
-          this.searchValue
-        );
+        let cock = await this.getCocktailBySearchValue(this.searchValue);
         this.cocktails = cock;
         if (this.cocktails === null) {
           this.nothingFounded = true;
@@ -204,19 +225,19 @@ export default {
       this.nothingFounded = false;
       this.isLoading = true;
       if (e.target.value === this.glassFilter) {
-        const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
+        const filterCocktail = await this.getItemsByFilter({
           glassFilter: this.glassFilter,
         });
         this.cocktails = filterCocktail;
       }
       if (e.target.value === this.catFilter) {
-        const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
+        const filterCocktail = await this.getItemsByFilter({
           catFilter: this.catFilter,
         });
         this.cocktails = filterCocktail;
       }
       if (e.target.value === this.alcFilter) {
-        const filterCocktail = await this.$store.dispatch("getItemsByFilter", {
+        const filterCocktail = await this.getItemsByFilter({
           alcFilter: this.alcFilter,
         });
         this.cocktails = filterCocktail;
@@ -225,7 +246,7 @@ export default {
     },
 
     addToCart(cocktailId, cocktailName) {
-      this.$store.dispatch("addToCart", cocktailId);
+      this.addToCart(cocktailId);
       this.$message(`${cocktailName} was added to cart!`);
     },
   },

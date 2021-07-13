@@ -9,6 +9,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import Vuelidate from "vuelidate";
 import VModal from "vue-js-modal";
 import apiService from "@/api";
+import message from "@/utils/message";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -20,6 +21,7 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VModal);
 Vue.use(Vuelidate);
+Vue.use(message);
 
 Vue.prototype.$api = apiService;
 

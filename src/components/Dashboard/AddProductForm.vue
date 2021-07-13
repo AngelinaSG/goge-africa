@@ -105,18 +105,10 @@ export default {
       };
       try {
         await this.addProduct(productData);
-        this.$bvToast.toast(`Product ${this.name} was successfully created`, {
-          autoHideDelay: 3000,
-          toaster: "b-toaster-top-center",
-          "append-toast": true,
-        });
+        this.$message(`Product ${this.name} was successfully created`);
         this.$refs.form.reset();
       } catch (e) {
-        this.$bvToast.toast(e.response.data.error.message, {
-          autoHideDelay: 3000,
-          toaster: "b-toaster-top-center",
-          "append-toast": true,
-        });
+        this.$message(e.response.data.error.message);
       }
     },
   },

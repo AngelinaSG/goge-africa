@@ -58,12 +58,7 @@ export default {
     ...mapActions(["getCocktails", "addToCart"]),
     addToCartById(cocktailId, cocktailName) {
       this.addToCart(cocktailId);
-      this.$bvToast.toast(`${cocktailName} was added to cart!`, {
-        autoHideDelay: 3000,
-        "append-toast": true,
-        toaster: "b-toaster-top-center",
-        to: "/cart",
-      });
+      this.$message(`${cocktailName} was added to cart!`);
     },
   },
 };

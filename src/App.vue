@@ -11,6 +11,7 @@
 <script>
 import Header from "@/components/header/Header";
 import Footer from "@/components/Footer";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -22,10 +23,13 @@ export default {
       for (let key in localStorage) {
         if (key.includes("1")) {
           let cocktailId = localStorage.getItem(key);
-          this.$store.dispatch("addToCart", cocktailId);
+          await this.addToCart(cocktailId);
         }
       }
     }
+  },
+  methods: {
+    ...mapActions(["addToCart"]),
   },
 };
 </script>
