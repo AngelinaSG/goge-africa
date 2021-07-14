@@ -1,18 +1,25 @@
 <template>
-  <ul>
-    <li
-      v-for="cocktail in cocktails"
-      :key="cocktail.idDrink"
-      class="bullet-list text-center"
-    >
+  <ul class="bullet-list text-center">
+    <li v-for="cocktail in cocktails" :key="cocktail.idDrink">
       <div class="bullet-list__item">
         <div>
           <img :src="cocktail.strDrinkThumb" alt="" class="bullet-list__img" />
         </div>
-        <div>{{ cocktail.strAlcoholic }}</div>
+        <div>
+          <p class="semibold">{{ cocktail.strDrink }}</p>
+          <p>{{ cocktail.strAlcoholic }}</p>
+        </div>
         <div>{{ cocktail.strCategory }}</div>
         <div>{{ cocktail.strGlass }}</div>
-        <div>Price: ${{ cocktail.idDrink }}</div>
+        <div>
+          Price: ${{ cocktail.idDrink }}
+          <button
+            class="btn btn--gradient-bg"
+            @click="onBuy(cocktail.idDrink, cocktail.strDrink)"
+          >
+            Buy
+          </button>
+        </div>
       </div>
     </li>
   </ul>
@@ -24,6 +31,12 @@ export default {
   props: {
     cocktails: Array,
   },
+  methods: {
+    onBuy(idDrink, nameDrink) {
+      console.log(idDrink);
+      this.$emit("onBuy", idDrink, nameDrink);
+    },
+  },
 };
 </script>
 
@@ -31,9 +44,9 @@ export default {
 .bullet-list {
   list-style: none;
   padding-inline-start: 0;
-  margin-bottom: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: 0;
 }
 
 .bullet-list__item {
@@ -49,6 +62,10 @@ export default {
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
   justify-content: center;
+}
+
+.bullet-list__item button {
+  margin-top: 15px;
 }
 
 .bullet-list__img {

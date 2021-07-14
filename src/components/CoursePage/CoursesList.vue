@@ -25,10 +25,12 @@
             <button
               class="courses__filter-btn filter-btn--bullet"
               @click="displayList('bullet')"
+              :class="bulletActiveClass"
             ></button>
             <button
               class="courses__filter-btn filter-btn--grid"
               @click="displayList('grid')"
+              :class="gridActiveClass"
             ></button>
           </div>
 
@@ -38,7 +40,7 @@
             >No results were found for {{ searchValue }}</b-alert
           >
 
-          <ul class="courses__list" v-else>
+          <ul class="courses__list" v-else-if="isGrid">
             <li
               class="courses-section__card-col"
               v-for="cocktail in cocktails"
@@ -53,7 +55,7 @@
                 <button
                   class="btn btn--gradient-bg btn--add-to-cart"
                   title="Add to Cart"
-                  @click="addToCart(cocktail.idDrink, cocktail.strDrink)"
+                  @click="toCart(cocktail.idDrink, cocktail.strDrink)"
                 ></button>
                 <span
                   v-show="cocktail.strAlcoholic"
@@ -71,7 +73,11 @@
             </li>
           </ul>
 
-          <BulletList :cocktails="cocktails" />
+          <BulletList
+            :cocktails="cocktails"
+            v-else-if="!isGrid"
+            @onBuy="toCart"
+          />
         </div>
 
         <div class="courses__category-filter" ref="categories">
@@ -172,6 +178,8 @@ export default {
     isLoading: false,
     nothingFounded: false,
     isGrid: true,
+    gridActiveClass: "filter-btn--grid--active",
+    bulletActiveClass: "",
   }),
   async mounted() {
     this.isLoading = true;
@@ -195,6 +203,12 @@ export default {
     displayList(type) {
       if (type === "bullet") {
         this.isGrid = false;
+        this.gridActiveClass = "";
+        this.bulletActiveClass = "filter-btn--bullet--active";
+      } else {
+        this.isGrid = true;
+        this.bulletActiveClass = "";
+        this.gridActiveClass = "filter-btn--grid--active";
       }
     },
     showCategories() {
@@ -245,7 +259,7 @@ export default {
       this.isLoading = false;
     },
 
-    addToCart(cocktailId, cocktailName) {
+    toCart(cocktailId, cocktailName) {
       this.addToCart(cocktailId);
       this.$message(`${cocktailName} was added to cart!`);
     },
@@ -331,7 +345,7 @@ export default {
   margin-bottom: 0;
 }
 
-.courses__filter-list li:hover {
+.courses__filter-list li .form-check:hover {
   color: white;
   background: linear-gradient(to right, $orange, $yellow);
 }
@@ -441,10 +455,10 @@ export default {
   width: 20.92px;
   height: 20.92px;
   background-color: transparent;
-  background-image: url("~@/assets/pictures/filter_arrow-icon.svg");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  transition: background 0.5s ease;
 }
 
 .filter-btn--bullet {
@@ -452,9 +466,17 @@ export default {
   margin-right: 15px;
 }
 
+.filter-btn--bullet--active {
+  background-image: url("~@/assets/pictures/courses_bullet-list-active-icon.svg");
+}
+
 .filter-btn--grid {
-  background-image: url("~@/assets/pictures/courses_grid-interface-icon.svg");
+  background-image: url("~@/assets/pictures/courses_grid-interface-disabled-icon.svg");
   width: 22px;
+}
+
+.filter-btn--grid--active {
+  background-image: url("~@/assets/pictures/courses_grid-interface-icon.svg");
 }
 
 .courses__filter-controls {

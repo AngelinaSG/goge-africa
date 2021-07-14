@@ -32,7 +32,7 @@ export default {
 }
 
 .contact-us__img {
-  background: url("~@/assets/pictures/contactus_img_placeholder.svg") 0 243px
+  background: url("~@/assets/pictures/contactus_img_placeholder.png") 0 243px
       no-repeat,
     url("~@/assets/pictures/contactus_img_bg.svg") 0 253px no-repeat;
   margin-right: 60px;
