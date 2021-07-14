@@ -56,7 +56,14 @@
       stroke-linejoin="round"
     />
     <circle cx="27.2302" cy="6.76923" r="6.76923" fill="url(#paint7_linear)" />
-    <text font-size="8" font-weight="200" x="25" y="9.5" fill="white">
+    <text
+      class="cart-text"
+      font-size="8"
+      font-weight="200"
+      :x="textPosition"
+      y="9.5"
+      fill="white"
+    >
       {{ inCart.length }}
     </text>
     <!--    <path d="M26.1149 9.08698V5.13629H25.6825L24.6934 6.15506L24.9895 6.45713L25.6233 5.78783V9.08698H26.1149Z" fill="white"/>-->
@@ -155,12 +162,22 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "IconAddToCart",
   data: () => ({}),
   computed: {
+    ...mapGetters(["cocktailsInCart"]),
     inCart() {
-      return this.$store.getters.cocktailsInCart;
+      return this.cocktailsInCart;
+    },
+    textPosition() {
+      if (this.cocktailsInCart.length < 10) {
+        return "25";
+      } else {
+        return "22.5";
+      }
     },
   },
 };

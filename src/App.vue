@@ -11,7 +11,7 @@
 <script>
 import Header from "@/components/header/Header";
 import Footer from "@/components/Footer";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -19,17 +19,30 @@ export default {
     Footer,
   },
   async mounted() {
-    if (localStorage.length > 1) {
-      for (let key in localStorage) {
-        if (key.includes("1")) {
-          let cocktailId = localStorage.getItem(key);
-          await this.addToCart(cocktailId);
-        }
-      }
-    }
+    window.addEventListener("storage", this.storageChange);
+    await this.refreshCart();
+  },
+  computed: {
+    ...mapGetters(["cocktailsInCart"]),
   },
   methods: {
     ...mapActions(["addToCart"]),
+    async refreshCart() {
+      console.log(this.cocktailsInCart.length);
+      if (localStorage.length > 1) {
+        for (let key in localStorage) {
+          if (key.includes("1")) {
+            let cocktailId = localStorage.getItem(key);
+            await this.addToCart(cocktailId);
+          }
+        }
+      }
+      console.log(this.cocktailsInCart.length);
+    },
+    async storageChange() {
+      console.log("что-то изменилось");
+      await this.refreshCart();
+    },
   },
 };
 </script>
