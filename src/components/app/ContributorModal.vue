@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data: () => ({
     contrPass: "",
@@ -51,11 +53,12 @@ export default {
     acceptTerms: false,
   }),
   methods: {
+    ...mapActions(["signUp"]),
     async onSubmit() {
       try {
-        await this.$api.auth.signUp(this.contrPass, this.contrEmail);
+        await this.signUp(this.contrPass, this.contrEmail);
         this.$emit("closeModal");
-        this.$router.push("/dashboard");
+        await this.$router.push("/dashboard");
       } catch (e) {
         const errorText = e.response.data.error.message
           .replaceAll("_", " ")

@@ -19,7 +19,6 @@ export default {
     Footer,
   },
   async mounted() {
-    window.addEventListener("storage", this.storageChange);
     await this.refreshCart();
   },
   computed: {
@@ -28,7 +27,6 @@ export default {
   methods: {
     ...mapActions(["addToCart"]),
     async refreshCart() {
-      console.log(this.cocktailsInCart.length);
       if (localStorage.length > 1) {
         for (let key in localStorage) {
           if (key.includes("1")) {
@@ -37,11 +35,6 @@ export default {
           }
         }
       }
-      console.log(this.cocktailsInCart.length);
-    },
-    async storageChange() {
-      console.log("что-то изменилось");
-      await this.refreshCart();
     },
   },
 };

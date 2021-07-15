@@ -79,7 +79,6 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data: () => ({
-    productsInfo: [],
     currentProductIdx: "",
   }),
   components: {
@@ -90,6 +89,9 @@ export default {
   },
   computed: {
     ...mapGetters(["cocktailsInCart"]),
+    productsInfo() {
+      return this.cocktailsInCart;
+    },
     totalPrice() {
       return this.productsInfo.reduce(
         (sum, item) => sum + item.quantity * item.idDrink,
@@ -97,11 +99,12 @@ export default {
       );
     },
   },
-  mounted() {
-    this.productsInfo = this.cocktailsInCart;
-  },
   methods: {
-    ...mapMutations(["deleteOneCocktail", "addOneMoreCocktail", "deleteFromCart"]),
+    ...mapMutations([
+      "deleteOneCocktail",
+      "addOneMoreCocktail",
+      "deleteFromCart",
+    ]),
     onMinus(productId) {
       if (this.productsInfo[productId].quantity === 1) return;
       this.productsInfo[productId].quantity -= 1;

@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import cocktails from "./cocktails";
 import cart from "./cart";
 import products from "./products";
+import auth from "./auth";
+import createMultiTabState from "vuex-multi-tab-state";
 
 Vue.use(Vuex);
 
@@ -23,50 +25,13 @@ export default new Vuex.Store({
       { title: "How To Have A Good Listening Ear For Music", type: "Premium" },
     ],
     newCocktails: [],
-    cocktailsInCart: [],
   },
   getters: {
     courses: (s) => s.courses,
-    cocktailsInCart: (s) => s.cocktailsInCart,
   },
   mutations: {
     getCocktail: (state, value) => {
       state.newCocktails = value;
-    },
-    addCocktailToCart: (state, value) => {
-      let isInCart = false;
-      state.cocktailsInCart.forEach((item, idx) => {
-        if (item.idDrink === value.idDrink) {
-          isInCart = true;
-          // state.cocktailsInCart.splice(idx, 1);
-          item.quantity++;
-        }
-      });
-      if (!isInCart) {
-        state.cocktailsInCart.push({ ...value, quantity: 1 });
-      }
-    },
-    addOneMoreCocktail(state, cocktailId) {
-      state.cocktailsInCart.forEach((item) => {
-        if (item.idDrink === cocktailId) {
-          item.quantity++;
-        }
-      });
-    },
-    deleteOneCocktail(state, cocktailId) {
-      state.cocktailsInCart.forEach((item) => {
-        if (item.idDrink === cocktailId) {
-          item.quantity--;
-        }
-      });
-    },
-    deleteFromCart(state, productId) {
-      state.cocktailsInCart.forEach((item, idx) => {
-        if (item.idDrink === productId) {
-          state.cocktailsInCart.splice(idx, 1);
-          localStorage.removeItem(productId);
-        }
-      });
     },
   },
   actions: {},
@@ -74,5 +39,11 @@ export default new Vuex.Store({
     cocktails,
     cart,
     products,
+    auth,
   },
+  plugins: [
+    createMultiTabState({
+      statesPaths: ["cart.cocktailsInCart", "products.userProducts"],
+    }),
+  ],
 });

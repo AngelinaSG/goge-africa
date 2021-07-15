@@ -61,19 +61,29 @@
           </ul>
 
           <form class="form-inline">
+            <template v-if="!btnType">
+              <button
+                type="button"
+                class="btn main-header__btn btn--gradient-bg"
+                @click="openModal('be-contributor')"
+              >
+                Be A Contributor
+              </button>
+              <button
+                type="button"
+                class="btn main-header__btn btn--gradient-bg"
+                @click="openModal('login')"
+              >
+                Log in
+              </button>
+            </template>
             <button
+              v-else
               type="button"
               class="btn main-header__btn btn--gradient-bg"
-              @click="openModal('be-contributor')"
+              @click="logOut"
             >
-              Be A Contributor
-            </button>
-            <button
-              type="button"
-              class="btn main-header__btn btn--gradient-bg"
-              @click="openModal('login')"
-            >
-              Log in
+              Log out
             </button>
           </form>
           <ContributorModal @closeModal="hideModal('be-contributor')" />
@@ -88,6 +98,7 @@
 import IconAddToCart from "@/components/icons/IconAddToCart";
 import ContributorModal from "@/components/app/ContributorModal";
 import LoginModal from "@/components/app/LoginModal";
+import { mapActions } from "vuex";
 
 export default {
   name: "Header",
@@ -96,12 +107,22 @@ export default {
     ContributorModal,
     LoginModal,
   },
+  computed: {
+    btnType() {
+      return this.$route.name === "Dashboard";
+    },
+  },
   methods: {
+    ...mapActions(["logout"]),
     openModal(name) {
       this.$modal.show(name);
     },
     hideModal(name) {
       this.$modal.hide(name);
+    },
+    async logOut() {
+      await this.$router.push("/");
+      this.logout();
     },
   },
 };
