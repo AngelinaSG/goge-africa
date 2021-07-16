@@ -63,11 +63,11 @@
                   >{{ cocktail.strAlcoholic }}</span
                 >
                 <div class="card-body gradient-background">
-                  <a href="#" class="bold text-white">
+                  <router-link :to="{ name: 'ProductPage', params: { id: cocktail.idDrink}}" class="bold text-white">
                     <p class="card-text">
                       {{ cocktail.strDrink }}
                     </p>
-                  </a>
+                  </router-link>
                 </div>
               </div>
             </li>

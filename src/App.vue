@@ -27,7 +27,8 @@ export default {
   methods: {
     ...mapActions(["addToCart"]),
     async refreshCart() {
-      if (localStorage.length > 1) {
+      console.log(this.cocktailsInCart);
+      if (localStorage & localStorage.length > 1) {
         for (let key in localStorage) {
           if (key.includes("1")) {
             let cocktailId = localStorage.getItem(key);

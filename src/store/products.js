@@ -3,7 +3,7 @@ export default {
     userProducts: [],
   },
   getters: {
-    userProducts: (s) => s.userProducts(),
+    userProducts: s => s.userProducts,
   },
   mutations: {
     addProduct(state, productData) {

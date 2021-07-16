@@ -64,7 +64,7 @@
       y="9.5"
       fill="white"
     >
-      {{ inCart.length }}
+      {{ inCart }}
     </text>
     <!--    <path d="M26.1149 9.08698V5.13629H25.6825L24.6934 6.15506L24.9895 6.45713L25.6233 5.78783V9.08698H26.1149Z" fill="white"/>-->
     <!--    <path d="M29.6087 9.08698V8.64867H27.6719C28.7736 7.77798 29.591 7.04352 29.591 6.23798C29.591 5.45021 28.9216 5.07706 28.2642 5.07706C27.7074 5.07706 27.1921 5.30213 26.89 5.69898L27.1921 6.0129C27.4231 5.71675 27.7903 5.51536 28.2642 5.51536C28.6729 5.51536 29.0875 5.73452 29.0875 6.23798C29.0875 6.91913 28.3175 7.5766 26.896 8.69606V9.08698H29.6087Z" fill="white"/>-->
@@ -170,10 +170,10 @@ export default {
   computed: {
     ...mapGetters(["cocktailsInCart"]),
     inCart() {
-      return this.cocktailsInCart;
+      return this.cocktailsInCart ? this.cocktailsInCart.length : 0;
     },
     textPosition() {
-      if (this.cocktailsInCart.length < 10) {
+      if (!this.cocktailsInCart || this.cocktailsInCart.length < 10) {
         return "25";
       } else {
         return "22.5";

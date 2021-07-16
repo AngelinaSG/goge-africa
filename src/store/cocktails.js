@@ -4,7 +4,7 @@ export default {
       let cocktails = await this._vm.$api.cocktails.getCocktails();
       return cocktails.data.drinks;
     },
-    async getCocktailById(cocktailId) {
+    async getCocktailById(_, cocktailId) {
       let cocktail = await this._vm.$api.cocktails.getCocktailById(cocktailId);
       return cocktail.data.drinks;
     },

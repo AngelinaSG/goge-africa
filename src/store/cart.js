@@ -8,6 +8,7 @@ export default {
   mutations: {
     addCocktailToCart: (state, value) => {
       let isInCart = false;
+      console.log(state.cocktailsInCart);
       state.cocktailsInCart.forEach((item) => {
         if (item.idDrink === value.idDrink) {
           isInCart = true;
