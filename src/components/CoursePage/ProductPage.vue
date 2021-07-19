@@ -1,10 +1,10 @@
 <template>
   <div class="container product__container">
     <div class="row mb-5">
-      <a @click.prevent="goBack">
+      <router-link to="/course">
         <IconBack class="product__link-back-icon" />
         <span>Back</span>
-      </a>
+      </router-link>
     </div>
 
     <b-spinner v-if="isLoading" label="Loading..."></b-spinner>
@@ -91,9 +91,6 @@ export default {
   },
   methods: {
     ...mapActions(["getCocktailById"]),
-    goBack() {
-      this.$router.go(-1);
-    },
   },
 };
 </script>

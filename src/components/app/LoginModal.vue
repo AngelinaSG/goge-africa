@@ -52,14 +52,14 @@ export default {
         this.$emit("closeModal");
         await this.$router.push("/dashboard");
       } catch (e) {
-        // const errorText = e.response.data.error.message
-        //   .replaceAll("_", " ")
-        //   .toLowerCase();
-        // this.$bvToast.toast(`${errorText}`, {
-        //   autoHideDelay: 3000,
-        //   toaster: "b-toaster-top-center",
-        //   "append-toast": true,
-        // });
+        const errorText = e.response.data.error.message
+          .replaceAll("_", " ")
+          .toLowerCase();
+        this.$bvToast.toast(`${errorText}`, {
+          autoHideDelay: 3000,
+          toaster: "b-toaster-top-center",
+          "append-toast": true,
+        });
       }
       this.isLoading = false;
     },

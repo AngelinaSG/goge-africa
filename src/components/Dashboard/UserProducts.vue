@@ -15,11 +15,21 @@
     <ul v-else class="courses__list">
       <li
         class="courses-section__card-col"
-        v-for="product in products"
+        v-for="(product, id) in products"
         :key="product.idDrink"
       >
         <div class="card courses-section__card">
-          <img :src="product.strDrinkThumb" class="card-img-top" alt="" />
+
+          <b-dropdown dropright class="b-dropdown-menu" no-caret toggle-class="dropdown-toggle-menu" menu-class="dropdown-menu-simple">
+            <template #button-content>
+              <b-icon icon="three-dots" />
+            </template>
+            <b-dropdown-item-button @click="showModal(id)">Delete product</b-dropdown-item-button>
+            <b-dropdown-item-button>Edit product info</b-dropdown-item-button>
+          </b-dropdown>
+
+
+          <img :src="product.strDrinkThumb" class="card-img-top" alt="" loading="lazy"/>
           <span
             v-show="product.strAlcoholic"
             class="courses__label gradient-background bold text-white"
@@ -35,23 +45,30 @@
         </div>
       </li>
     </ul>
+
+    <DeleteProductModal :productId="currentProduct" @deleteProduct="deleteProduct"/>
   </div>
 </template>
 
 <script>
 import ProductFilter from "@/components/Dashboard/ProductFilter";
 import CartsPlaceholders from "@/components/app/CartsPlaceholders";
+import DeleteProductModal from "@/components/app/DeleteProductModal";
+import { BIcon } from 'bootstrap-vue'
 import { mapActions } from "vuex";
 
 export default {
   data: () => ({
     products: [],
+    currentProduct: "",
     nothingFound: false,
     isLoading: false,
   }),
   components: {
     ProductFilter,
     CartsPlaceholders,
+    BIcon,
+    DeleteProductModal
   },
   async mounted() {
     this.isLoading = true;
@@ -86,6 +103,14 @@ export default {
     clearFilters() {
       this.getProducts();
     },
+    showModal(productId) {
+      this.currentProduct = productId;
+      this.$modal.show("delete-product-modal");
+    },
+    async deleteProduct(productId) {
+      await this.$api.products.deleteProduct(productId);
+      await this.getProducts();
+    }
   },
 };
 </script>
@@ -176,4 +201,11 @@ export default {
 .products__container h2 {
   margin-top: 40px;
 }
+
+.b-dropdown-menu {
+  width: 10%;
+  height: 10px;
+  position: absolute;
+}
+
 </style>

@@ -12,19 +12,11 @@ export default {
   },
   actions: {
     async addProduct({ commit }, productData) {
-      try {
-        await this._vm.$api.products.addProduct(productData);
-        commit("addProduct", productData);
-      } catch (e) {
-        throw e;
-      }
+      await this._vm.$api.products.addProduct(productData);
+      commit("addProduct", productData);
     },
-    async getProductsList() {
-      try {
-        return await this._vm.$api.products.getProducts();
-      } catch (e) {
-        throw e;
-      }
+    getProductsList() {
+      return this._vm.$api.products.getProducts();
     },
   },
 };

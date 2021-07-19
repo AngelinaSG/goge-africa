@@ -18,5 +18,9 @@ export default function () {
         'https://goge-africa-shop-default-rtdb.firebaseio.com/products/-MeF0gTrLTdrcu5ulpUD.json?orderBy="$value"&equalTo="Alcoholic"&print=pretty'
       );
     },
+    async deleteProduct(productId) {
+      console.log(productId);
+      return await axios.delete(`https://goge-africa-shop-default-rtdb.firebaseio.com/products/${productId}.json/`)
+    }
   };
 }

@@ -8,21 +8,23 @@
           v-for="cocktail in cocktails"
           :key="cocktail.idDrink"
         >
-          <div class="card courses-section__card">
-            <img :src="cocktail.strDrinkThumb" class="card-img-top" alt="" />
-            <button
-              class="btn btn--gradient-bg btn--add-to-cart"
-              title="Add to Cart"
-              @click="addToCartById(cocktail.idDrink, cocktail.strDrink)"
-            ></button>
-            <div class="card-body gradient-background">
-              <a href="#" class="bold text-white">
-                <p class="card-text">
-                  {{ cocktail.strDrink }}
-                </p>
-              </a>
+          <router-link :to="{ name: 'ProductPage', params: { id: cocktail.idDrink }}">
+            <div class="card courses-section__card">
+              <img :src="cocktail.strDrinkThumb" class="card-img-top" alt="" />
+              <button
+                class="btn btn--gradient-bg btn--add-to-cart"
+                title="Add to Cart"
+                @click="addToCartById(cocktail.idDrink, cocktail.strDrink)"
+              ></button>
+              <div class="card-body gradient-background">
+                <a href="#" class="bold text-white">
+                  <p class="card-text">
+                    {{ cocktail.strDrink }}
+                  </p>
+                </a>
+              </div>
             </div>
-          </div>
+          </router-link>
         </li>
       </ul>
     </div>

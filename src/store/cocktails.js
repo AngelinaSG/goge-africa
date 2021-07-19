@@ -15,7 +15,7 @@ export default {
         commit("getCocktail", searchValue);
         return cocktailByName.data.drinks;
       } catch (e) {
-        throw e;
+        return Promise.reject(e);
       }
     },
     async getFilters() {

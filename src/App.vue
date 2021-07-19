@@ -11,7 +11,7 @@
 <script>
 import Header from "@/components/header/Header";
 import Footer from "@/components/Footer";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   components: {
@@ -19,15 +19,23 @@ export default {
     Footer,
   },
   async mounted() {
+    window.addEventListener('storage', this.checkAuth);
+    const auth = JSON.parse(localStorage.getItem("logged_in"));
+    if(auth) {
+      this.changeAuth(true);
+    }
     await this.refreshCart();
+  },
+  beforeDestroy() {
+    window.removeEventListener("storage", this.checkAuth);
   },
   computed: {
     ...mapGetters(["cocktailsInCart"]),
   },
   methods: {
     ...mapActions(["addToCart"]),
+    ...mapMutations(["changeAuth"]),
     async refreshCart() {
-      console.log(this.cocktailsInCart);
       if (localStorage & (localStorage.length > 1)) {
         for (let key in localStorage) {
           if (key.includes("1")) {
@@ -37,6 +45,17 @@ export default {
         }
       }
     },
+    async checkAuth(e) {
+      if (e.key !== "logged_in") {
+        return;
+      }
+      const auth = JSON.parse(e.newValue);
+      if (auth) {
+        await this.$router.push("/dashboard");
+      } else {
+        await this.$router.push("/");
+      }
+    }
   },
 };
 </script>
@@ -154,8 +173,7 @@ a:hover {
   color: $white;
 }
 
-.btn:hover,
-.btn:focus {
+.btn:hover {
   color: $white;
   box-shadow: 0px 12px 35px rgba(160, 121, 0, 0.5);
   text-shadow: 0 0 3px $white;
@@ -168,6 +186,36 @@ a:hover {
 
 .dropdown-menu {
   border-radius: 50px;
+}
+
+.dropdown-menu-simple {
+  border-radius: 5px;
+  opacity: 0.9;
+}
+
+.dropdown-toggle-menu {
+  background-color: transparent;
+}
+
+.dropdown-toggle-menu {
+  background-color: transparent;
+  box-shadow: none;
+  height: 20px;
+}
+
+.dropdown-toggle-menu:hover, .dropdown-toggle-menu:active, .dropdown-toggle-menu:focus {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {

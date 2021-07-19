@@ -55,7 +55,7 @@
                 Contact Us
               </router-link>
             </li>
-            <li class="nav-item main-header__nav-item">
+            <li class="nav-item main-header__nav-item" v-if="!btnType">
               <router-link to="/cart"><IconAddToCart /></router-link>
             </li>
           </ul>
@@ -77,14 +77,17 @@
                 Log in
               </button>
             </template>
-            <button
-              v-else
-              type="button"
-              class="btn main-header__btn btn--gradient-bg"
-              @click="logOut"
-            >
-              Log out
-            </button>
+            <template v-else>
+              <router-link to="/dashboard" class="nav-link main-header__nav-link gradient-text-color mr-3">My Dashboard</router-link>
+              <button
+                type="button"
+                class="btn main-header__btn btn--gradient-bg"
+                @click="logOut"
+              >
+                Log out
+              </button>
+            </template>
+
           </form>
           <ContributorModal @closeModal="hideModal('be-contributor')" />
           <LoginModal @closeModal="hideModal('login')" />
@@ -98,7 +101,7 @@
 import IconAddToCart from "@/components/icons/IconAddToCart";
 import ContributorModal from "@/components/app/ContributorModal";
 import LoginModal from "@/components/app/LoginModal";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Header",
@@ -108,8 +111,9 @@ export default {
     LoginModal,
   },
   computed: {
+    ...mapGetters(["auth"]),
     btnType() {
-      return this.$route.name === "Dashboard";
+      return this.auth;
     },
   },
   methods: {
@@ -121,7 +125,9 @@ export default {
       this.$modal.hide(name);
     },
     async logOut() {
-      await this.$router.push("/");
+      if(this.$route.name === "Dashboard") {
+        await this.$router.push("/");
+      }
       this.logout();
     },
   },
@@ -186,7 +192,6 @@ export default {
 }
 
 .main-header__nav-item:last-of-type {
-  font-weight: bold;
   margin-right: 24px;
 }
 

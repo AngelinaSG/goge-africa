@@ -46,36 +46,38 @@
               v-for="cocktail in cocktails"
               :key="cocktail.idDrink"
             >
-              <div class="card courses-section__card">
-                <img
-                  :src="cocktail.strDrinkThumb"
-                  class="card-img-top"
-                  alt=""
-                />
-                <button
-                  class="btn btn--gradient-bg btn--add-to-cart"
-                  title="Add to Cart"
-                  @click="toCart(cocktail.idDrink, cocktail.strDrink)"
-                ></button>
-                <span
-                  v-show="cocktail.strAlcoholic"
-                  class="courses__label gradient-background bold text-white"
+              <router-link :to="{ name: 'ProductPage', params: { id: cocktail.idDrink }}">
+                <div class="card courses-section__card">
+                  <img
+                    :src="cocktail.strDrinkThumb"
+                    class="card-img-top"
+                    alt=""
+                  />
+                  <button
+                    class="btn btn--gradient-bg btn--add-to-cart"
+                    title="Add to Cart"
+                    @click="toCart(cocktail.idDrink, cocktail.strDrink)"
+                  ></button>
+                  <span
+                    v-show="cocktail.strAlcoholic"
+                    class="courses__label gradient-background bold text-white"
                   >{{ cocktail.strAlcoholic }}</span
-                >
-                <div class="card-body gradient-background">
-                  <router-link
-                    :to="{
+                  >
+                  <div class="card-body gradient-background">
+                    <router-link
+                      :to="{
                       name: 'ProductPage',
                       params: { id: cocktail.idDrink },
                     }"
-                    class="bold text-white"
-                  >
-                    <p class="card-text">
-                      {{ cocktail.strDrink }}
-                    </p>
-                  </router-link>
+                      class="bold text-white"
+                    >
+                      <p class="card-text">
+                        {{ cocktail.strDrink }}
+                      </p>
+                    </router-link>
+                  </div>
                 </div>
-              </div>
+              </router-link>
             </li>
           </ul>
 
@@ -237,7 +239,7 @@ export default {
           this.nothingFounded = true;
         }
       } catch (e) {
-        console.log(e);
+        console.log(e.response.data);
       }
       this.isLoading = false;
     },
