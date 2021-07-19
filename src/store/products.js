@@ -18,5 +18,8 @@ export default {
     getProductsList() {
       return this._vm.$api.products.getProducts();
     },
+    getProductById(_, productId) {
+      return this._vm.$api.products.getProductById(productId);
+    }
   },
 };

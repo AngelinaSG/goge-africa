@@ -37,6 +37,14 @@ const routes = [
     },
     component: () => import("../views/Dashboard.vue"),
   },
+  {
+    path: "/dashboard/:id",
+    name: "ProductEdit",
+    meta: {
+      middleware: [auth],
+    },
+    component: () => import("@/components/Dashboard/ProductEdit.vue"),
+  }
 ];
 
 const scrollBehavior = function (to, from, savedPosition) {

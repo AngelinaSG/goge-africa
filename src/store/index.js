@@ -43,7 +43,7 @@ export default new Vuex.Store({
   },
   plugins: [
     createMultiTabState({
-      statesPaths: ["cart.cocktailsInCart", "products.userProducts"],
+      statesPaths: ["cart.cocktailsInCart", "products.userProducts", "auth.auth"],
     }),
   ],
 });

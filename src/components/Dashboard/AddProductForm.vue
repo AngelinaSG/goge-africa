@@ -38,6 +38,16 @@
         ></b-form-select>
       </div>
 
+      <b-form-tags
+        v-model="ingredients"
+        class="form-tags--custom"
+        tag-variant="warning"
+        tag-pills
+        separator=" "
+        placeholder="Enter ingredients separated by space"
+        add-button-variant="btn-outline-warning"
+      ></b-form-tags>
+
       <input
         type="text"
         class="form-control form-control--custom"
@@ -68,6 +78,7 @@ export default {
     category: "",
     alc: "",
     glass: "",
+    ingredients: [],
     imgLink: "",
     categoriesList: [],
     alcList: [],
@@ -147,13 +158,16 @@ export default {
   opacity: 0.5;
 }
 
-.custom-file-input {
+.custom-file-input, .form-tags--custom {
+  font-size: 0.875rem;
   border-radius: 100px;
+  border: 1px solid #efefef;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .btn--add-product {
   margin: auto;
-  margin-top: 20px;
 }
 
 .add-product__img {
@@ -161,4 +175,16 @@ export default {
   object-fit: cover;
   border-radius: 10px;
 }
+</style>
+
+<style>
+
+.b-form-tag {
+  font-size: 0.875rem;
+}
+
+.b-form-tags-button, {
+  color: #ff8a00;
+}
+
 </style>

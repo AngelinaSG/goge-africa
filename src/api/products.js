@@ -21,6 +21,11 @@ export default function () {
     async deleteProduct(productId) {
       console.log(productId);
       return await axios.delete(`https://goge-africa-shop-default-rtdb.firebaseio.com/products/${productId}.json/`)
+    },
+    async getProductById(productId) {
+      return await axios.get(
+        `https://goge-africa-shop-default-rtdb.firebaseio.com/products/${productId}.json`
+      );
     }
   };
 }

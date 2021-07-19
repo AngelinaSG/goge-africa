@@ -37,29 +37,35 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   data: () => ({
     userEmail: "",
     userPass: "",
     isLoading: false,
   }),
+  mounted() {
+    if (localStorage.getItem("userEmail")) this.userEmail = localStorage.getItem("userEmail");
+    if (localStorage.getItem("userPass")) this.userPass = localStorage.getItem("userPass");
+  },
   methods: {
+    ...mapMutations(["changeAuth"]),
     async onSubmit() {
       this.isLoading = true;
       try {
         await this.$api.auth.login(this.userEmail, this.userPass);
         localStorage.setItem("logged_in", true);
+        localStorage.setItem("userEmail", this.userEmail);
+        localStorage.setItem("userPass",this.userPass);
+        this.changeAuth(true);
         this.$emit("closeModal");
         await this.$router.push("/dashboard");
       } catch (e) {
         const errorText = e.response.data.error.message
           .replaceAll("_", " ")
           .toLowerCase();
-        this.$bvToast.toast(`${errorText}`, {
-          autoHideDelay: 3000,
-          toaster: "b-toaster-top-center",
-          "append-toast": true,
-        });
+        this.$message(`${errorText}`);
       }
       this.isLoading = false;
     },

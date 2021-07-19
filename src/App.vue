@@ -51,9 +51,11 @@ export default {
       }
       const auth = JSON.parse(e.newValue);
       if (auth) {
+        this.changeAuth(true);
         await this.$router.push("/dashboard");
       } else {
-        await this.$router.push("/");
+        this.changeAuth(false);
+        if (this.$route.name === "Dashboard") await this.$router.push("/");
       }
     }
   },
