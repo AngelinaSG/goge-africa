@@ -46,7 +46,9 @@
               v-for="cocktail in cocktails"
               :key="cocktail.idDrink"
             >
-              <router-link :to="{ name: 'ProductPage', params: { id: cocktail.idDrink }}">
+              <router-link
+                :to="{ name: 'ProductPage', params: { id: cocktail.idDrink } }"
+              >
                 <div class="card courses-section__card">
                   <img
                     :src="cocktail.strDrinkThumb"
@@ -61,14 +63,14 @@
                   <span
                     v-show="cocktail.strAlcoholic"
                     class="courses__label gradient-background bold text-white"
-                  >{{ cocktail.strAlcoholic }}</span
+                    >{{ cocktail.strAlcoholic }}</span
                   >
                   <div class="card-body gradient-background">
                     <router-link
                       :to="{
-                      name: 'ProductPage',
-                      params: { id: cocktail.idDrink },
-                    }"
+                        name: 'ProductPage',
+                        params: { id: cocktail.idDrink },
+                      }"
                       class="bold text-white"
                     >
                       <p class="card-text">
@@ -98,7 +100,7 @@
             ></button>
             <form @change="onChooseCategory($event)">
               <li>
-                Alcohol
+                <span>Alcohol</span>
                 <div
                   class="form-check"
                   v-for="cat in alcFilterCat"
@@ -117,7 +119,7 @@
                 </div>
               </li>
               <li>
-                Category
+                <span>Category</span>
                 <div
                   class="form-check"
                   v-for="cat in catFilterCat"
@@ -136,7 +138,7 @@
                 </div>
               </li>
               <li>
-                Glass
+                <span>Glass</span>
                 <div
                   class="form-check"
                   v-for="cat in glassFilterCat"
@@ -326,7 +328,7 @@ export default {
   width: 17%;
   box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.07);
   border-radius: 5px;
-  padding: 9px 5px 11px 0;
+  padding: 9px 0 11px 0;
   transition: height 1s ease-in-out;
 }
 
@@ -337,10 +339,13 @@ export default {
   position: relative;
 }
 
-.courses__filter-list > h3,
-.courses__filter-list li {
+.courses__filter-list > h3 {
   margin-bottom: 10px;
   padding-left: 25px;
+}
+
+.courses__filter-list li {
+  margin-bottom: 10px;
 }
 
 .courses__filter-list li {
@@ -351,6 +356,14 @@ export default {
   transition: all 0.2s ease;
   font-size: 1rem;
   margin-bottom: 0;
+}
+
+.courses__filter-list li .form-check {
+  padding-left: 48px;
+}
+.courses__filter-list li span {
+  padding-left: 28px;
+  margin-bottom: 10px;
 }
 
 .courses__filter-list li .form-check:hover {
