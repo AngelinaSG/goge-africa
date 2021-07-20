@@ -43,7 +43,7 @@
         class="form-tags--custom"
         tag-variant="warning"
         tag-pills
-        separator=" "
+        separator=","
         placeholder="Enter ingredients separated by space"
         add-button-variant="btn-outline-warning"
       ></b-form-tags>
@@ -113,6 +113,7 @@ export default {
         strAlcoholic: this.alc,
         strGlass: this.glass,
         strDrinkThumb: this.imgLink,
+        strIngredients: this.ingredients
       };
       try {
         await this.addProduct(productData);

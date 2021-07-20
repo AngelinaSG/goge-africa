@@ -35,7 +35,7 @@
             </ul>
 
             <ul class="d-flex flex-column product__measure-list mt-2">
-              <li v-for="measure in productMeasures" :key="measure">
+              <li v-for="(measure, id) in productMeasures" :key="id">
                 {{ measure }}
               </li>
             </ul>

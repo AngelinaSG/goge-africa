@@ -8,6 +8,10 @@ export default function () {
         productData
       );
     },
+    async updateProductInfo(productId, newData) {
+      console.log(newData);
+      return await axios.patch(`https://goge-africa-shop-default-rtdb.firebaseio.com/products/${productId}.json`, newData)
+    },
     async getProducts() {
       return await axios.get(
         "https://goge-africa-shop-default-rtdb.firebaseio.com/products.json"

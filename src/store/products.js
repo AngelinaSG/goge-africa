@@ -15,6 +15,10 @@ export default {
       await this._vm.$api.products.addProduct(productData);
       commit("addProduct", productData);
     },
+    updateProductInfo(_, [productId, newInfo]) {
+      console.log(newInfo);
+      return this._vm.$api.products.updateProductInfo(productId, newInfo)
+    },
     getProductsList() {
       return this._vm.$api.products.getProducts();
     },
