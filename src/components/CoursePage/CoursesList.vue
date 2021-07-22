@@ -46,40 +46,36 @@
               v-for="cocktail in cocktails"
               :key="cocktail.idDrink"
             >
-              <router-link
-                :to="{ name: 'ProductPage', params: { id: cocktail.idDrink } }"
+              <a
+                @click.prevent="toProduct($event, cocktail.idDrink)"
               >
                 <div class="card courses-section__card">
+                  <button
+                    class="btn btn--gradient-bg btn--add-to-cart"
+                    title="Add to Cart"
+                    @click="toCart(cocktail.idDrink, cocktail.strDrink)"
+                  />
                   <img
                     :src="cocktail.strDrinkThumb"
                     class="card-img-top"
                     alt=""
                   />
-                  <button
-                    class="btn btn--gradient-bg btn--add-to-cart"
-                    title="Add to Cart"
-                    @click="toCart(cocktail.idDrink, cocktail.strDrink)"
-                  ></button>
                   <span
                     v-show="cocktail.strAlcoholic"
                     class="courses__label gradient-background bold text-white"
                     >{{ cocktail.strAlcoholic }}</span
                   >
                   <div class="card-body gradient-background">
-                    <router-link
-                      :to="{
-                        name: 'ProductPage',
-                        params: { id: cocktail.idDrink },
-                      }"
+                    <a
                       class="bold text-white"
                     >
                       <p class="card-text">
                         {{ cocktail.strDrink }}
                       </p>
-                    </router-link>
+                    </a>
                   </div>
                 </div>
-              </router-link>
+              </a>
             </li>
           </ul>
 
@@ -273,6 +269,10 @@ export default {
       this.addToCart(cocktailId);
       this.$message(`${cocktailName} was added to cart!`);
     },
+    toProduct(e, productId) {
+      if(e.target.classList.value.includes("btn")) return
+      this.$router.push({ name: 'ProductPage', params: { id: productId } });
+    }
   },
 };
 </script>
@@ -349,7 +349,6 @@ export default {
 }
 
 .courses__filter-list li {
-  margin-bottom: 7px;
   width: 100%;
   padding-top: 9px;
   padding-bottom: 9px;
@@ -431,13 +430,13 @@ export default {
 }
 
 .courses-section__card {
+  position: relative;
   border: none;
   border-radius: 10px;
   line-height: 152.34%;
   margin-bottom: 15px;
   position: relative;
   transition: box-shadow 0.15s ease-in-out;
-  position: relative;
 }
 
 .courses-section__card:hover {
@@ -452,7 +451,7 @@ export default {
   padding-top: 15px;
 }
 
-.courses-section__card > .card-img-top {
+.courses-section__card .card-img-top {
   border-radius: 10px 10px 0 0;
 }
 

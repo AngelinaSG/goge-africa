@@ -21,7 +21,6 @@
         :key="product.idDrink"
       >
 
-        <router-link :to="{ name: 'ProductEdit', params: { id: id }} ">
         <div class="card courses-section__card">
 
         <b-dropdown dropright class="b-dropdown-menu" no-caret toggle-class="dropdown-toggle-menu" menu-class="dropdown-menu-simple">
@@ -29,7 +28,7 @@
             <b-icon icon="three-dots" />
           </template>
           <b-dropdown-item-button @click="showModal(id)">Delete product</b-dropdown-item-button>
-          <b-dropdown-item-button>Edit product info</b-dropdown-item-button>
+          <b-dropdown-item-button @click="toProduct(id)">Edit product info</b-dropdown-item-button>
         </b-dropdown>
 
 
@@ -47,14 +46,13 @@
           </a>
         </div>
   </div>
-        </router-link>
 
 
 
       </li>
     </ul>
 
-    <DeleteProductModal :productId="currentProduct" @deleteProduct="deleteProduct"/>
+    <DeleteProductModal :productId="currentProduct" @deleteProduct="deleteProduct" @closeModal="hideModal"/>
   </div>
 </template>
 
@@ -115,9 +113,15 @@ export default {
       this.currentProduct = productId;
       this.$modal.show("delete-product-modal");
     },
+    hideModal() {
+      this.$modal.hide("delete-product-modal");
+    },
     async deleteProduct(productId) {
       await this.$api.products.deleteProduct(productId);
       await this.getProducts();
+    },
+    toProduct(id) {
+      this.$router.push({ name: 'ProductEdit', params: { id: id }});
     }
   },
 };

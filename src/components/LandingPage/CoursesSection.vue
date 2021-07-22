@@ -8,7 +8,7 @@
           v-for="cocktail in cocktails"
           :key="cocktail.idDrink"
         >
-          <router-link :to="{ name: 'ProductPage', params: { id: cocktail.idDrink }}">
+          <a @click.prevent="toProduct($event, cocktail.idDrink)">
             <div class="card courses-section__card">
               <img :src="cocktail.strDrinkThumb" class="card-img-top" alt="" />
               <button
@@ -24,7 +24,7 @@
                 </a>
               </div>
             </div>
-          </router-link>
+          </a>
         </li>
       </ul>
     </div>
@@ -62,6 +62,10 @@ export default {
       this.addToCart(cocktailId);
       this.$message(`${cocktailName} was added to cart!`);
     },
+    toProduct(e, productId) {
+      if(e.target.classList.value.includes("btn")) return
+      this.$router.push({ name: 'ProductPage', params: { id: productId } });
+    }
   },
 };
 </script>

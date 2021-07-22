@@ -13,7 +13,7 @@
     <div class="delete-modal text-center">
       <button class="btn--close" @click="$emit('closeModal')"></button>
       <IconDelete />
-      <h4 class="delete-modal__title">Delete Order</h4>
+      <h4 class="delete-modal__title">Delete Product</h4>
       <p class="delete-modal__description">
         Are you sure? You'll cant restore your product!
       </p>

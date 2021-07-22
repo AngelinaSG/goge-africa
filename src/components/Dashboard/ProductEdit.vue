@@ -111,10 +111,9 @@ export default {
     ...mapActions(["getProductById", "updateProductInfo"]),
     async saveChanges() {
       this.isLoading = true;
-      console.log(this.newProductInfo);
       await this.updateProductInfo([this.$route.params.id, this.newProductInfo]);
       this.isLoading = false;
-      this.$message("Product info updated");
+      this.$message(`${this.newProductInfo.strDrink} info updated`);
     },
   },
 };
