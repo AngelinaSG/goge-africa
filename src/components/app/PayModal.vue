@@ -21,6 +21,7 @@
                 class="form-control"
                 id="cardNumber"
                 placeholder="Card Number"
+                v-model="cardNumber"
               />
             </div>
             <div class="form-control--card-exp">
@@ -47,7 +48,7 @@
           </button>
         </form>
       </template>
-
+      <template v-if="!isSuccessful"> </template>
       <div class="pay-success" v-else>
         <IconSuccess class="pay-success__icon" />
         <p class="pay-success__text bold">Payment successful</p>
@@ -68,7 +69,11 @@ export default {
   },
   data: () => ({
     isSuccessful: false,
+    cardNumber: "",
   }),
+  mounted() {
+    // this.cardNumber = this.cardNumber.padEnd(16, "*");
+  },
   methods: {
     pay() {
       this.isSuccessful = true;

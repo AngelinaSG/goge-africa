@@ -68,6 +68,7 @@ export default {
 
 .cart__link-row a:hover > span {
   color: orange;
+  cursor: pointer;
 }
 
 .cart__link-row a:hover > .cart__link-back-icon {

@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import "bootstrap";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
+import { VBTooltip } from "bootstrap-vue";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import Vuelidate from "vuelidate";
 import VModal from "vue-js-modal";
@@ -22,6 +23,8 @@ Vue.use(BootstrapVueIcons);
 Vue.use(VModal);
 Vue.use(Vuelidate);
 Vue.use(message);
+
+Vue.directive("b-tooltip", VBTooltip);
 
 Vue.prototype.$api = apiService;
 

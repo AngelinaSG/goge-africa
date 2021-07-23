@@ -9,8 +9,13 @@
       </div>
       <div class="product-row">
         <b-form-group v-slot="{ ariaDescribedby }">
-          <b-form-radio>Pay with Ravepay <RavepayIcon /></b-form-radio>
-          :aria-describedby="ariaDescribedby" name="some-radios" value="A"
+          <b-form-radio
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="A"
+            >Pay with Ravepay <RavepayIcon
+          /></b-form-radio>
+
           <b-form-radio
             :aria-describedby="ariaDescribedby"
             name="some-radios"

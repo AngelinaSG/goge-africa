@@ -34,26 +34,26 @@
               >
             </li>
             <li class="nav-item main-header__nav-item">
-              <router-link
-                to="/course"
+              <a
+                href="#"
                 class="nav-link main-header__nav-link gradient-text-color"
-                >Blog</router-link
+                >Blog</a
               >
             </li>
             <li class="nav-item main-header__nav-item">
-              <router-link
-                to="/course"
+              <a
+                href="#"
                 class="nav-link main-header__nav-link gradient-text-color"
-                >About Us</router-link
+                >About Us</a
               >
             </li>
             <li class="nav-item main-header__nav-item">
-              <router-link
-                to="/course"
+              <a
+                href="#"
                 class="nav-link main-header__nav-link gradient-text-color"
               >
                 Contact Us
-              </router-link>
+              </a>
             </li>
             <li class="nav-item main-header__nav-item" v-if="!btnType">
               <router-link to="/cart"><IconAddToCart /></router-link>
@@ -78,7 +78,11 @@
               </button>
             </template>
             <template v-else>
-              <router-link to="/dashboard" class="nav-link main-header__nav-link gradient-text-color mr-3">My Dashboard</router-link>
+              <router-link
+                to="/dashboard"
+                class="nav-link main-header__nav-link gradient-text-color mr-3"
+                >My Dashboard</router-link
+              >
               <button
                 type="button"
                 class="btn main-header__btn btn--gradient-bg"
@@ -87,7 +91,6 @@
                 Log out
               </button>
             </template>
-
           </form>
           <ContributorModal @closeModal="hideModal('be-contributor')" />
           <LoginModal @closeModal="hideModal('login')" />
@@ -125,7 +128,7 @@ export default {
       this.$modal.hide(name);
     },
     async logOut() {
-      if(this.$route.name === "Dashboard") {
+      if (this.$route.name === "Dashboard") {
         await this.$router.push("/");
       }
       this.logout();

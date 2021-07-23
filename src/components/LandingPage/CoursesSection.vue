@@ -13,8 +13,10 @@
               <img :src="cocktail.strDrinkThumb" class="card-img-top" alt="" />
               <button
                 class="btn btn--gradient-bg btn--add-to-cart"
-                title="Add to Cart"
                 @click="addToCartById(cocktail.idDrink, cocktail.strDrink)"
+                v-b-tooltip
+                title="Add to cart"
+                v-b-tooltip.hover.v-secondary
               ></button>
               <div class="card-body gradient-background">
                 <a href="#" class="bold text-white">
@@ -63,9 +65,9 @@ export default {
       this.$message(`${cocktailName} was added to cart!`);
     },
     toProduct(e, productId) {
-      if(e.target.classList.value.includes("btn")) return
-      this.$router.push({ name: 'ProductPage', params: { id: productId } });
-    }
+      if (e.target.classList.value.includes("btn")) return;
+      this.$router.push({ name: "ProductPage", params: { id: productId } });
+    },
   },
 };
 </script>
