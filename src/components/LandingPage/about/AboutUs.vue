@@ -17,7 +17,13 @@
             looking to pursue a career in digital marketing, Accounting, Web
             development, Programming. Multimedia and CAD design.
           </p>
-          <button type="button" class="btn btn--gradient-bg">Discover</button>
+          <button
+            type="button"
+            class="btn btn--gradient-bg"
+            @click="scrollToPrice"
+          >
+            Discover
+          </button>
         </div>
       </div>
     </div>
@@ -31,6 +37,11 @@ export default {
   name: "AboutUs",
   components: {
     Features,
+  },
+  methods: {
+    scrollToPrice() {
+      this.$emit("scrollToPrice");
+    },
   },
 };
 </script>

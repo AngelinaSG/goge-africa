@@ -98,7 +98,7 @@ export default {
   padding-right: 0;
   padding-left: 0;
   margin-left: 0.6%;
-  max-width: 20.25%;
+  min-width: 20.25%;
   border-radius: 0.7rem;
 }
 
@@ -164,7 +164,7 @@ export default {
   }
 
   .courses-section__card-col {
-    max-width: 40%;
+    min-width: 40%;
   }
 }
 

@@ -2,11 +2,13 @@
   <div>
     <main>
       <HeroSection />
-      <AboutUs />
+      <AboutUs @scrollToPrice="scrollToPrice" />
       <CoursesSection />
       <Achievement />
       <Testimonials />
-      <Prices />
+      <div ref="price">
+        <Prices />
+      </div>
       <ContactUs />
     </main>
   </div>
@@ -31,6 +33,11 @@ export default {
     Testimonials,
     Prices,
     ContactUs,
+  },
+  methods: {
+    scrollToPrice() {
+      this.$refs.price.scrollIntoView({ behavior: "smooth" });
+    },
   },
 };
 </script>

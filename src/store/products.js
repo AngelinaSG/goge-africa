@@ -16,14 +16,13 @@ export default {
       commit("addProduct", productData);
     },
     updateProductInfo(_, [productId, newInfo]) {
-      console.log(newInfo);
-      return this._vm.$api.products.updateProductInfo(productId, newInfo)
+      return this._vm.$api.products.updateProductInfo(productId, newInfo);
     },
     getProductsList() {
       return this._vm.$api.products.getProducts();
     },
     getProductById(_, productId) {
       return this._vm.$api.products.getProductById(productId);
-    }
+    },
   },
 };
