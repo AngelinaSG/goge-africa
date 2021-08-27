@@ -49,11 +49,9 @@
             >{{ product.strAlcoholic }}</span
           >
           <div class="card-body gradient-background">
-            <a href="#" class="bold text-white">
-              <p class="card-text">
-                {{ product.strDrink }}
-              </p>
-            </a>
+            <p class="card-text bold text-white">
+              {{ product.strDrink }}
+            </p>
           </div>
         </div>
       </li>
@@ -98,16 +96,19 @@ export default {
       this.nothingFound = false;
       this.isLoading = true;
       await this.getProducts();
-      const filteredProductList = [];
+
+      let filteredProductList = {};
       for (let key in this.products) {
         for (let cat in this.products[key]) {
-          if (this.products[key][cat] === category) {
-            filteredProductList.push(this.products[key]);
-          }
+          if (this.products[key][cat] === category)
+            filteredProductList = {
+              ...filteredProductList,
+              [key]: this.products[key],
+            };
         }
       }
       this.isLoading = false;
-      if (filteredProductList.length === 0) {
+      if (Object.keys(filteredProductList).length === 0) {
         this.nothingFound = true;
       } else {
         this.products = filteredProductList;
@@ -177,7 +178,6 @@ export default {
   margin-bottom: 15px;
   position: relative;
   transition: box-shadow 0.15s ease-in-out;
-  position: relative;
 }
 
 .courses-section__card:hover {

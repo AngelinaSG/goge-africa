@@ -19,15 +19,28 @@
             class="form-control"
             placeholder="Your Email"
             v-model.trim="userEmail"
+            :class="{
+              'is-invalid':
+                ($v.userEmail.$dirty && !$v.userEmail.required) ||
+                ($v.userEmail.$dirty && !$v.userEmail.email),
+            }"
           />
-          <div class="invalid-feedback">Please choose a username.</div>
+          <div class="invalid-feedback">Please use correct email</div>
           <input
             type="text"
             class="form-control"
             placeholder="Your Password"
             v-model.trim="userPass"
+            :class="{
+              'is-invalid':
+                ($v.userPass.$dirty && !$v.userPass.required) ||
+                ($v.userPass.$dirty && !$v.userPass.minLength),
+            }"
           />
-          <div class="invalid-feedback">Please choose a username.</div>
+          <div class="invalid-feedback">
+            Your password should be at least
+            {{ $v.userPass.$params.minLength.min }} characters
+          </div>
         </div>
         <button class="btn btn--gradient-bg" v-if="!isLoading">Log In</button>
         <div v-else>
@@ -40,6 +53,7 @@
 
 <script>
 import { mapActions, mapMutations } from "vuex";
+import { email, required, minLength } from "vuelidate/lib/validators";
 
 export default {
   data: () => ({
@@ -47,17 +61,46 @@ export default {
     userPass: "",
     isLoading: false,
   }),
+  validations: {
+    userEmail: { email, required },
+    userPass: { required, minLength: minLength(6) },
+  },
   mounted() {
     if (localStorage.getItem("userEmail"))
       this.userEmail = localStorage.getItem("userEmail");
     if (localStorage.getItem("userPass"))
       this.userPass = localStorage.getItem("userPass");
   },
+  computed: {
+    // eslint-disable-next-line vue/return-in-computed-property
+    isInvalid(type) {
+      if (type === "email")
+        return (this.$v.userEmail.$dirty && !this.$v.userEmail.required) ||
+          (this.$v.userEmail.$dirty && !this.$v.userEmail.email)
+          ? "is-invalid"
+          : "";
+      if (type === "password") {
+        return (this.$v.userPass.$dirty && !this.$v.userPass.required) ||
+          (this.$v.userPass.$dirty && !this.$v.userPass.minLength)
+          ? "is-invalid"
+          : "";
+      }
+    },
+  },
   methods: {
     ...mapMutations(["changeAuth"]),
     ...mapActions(["login"]),
+
     async onSubmit() {
       this.isLoading = true;
+
+      if (this.$v.$invalid) {
+        console.log(this.$v.$invalid);
+        this.$v.$touch();
+        this.isLoading = false;
+        return;
+      }
+
       try {
         await this.login([this.userEmail, this.userPass]);
         localStorage.setItem("logged_in", true);

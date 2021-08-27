@@ -1,7 +1,7 @@
 <template>
   <div class="container product__container">
     <div class="row mb-5">
-      <router-link to="/dashboard">
+      <router-link :to="$AFRICA_ROUTES.DASHBOARD()">
         <IconBack class="product__link-back-icon" />
         <span>Back</span>
       </router-link>
@@ -111,7 +111,10 @@ export default {
     ...mapActions(["getProductById", "updateProductInfo"]),
     async saveChanges() {
       this.isLoading = true;
-      await this.updateProductInfo([this.$route.params.id, this.newProductInfo]);
+      await this.updateProductInfo([
+        this.$route.params.id,
+        this.newProductInfo,
+      ]);
       this.isLoading = false;
       this.$message(`${this.newProductInfo.strDrink} info updated`);
     },

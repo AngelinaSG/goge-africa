@@ -2,7 +2,7 @@
   <div class="container dashboard__container">
     <div class="dashboard">
       <b-tabs v-model="tabIndex" content-class="mt-3" fill>
-        <b-tab title="Add product" active>
+        <b-tab title="Add product">
           <AddProductForm v-if="tabIndex === 0" />
         </b-tab>
 
@@ -32,6 +32,13 @@ export default {
   data: () => ({
     tabIndex: 0,
   }),
+  created() {
+    const tabIndex = +JSON.parse(localStorage.getItem("tabIndex"));
+    this.tabIndex = tabIndex;
+  },
+  beforeDestroy() {
+    localStorage.setItem("tabIndex", this.tabIndex);
+  },
 };
 </script>
 
