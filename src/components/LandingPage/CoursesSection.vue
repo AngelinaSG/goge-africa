@@ -66,7 +66,7 @@ export default {
     },
     toProduct(e, productId) {
       if (e.target.classList.value.includes("btn")) return;
-      this.$router.push({ name: "ProductPage", params: { id: productId } });
+      this.$router.push(this.$AFRICA_ROUTES.PRODUCT_PAGE(productId));
     },
   },
 };

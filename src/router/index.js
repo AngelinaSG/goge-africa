@@ -2,35 +2,46 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
 
-import guest from "./middleware/guest";
+// import guest from "./middleware/guest";
 import auth from "./middleware/auth";
 import middlewarePipeline from "./middlewarePipeline";
 
 Vue.use(VueRouter);
 
+export const AFRICA_ROUTES = {
+  HOME: () => "/",
+  COURSE_PAGE: () => "/course",
+  PRODUCT_PAGE: (courseId) =>
+    courseId ? `/course/${courseId}` : "/course/:id",
+  CART: () => "/cart",
+  DASHBOARD: () => "/dashboard",
+  PRODUCT_EDIT: (productId) =>
+    productId ? `/dashboard/${productId}` : "/dashboard/:id",
+};
+
 const routes = [
   {
-    path: "/",
+    path: AFRICA_ROUTES.HOME(),
     name: "Home",
     component: () => import("../views/Home"),
   },
   {
-    path: "/course",
+    path: AFRICA_ROUTES.COURSE_PAGE(),
     name: "CoursePage",
     component: () => import("../views/CoursePage.vue"),
   },
   {
-    path: "/course/:id",
+    path: AFRICA_ROUTES.PRODUCT_PAGE(),
     name: "ProductPage",
     component: () => import("@/components/CoursePage/ProductPage"),
   },
   {
-    path: "/cart",
+    path: AFRICA_ROUTES.CART(),
     name: "Cart",
     component: () => import("../views/Cart.vue"),
   },
   {
-    path: "/dashboard",
+    path: AFRICA_ROUTES.DASHBOARD(),
     name: "Dashboard",
     meta: {
       middleware: [auth],
@@ -38,13 +49,13 @@ const routes = [
     component: () => import("../views/Dashboard.vue"),
   },
   {
-    path: "/dashboard/:id",
+    path: AFRICA_ROUTES.PRODUCT_EDIT(),
     name: "ProductEdit",
     meta: {
       middleware: [auth],
     },
     component: () => import("@/components/Dashboard/ProductEdit.vue"),
-  }
+  },
 ];
 
 const scrollBehavior = function (to, from, savedPosition) {

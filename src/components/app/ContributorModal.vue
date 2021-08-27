@@ -56,11 +56,11 @@ export default {
     ...mapActions(["signUp"]),
     async onSubmit() {
       try {
-        await this.signUp(this.contrPass, this.contrEmail);
+        await this.signUp([this.contrEmail, this.contrPass]);
         this.$emit("closeModal");
-        await this.$router.push("/dashboard");
+        await this.$router.push(this.$AFRICA_ROUTES.DASHBOARD());
       } catch (e) {
-        this.$message("Incorrect data");
+        this.$message(e.message);
       }
     },
   },

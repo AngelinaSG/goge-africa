@@ -11,6 +11,7 @@ import Vuelidate from "vuelidate";
 import VModal from "vue-js-modal";
 import apiService from "@/api";
 import message from "@/utils/message";
+import { AFRICA_ROUTES } from "./router/index.js";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -27,8 +28,9 @@ Vue.use(message);
 Vue.directive("b-tooltip", VBTooltip);
 
 Vue.prototype.$api = apiService;
+Vue.prototype.$AFRICA_ROUTES = AFRICA_ROUTES;
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyCUuyZ58eLc9y4BxNSp1aA_1kKibgVVcd0",
   authDomain: "goge-africa-shop.firebaseapp.com",
   projectId: "goge-africa-shop",

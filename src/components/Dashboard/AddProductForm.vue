@@ -113,7 +113,7 @@ export default {
         strAlcoholic: this.alc,
         strGlass: this.glass,
         strDrinkThumb: this.imgLink,
-        strIngredients: this.ingredients
+        strIngredients: this.ingredients,
       };
       try {
         await this.addProduct(productData);
@@ -159,7 +159,8 @@ export default {
   opacity: 0.5;
 }
 
-.custom-file-input, .form-tags--custom {
+.custom-file-input,
+.form-tags--custom {
   font-size: 0.875rem;
   border-radius: 100px;
   border: 1px solid #efefef;
@@ -179,13 +180,11 @@ export default {
 </style>
 
 <style>
-
 .b-form-tag {
   font-size: 0.875rem;
 }
 
-.b-form-tags-button, {
+.b-form-tags-button {
   color: #ff8a00;
 }
-
 </style>

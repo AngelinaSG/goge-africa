@@ -13,46 +13,57 @@
     >
 
     <ul v-else class="courses__list">
-
-
       <li
         class="courses-section__card-col"
         v-for="(product, id) in products"
         :key="product.idDrink"
       >
-
         <div class="card courses-section__card">
+          <b-dropdown
+            dropright
+            class="b-dropdown-menu"
+            no-caret
+            toggle-class="dropdown-toggle-menu"
+            menu-class="dropdown-menu-simple"
+          >
+            <template #button-content>
+              <b-icon icon="three-dots" />
+            </template>
+            <b-dropdown-item-button @click="showModal(id)"
+              >Delete product</b-dropdown-item-button
+            >
+            <b-dropdown-item-button @click="toProduct(id)"
+              >Edit product info</b-dropdown-item-button
+            >
+          </b-dropdown>
 
-        <b-dropdown dropright class="b-dropdown-menu" no-caret toggle-class="dropdown-toggle-menu" menu-class="dropdown-menu-simple">
-          <template #button-content>
-            <b-icon icon="three-dots" />
-          </template>
-          <b-dropdown-item-button @click="showModal(id)">Delete product</b-dropdown-item-button>
-          <b-dropdown-item-button @click="toProduct(id)">Edit product info</b-dropdown-item-button>
-        </b-dropdown>
-
-
-        <img :src="product.strDrinkThumb" class="card-img-top" alt="" loading="lazy"/>
-        <span
-          v-show="product.strAlcoholic"
-          class="courses__label gradient-background bold text-white"
-        >{{ product.strAlcoholic }}</span
-        >
-        <div class="card-body gradient-background">
-          <a href="#" class="bold text-white">
-            <p class="card-text">
-              {{ product.strDrink }}
-            </p>
-          </a>
+          <img
+            :src="product.strDrinkThumb"
+            class="card-img-top"
+            alt=""
+            loading="lazy"
+          />
+          <span
+            v-show="product.strAlcoholic"
+            class="courses__label gradient-background bold text-white"
+            >{{ product.strAlcoholic }}</span
+          >
+          <div class="card-body gradient-background">
+            <a href="#" class="bold text-white">
+              <p class="card-text">
+                {{ product.strDrink }}
+              </p>
+            </a>
+          </div>
         </div>
-  </div>
-
-
-
       </li>
     </ul>
 
-    <DeleteProductModal :productId="currentProduct" @deleteProduct="deleteProduct" @closeModal="hideModal"/>
+    <DeleteProductModal
+      :productId="currentProduct"
+      @deleteProduct="deleteProduct"
+      @closeModal="hideModal"
+    />
   </div>
 </template>
 
@@ -60,7 +71,7 @@
 import ProductFilter from "@/components/Dashboard/ProductFilter";
 import CartsPlaceholders from "@/components/app/CartsPlaceholders";
 import DeleteProductModal from "@/components/app/DeleteProductModal";
-import { BIcon } from 'bootstrap-vue'
+import { BIcon } from "bootstrap-vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -74,7 +85,7 @@ export default {
     ProductFilter,
     CartsPlaceholders,
     BIcon,
-    DeleteProductModal
+    DeleteProductModal,
   },
   async mounted() {
     this.isLoading = true;
@@ -121,8 +132,8 @@ export default {
       await this.getProducts();
     },
     toProduct(id) {
-      this.$router.push({ name: 'ProductEdit', params: { id: id }});
-    }
+      this.$router.push(this.$AFRICA_ROUTES.PRODUCT_EDIT(id));
+    },
   },
 };
 </script>
@@ -219,5 +230,4 @@ export default {
   height: 10px;
   position: absolute;
 }
-
 </style>

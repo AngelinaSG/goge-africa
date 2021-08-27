@@ -47,7 +47,6 @@
         </div>
       </div>
     </template>
-
   </div>
 </template>
 
@@ -58,13 +57,14 @@ import IconBack from "@/components/icons/IconBack";
 export default {
   name: "CoursePage",
   components: {
-    IconBack
+    IconBack,
   },
   data: () => ({
     productInfo: {},
     isLoading: true,
   }),
   async created() {
+    console.log(this.$route.params.id);
     const productInfo = await this.getCocktailById(this.$route.params.id);
     this.productInfo = productInfo[0];
     this.isLoading = false;

@@ -46,9 +46,7 @@
               v-for="cocktail in cocktails"
               :key="cocktail.idDrink"
             >
-              <a
-                @click.prevent="toProduct($event, cocktail.idDrink)"
-              >
+              <a @click.prevent="toProduct($event, cocktail.idDrink)">
                 <div class="card courses-section__card">
                   <button
                     class="btn btn--gradient-bg btn--add-to-cart"
@@ -66,9 +64,7 @@
                     >{{ cocktail.strAlcoholic }}</span
                   >
                   <div class="card-body gradient-background">
-                    <a
-                      class="bold text-white"
-                    >
+                    <a class="bold text-white">
                       <p class="card-text">
                         {{ cocktail.strDrink }}
                       </p>
@@ -270,15 +266,15 @@ export default {
       this.$message(`${cocktailName} was added to cart!`);
     },
     toProduct(e, productId) {
-      if(e.target.classList.value.includes("btn")) return
-      this.$router.push({ name: 'ProductPage', params: { id: productId } });
-    }
+      if (e.target.classList.value.includes("btn")) return;
+      this.$router.push(this.$AFRICA_ROUTES.PRODUCT_PAGE(productId));
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/_custom.scss";
+@import "../../assets/scss/_custom.scss";
 
 .search-form__row {
   justify-content: center;
@@ -314,7 +310,7 @@ export default {
 }
 
 .hero-section__search-form::before {
-  content: url("~@/assets/pictures/course-page_search-icon.svg");
+  content: url("../../assets/pictures/course-page_search-icon.svg");
   position: absolute;
   top: 24px;
   left: 43px;
@@ -389,7 +385,7 @@ export default {
   width: 14px;
   height: 8px;
   background-color: transparent;
-  background-image: url("~@/assets/pictures/filter_arrow-icon.svg");
+  background-image: url("../../assets/pictures/filter_arrow-icon.svg");
   background-position: center;
   background-size: cover;
   position: absolute;
@@ -482,21 +478,21 @@ export default {
 }
 
 .filter-btn--bullet {
-  background-image: url("~@/assets/pictures/courses_bullet-list-icon.svg");
+  background-image: url("../../assets/pictures/courses_bullet-list-icon.svg");
   margin-right: 15px;
 }
 
 .filter-btn--bullet--active {
-  background-image: url("~@/assets/pictures/courses_bullet-list-active-icon.svg");
+  background-image: url("../../assets/pictures/courses_bullet-list-active-icon.svg");
 }
 
 .filter-btn--grid {
-  background-image: url("~@/assets/pictures/courses_grid-interface-disabled-icon.svg");
+  background-image: url("../../assets/pictures/courses_grid-interface-disabled-icon.svg");
   width: 22px;
 }
 
 .filter-btn--grid--active {
-  background-image: url("~@/assets/pictures/courses_grid-interface-icon.svg");
+  background-image: url("../../assets/pictures/courses_grid-interface-icon.svg");
 }
 
 .courses__filter-controls {
@@ -522,7 +518,7 @@ export default {
   left: 15px;
   max-width: 46px;
   max-height: 46px;
-  background: url("~@/assets/pictures/course_add-to-cart-icon.svg") 50% 50%
+  background: url("../../assets/pictures/course_add-to-cart-icon.svg") 50% 50%
       no-repeat,
     orange;
   opacity: 0;

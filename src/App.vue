@@ -19,9 +19,9 @@ export default {
     Footer,
   },
   async mounted() {
-    window.addEventListener('storage', this.checkAuth);
+    window.addEventListener("storage", this.checkAuth);
     const auth = JSON.parse(localStorage.getItem("logged_in"));
-    if(auth) {
+    if (auth) {
       this.changeAuth(true);
     }
     await this.refreshCart();
@@ -52,12 +52,13 @@ export default {
       const auth = JSON.parse(e.newValue);
       if (auth) {
         this.changeAuth(true);
-        await this.$router.push("/dashboard");
+        await this.$router.push(this.$AFRICA_ROUTES.DASHBOARD());
       } else {
         this.changeAuth(false);
-        if (this.$route.name === "Dashboard") await this.$router.push("/");
+        if (this.$route.name === "Dashboard")
+          await this.$router.push(this.$AFRICA_ROUTES.HOME());
       }
-    }
+    },
   },
 };
 </script>
@@ -205,7 +206,9 @@ a:hover {
   height: 20px;
 }
 
-.dropdown-toggle-menu:hover, .dropdown-toggle-menu:active, .dropdown-toggle-menu:focus {
+.dropdown-toggle-menu:hover,
+.dropdown-toggle-menu:active,
+.dropdown-toggle-menu:focus {
   color: #fff;
   background-color: transparent;
   border: none;
@@ -213,7 +216,9 @@ a:hover {
   outline: none;
 }
 
-.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
   color: #fff;
   background-color: transparent;
   border: none;

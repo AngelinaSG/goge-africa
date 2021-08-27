@@ -20,12 +20,14 @@
             placeholder="Your Email"
             v-model.trim="userEmail"
           />
+          <div class="invalid-feedback">Please choose a username.</div>
           <input
             type="text"
             class="form-control"
             placeholder="Your Password"
             v-model.trim="userPass"
           />
+          <div class="invalid-feedback">Please choose a username.</div>
         </div>
         <button class="btn btn--gradient-bg" v-if="!isLoading">Log In</button>
         <div v-else>
@@ -37,7 +39,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   data: () => ({
@@ -46,26 +48,26 @@ export default {
     isLoading: false,
   }),
   mounted() {
-    if (localStorage.getItem("userEmail")) this.userEmail = localStorage.getItem("userEmail");
-    if (localStorage.getItem("userPass")) this.userPass = localStorage.getItem("userPass");
+    if (localStorage.getItem("userEmail"))
+      this.userEmail = localStorage.getItem("userEmail");
+    if (localStorage.getItem("userPass"))
+      this.userPass = localStorage.getItem("userPass");
   },
   methods: {
     ...mapMutations(["changeAuth"]),
+    ...mapActions(["login"]),
     async onSubmit() {
       this.isLoading = true;
       try {
-        await this.$api.auth.login(this.userEmail, this.userPass);
+        await this.login([this.userEmail, this.userPass]);
         localStorage.setItem("logged_in", true);
         localStorage.setItem("userEmail", this.userEmail);
-        localStorage.setItem("userPass",this.userPass);
+        localStorage.setItem("userPass", this.userPass);
         this.changeAuth(true);
         this.$emit("closeModal");
-        await this.$router.push("/dashboard");
+        await this.$router.push(this.$AFRICA_ROUTES.DASHBOARD());
       } catch (e) {
-        const errorText = e.response.data.error.message
-          .replaceAll("_", " ")
-          .toLowerCase();
-        this.$message(`${errorText}`);
+        this.$message(e.message);
       }
       this.isLoading = false;
     },

@@ -129,7 +129,7 @@ export default {
     },
     async logOut() {
       if (this.$route.name === "Dashboard") {
-        await this.$router.push("/");
+        await this.$router.push(this.$AFRICA_ROUTES.HOME());
       }
       this.logout();
     },
@@ -188,7 +188,7 @@ export default {
 }
 
 .main-header__nav-link.router-link-exact-active::after {
-  content: url("~@/assets/pictures/header_nav_line.svg");
+  content: url("../../assets/pictures/header_nav_line.svg");
   position: absolute;
   left: calc(50% - 10.995px);
   bottom: -13px;
@@ -203,7 +203,7 @@ export default {
 }
 
 .navbar-toggler-icon {
-  content: url("~@/assets/pictures/header_hamburger-menu.svg");
+  content: url("../../assets/pictures/header_hamburger-menu.svg");
 }
 
 .navbar-collapse {
