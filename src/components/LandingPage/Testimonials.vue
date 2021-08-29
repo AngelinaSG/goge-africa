@@ -234,7 +234,7 @@ export default {
 }
 
 .testimonials__card:hover {
-  box-shadow: 0px 12px 35px rgba(160, 121, 0, 0.2);
+  box-shadow: 0 12px 35px rgba(160, 121, 0, 0.2);
   opacity: 1;
 }
 

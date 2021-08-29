@@ -4,16 +4,16 @@
       <div class="row cart__link-row">
         <a @click.prevent="onBack">
           <IconBack class="cart__link-back-icon" />
-          <span v-if="orderState == 0">Back</span> <span v-else>Cart</span>
+          <span v-if="orderState === 0">Back</span> <span v-else>Cart</span>
         </a>
       </div>
 
       <transition name="component-fade" mode="out-in">
-        <CartTable @onBuy="nextStep" v-if="orderState == 0" />
+        <CartTable @onBuy="nextStep" v-if="orderState === 0" />
 
-        <OrderForm @onNext="nextStep" v-else-if="orderState == 1" />
+        <OrderForm @onNext="nextStep" v-else-if="orderState === 1" />
 
-        <DeliveryInfo @nextStep="nextStep" v-else-if="orderState == 2" />
+        <DeliveryInfo @nextStep="nextStep" v-else-if="orderState === 2" />
 
         <Payment v-else />
       </transition>
@@ -63,7 +63,7 @@ export default {
 
 .cart__link-row {
   padding-top: 45px;
-  padding-bottom: 29.3px;
+  padding-bottom: 29px;
 }
 
 .cart__link-row a:hover > span {

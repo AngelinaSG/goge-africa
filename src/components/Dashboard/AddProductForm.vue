@@ -51,7 +51,7 @@
       <input
         type="text"
         class="form-control form-control--custom"
-        placeholder="Image link htttps://"
+        placeholder="Image link https://"
         v-model="imgLink"
       />
 

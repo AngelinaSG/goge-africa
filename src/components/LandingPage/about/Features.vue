@@ -47,10 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 .features-section__row {
-  padding-top: 144px;
-  padding-bottom: 141px;
-  padding-left: 304px;
-  padding-right: 289px;
+  padding: 144px 289px 141px 304px;
   justify-content: space-between;
 }
 
@@ -109,10 +106,7 @@ export default {
 
 @media screen and (max-width: 768px) {
   .features-section__row {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 40px 20px;
     justify-content: center;
   }
 

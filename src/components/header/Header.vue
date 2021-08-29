@@ -140,16 +140,13 @@ export default {
 <style lang="scss" scoped>
 .main-header {
   background: #fff;
-  box-shadow: 0px 12px 35px rgba(160, 121, 0, 0.2);
+  box-shadow: 0 12px 35px rgba(160, 121, 0, 0.2);
 }
 
 .main-header__navbar {
   display: flex;
   justify-content: flex-end;
-  padding-right: 66px;
-  padding-left: 76px;
-  padding-bottom: 29px;
-  padding-top: 29px;
+  padding: 29px 66px 29px 76px;
   font-family: "Roboto", sans-serif;
   font-size: 0.9375rem;
   font-weight: 400;

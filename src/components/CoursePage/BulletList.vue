@@ -3,8 +3,14 @@
     <li v-for="cocktail in cocktails" :key="cocktail.idDrink">
       <div class="bullet-list__item">
         <div>
-          <router-link :to="{ name: 'ProductPage', params: { id: cocktail.idDrink } }">
-            <img :src="cocktail.strDrinkThumb" alt="" class="bullet-list__img" />
+          <router-link
+            :to="{ name: 'ProductPage', params: { id: cocktail.idDrink } }"
+          >
+            <img
+              :src="cocktail.strDrinkThumb"
+              alt=""
+              class="bullet-list__img"
+            />
           </router-link>
         </div>
         <div>
@@ -48,7 +54,6 @@ export default {
   padding-inline-start: 0;
   margin: 0;
   padding: 0;
-  padding-inline-start: 0;
 }
 
 .bullet-list__item {

@@ -253,7 +253,7 @@ export default {
   background-size: contain;
 }
 
-.btn--close:focus {
+.btn--delete:focus {
   box-shadow: none;
 }
 

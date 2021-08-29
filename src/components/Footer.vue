@@ -204,11 +204,8 @@ footer {
 }
 
 .footer__rights-row {
-  padding-left: 130px;
-  padding-right: 128px;
   font-size: 0.75rem;
-  padding-top: 12px;
-  padding-bottom: 9px;
+  padding: 12px 128px 9px 130px;
 }
 
 .footer__privacy-policy-list {
@@ -263,7 +260,7 @@ footer {
 
   .footer__nav,
   .footer__contacts {
-    margin-right: 0px;
+    margin-right: 0;
     width: 100%;
   }
 

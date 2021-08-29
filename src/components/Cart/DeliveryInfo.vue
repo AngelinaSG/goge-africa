@@ -67,11 +67,9 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 
 export default {
-  mixins: [validationMixin],
   data: () => ({
     isModal: false,
     fullName: "",
@@ -82,6 +80,16 @@ export default {
     postalCode: "",
     mobilePhone: "",
   }),
+
+  validations: {
+    fullName: { required },
+    country: { required },
+    streetAdress: { required },
+    city: { required },
+    region: { required },
+    postalCode: { required },
+    mobilePhone: { required },
+  },
 
   methods: {
     onClick() {
@@ -96,15 +104,6 @@ export default {
       }
       this.$emit("nextStep");
     },
-  },
-  validations: {
-    fullName: { required },
-    country: { required },
-    streetAdress: { required },
-    city: { required },
-    region: { required },
-    postalCode: { required },
-    mobilePhone: { required },
   },
 };
 </script>

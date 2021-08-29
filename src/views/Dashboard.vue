@@ -33,8 +33,7 @@ export default {
     tabIndex: 0,
   }),
   created() {
-    const tabIndex = +JSON.parse(localStorage.getItem("tabIndex"));
-    this.tabIndex = tabIndex;
+    this.tabIndex = +JSON.parse(localStorage.getItem("tabIndex")) || 0;
   },
   beforeDestroy() {
     localStorage.setItem("tabIndex", this.tabIndex);

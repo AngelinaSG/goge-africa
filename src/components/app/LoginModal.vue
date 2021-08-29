@@ -71,22 +71,6 @@ export default {
     if (localStorage.getItem("userPass"))
       this.userPass = localStorage.getItem("userPass");
   },
-  computed: {
-    // eslint-disable-next-line vue/return-in-computed-property
-    isInvalid(type) {
-      if (type === "email")
-        return (this.$v.userEmail.$dirty && !this.$v.userEmail.required) ||
-          (this.$v.userEmail.$dirty && !this.$v.userEmail.email)
-          ? "is-invalid"
-          : "";
-      if (type === "password") {
-        return (this.$v.userPass.$dirty && !this.$v.userPass.required) ||
-          (this.$v.userPass.$dirty && !this.$v.userPass.minLength)
-          ? "is-invalid"
-          : "";
-      }
-    },
-  },
   methods: {
     ...mapMutations(["changeAuth"]),
     ...mapActions(["login"]),
